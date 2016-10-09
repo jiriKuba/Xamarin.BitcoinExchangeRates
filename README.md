@@ -5,3 +5,5 @@ Technologies:
 Xamarin.Forms (Xaml),
 MVVM Light,
 Json.NET
+
+Tested on Windows devices
