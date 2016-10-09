@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bitcoin.Curses.ExchangeRatePage"
+             BindingContext="{Binding Main.ExchangeRateDetail, Source={StaticResource Locator}}"
+             Title="{Binding CurrencyCode}">
+  <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,0">
+    <Label Text="Bitcoin exchange rates" FontSize="Large"/>
+    <Label Text="{Binding ExchangeRateLabel}" FontSize="Small"/>
+    <TableView Intent="Data" >
+      <TableRoot>
+        <TableSection Title="Market Price">
+          <TextCell Text="{Binding DelayedMarketPriceLabel}" />
+        </TableSection>
+        <TableSection Title="Recent Market Price">
+          <TextCell Text="{Binding RecentMarketPriceLabel}" />
+        </TableSection>
+        <TableSection Title="Buy">
+          <TextCell Text="{Binding BuyLabel}" />
+        </TableSection>
+        <TableSection Title="Sell">
+          <TextCell Text="{Binding SellLabel}" />
+        </TableSection>
+        <!--<TableSection Title="Currency Symbol">
+          <TextCell Text="{Binding CurrencySymbol}" />
+        </TableSection>-->
+      </TableRoot>
+    </TableView>
+  </StackLayout>
+</ContentPage>

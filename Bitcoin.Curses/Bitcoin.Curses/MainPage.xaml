@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Bitcoin.Curses"
+             x:Class="Bitcoin.Curses.MainPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}" 
+                  IsPresented="True" >
+  <MasterDetailPage.Master>
+    <ContentPage Title="Bitcoin exchange rates">
+        <StackLayout VerticalOptions="FillAndExpand">
+
+        <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected"
+                  SeparatorVisibility = "Default"
+                  ItemsSource="{Binding ExchangeRates.ExchangeRateList}">
+          <ListView.Header>
+            <StackLayout >
+              <ActivityIndicator IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
+                                 IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"/>
+            </StackLayout>
+          </ListView.Header>
+          <ListView.Footer>
+            <Label Text="{Binding Main.GeneratedText, Source={StaticResource Locator}}" FontSize="Small" />
+          </ListView.Footer>
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <TextCell Text="{Binding CurrencyCode}" Detail="{Binding DelayedMarketPriceLabel}"></TextCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+      </StackLayout>
+    </ContentPage>
+  </MasterDetailPage.Master>
+  <MasterDetailPage.Detail>
+    <NavigationPage Title="Bitcoin exchange rates">
+      <x:Arguments>
+        <local:ExchangeRatePage />
+      </x:Arguments>
+    </NavigationPage>
+  </MasterDetailPage.Detail>
+</MasterDetailPage>
