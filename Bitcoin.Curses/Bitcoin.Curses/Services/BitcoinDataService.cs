@@ -12,6 +12,7 @@ namespace Bitcoin.Curses.Services
 {
     public class BitcoinDataService : IBitcoinDataService
     {
+        //http://www.coindesk.com/api/ maybe better api
         private const String EXCHANGE_RATES_API_URL = "https://blockchain.info/ticker";
 
         public BitcoinDataService()
