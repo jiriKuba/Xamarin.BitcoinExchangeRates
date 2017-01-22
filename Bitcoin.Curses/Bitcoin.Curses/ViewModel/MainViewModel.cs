@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    class MainViewModel : ViewModelBase
     {
         private readonly IBitcoinDataService _bitcoinDataService;
 
