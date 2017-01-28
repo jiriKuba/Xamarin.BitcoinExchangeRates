@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Bitcoin.Curses.ViewModel
 {
@@ -61,7 +62,7 @@ namespace Bitcoin.Curses.ViewModel
                 //base.RaisePropertyChanged(() => this.IsUIEnabled);
             }
         }
-        
+
         public Boolean IsUIEnabled
         {
             get
@@ -103,7 +104,7 @@ namespace Bitcoin.Curses.ViewModel
         {
             this.ShowProgressBar = true;
 
-            this._mainModel.ExchangeRates = await this._bitcoinDataService.GetExchangeRatesAsync();            
+            this._mainModel.ExchangeRates = await this._bitcoinDataService.GetExchangeRatesAsync();
             this.ExchangeRates = new ExchangeRatesViewModel(this._mainModel.ExchangeRates);
 
             this.ShowProgressBar = false;

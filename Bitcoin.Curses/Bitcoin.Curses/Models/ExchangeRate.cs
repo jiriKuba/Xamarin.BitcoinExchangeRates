@@ -26,9 +26,12 @@ namespace Bitcoin.Curses.Models
         [JsonProperty(PropertyName = "symbol")]
         public String CurrencySymbol { get; set; }
 
+        [JsonIgnore]
+        public Boolean IsVisibleOnLiveTile { get; set; }
+
         public ExchangeRate()
         {
-
+            this.IsVisibleOnLiveTile = false;
         }
     }
 }

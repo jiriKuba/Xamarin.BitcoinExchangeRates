@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Bitcoin.Curses.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace Bitcoin.Curses.Services
 {
@@ -26,6 +27,7 @@ namespace Bitcoin.Curses.Services
             {
                 String rawExchangeRates = await this.GetStringFromURLAsync(EXCHANGE_RATES_API_URL);
                 Dictionary<String, ExchangeRate> values = JsonConvert.DeserializeObject<Dictionary<String, ExchangeRate>>(rawExchangeRates);
+                this.AddLiveTileVisibilityToModel(values);
                 ExchangeRates result = new ExchangeRates(values);
                 return result;
 
@@ -42,6 +44,22 @@ namespace Bitcoin.Curses.Services
                 App.Instance.DisplayAlert("Alert", ex.Message);
                 return new ExchangeRates(); 
             }            
+        }
+
+        public void SetExchangeRateVisibleOnLiveTile(String exchangeRateKey, Boolean isVisible)
+        {
+            Settings.SetLiveTileVisibility(exchangeRateKey, isVisible);
+        }
+
+        private void AddLiveTileVisibilityToModel(Dictionary<String, ExchangeRate> models)
+        {
+            if (models != null)
+            {
+                foreach (var rate in models)
+                {
+                    rate.Value.IsVisibleOnLiveTile = Settings.IsLiveTileVisibility(rate.Key);
+                }
+            }
         }
 
         private async Task<String> GetStringFromURLAsync(String url)

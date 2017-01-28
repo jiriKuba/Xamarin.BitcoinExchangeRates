@@ -107,6 +107,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -127,6 +128,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Bitcoin.Courses.UWP.BackgroundTasks\Bitcoin.Courses.UWP.BackgroundTasks.csproj">
+      <Project>{41742749-f5fd-4708-b863-026302e8fa26}</Project>
+      <Name>Bitcoin.Courses.UWP.BackgroundTasks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bitcoin.Curses\Bitcoin.Curses.csproj">
       <Project>{EAB609CC-CE1F-48E5-8046-0C3C62011E35}</Project>
       <Name>Bitcoin.Curses</Name>

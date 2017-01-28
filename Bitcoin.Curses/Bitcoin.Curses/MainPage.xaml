@@ -7,10 +7,10 @@
                   MasterBehavior="Popover"
                   IsPresented="True">
   <MasterDetailPage.Master>
-    <ContentPage  Title="Bitcoin exchange rates">
+    <ContentPage Title="Menu">
         <StackLayout VerticalOptions="FillAndExpand">
-
-        <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected"
+        <Label Text="Exchange rates:" FontSize="Large" />
+        <ListView x:Name="ExchangeRatesList" Margin="20,0,10,10" ItemSelected="OnListItemSelected"
                   SeparatorVisibility = "Default"
                   ItemsSource="{Binding ExchangeRates.ExchangeRateList}">
           <ListView.Header>
@@ -19,15 +19,13 @@
                                  IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"/>
             </StackLayout>
           </ListView.Header>
-          <ListView.Footer>
-            <Label Text="{Binding Main.GeneratedText, Source={StaticResource Locator}}" FontSize="Small" />
-          </ListView.Footer>
           <ListView.ItemTemplate>
             <DataTemplate>
               <TextCell Text="{Binding CurrencyCode}" Detail="{Binding DelayedMarketPriceLabel}"></TextCell>
             </DataTemplate>
           </ListView.ItemTemplate>
         </ListView>
+        <Label Text="{Binding Main.GeneratedText, Source={StaticResource Locator}}"/>
       </StackLayout>
     </ContentPage>
   </MasterDetailPage.Master>

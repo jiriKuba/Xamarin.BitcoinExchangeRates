@@ -10,5 +10,7 @@ namespace Bitcoin.Curses.Services.Interfaces
     public interface IBitcoinDataService
     {
         Task<ExchangeRates> GetExchangeRatesAsync();
+
+        void SetExchangeRateVisibleOnLiveTile(String exchangeRateKey, Boolean isVisible);
     }
 }

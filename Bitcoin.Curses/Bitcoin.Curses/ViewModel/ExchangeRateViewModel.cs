@@ -1,5 +1,7 @@
 ﻿using Bitcoin.Curses.Models;
+using Bitcoin.Curses.Services.Interfaces;
 using GalaSoft.MvvmLight;
+using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,15 @@ namespace Bitcoin.Curses.ViewModel
     {
         private readonly ExchangeRate _exchangeRate;
         private readonly String _currencyCode;
+        private readonly MainViewModel _mainViewModel;
+        private readonly IBitcoinDataService _bitcoinDataService;
 
         public ExchangeRateViewModel(String currencyCode, ExchangeRate exchangeRate)
         {
             this._exchangeRate = exchangeRate;
             this._currencyCode = currencyCode;
+            this._mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+            this._bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
         }
 
         public String CurrencyCode
@@ -134,6 +140,30 @@ namespace Bitcoin.Curses.ViewModel
                 if (this._exchangeRate != null)
                     return this._exchangeRate.CurrencySymbol;
                 else return null;
+            }
+        }
+
+        public DateTime? LoadedTime
+        {
+            get
+            {
+                if (this._mainViewModel != null && this._mainViewModel.ExchangeRates != null)
+                    return this._mainViewModel.ExchangeRates.Generated;
+                else return null;
+            }
+        }
+
+        public Boolean ShowRateInLiveTile
+        {
+            get
+            {
+                return this._exchangeRate.IsVisibleOnLiveTile;
+            }
+            set
+            {
+                this._bitcoinDataService.SetExchangeRateVisibleOnLiveTile(this.CurrencyCode, value);
+                this._exchangeRate.IsVisibleOnLiveTile = value;
+                base.RaisePropertyChanged(() => this.ShowRateInLiveTile);
             }
         }
     }

@@ -21,10 +21,23 @@
         <TableSection Title="Sell">
           <TextCell Text="{Binding SellLabel}" />
         </TableSection>
-        <!--<TableSection Title="Currency Symbol">
-          <TextCell Text="{Binding CurrencySymbol}" />
-        </TableSection>-->
       </TableRoot>
     </TableView>
+    <StackLayout>
+      <StackLayout.IsVisible>
+        <OnPlatform x:TypeArguments="x:Boolean">
+          <OnPlatform.iOS>False</OnPlatform.iOS>
+          <OnPlatform.Android>False</OnPlatform.Android>
+          <OnPlatform.WinPhone>True</OnPlatform.WinPhone>
+        </OnPlatform>
+      </StackLayout.IsVisible>
+      <TableView Intent="Settings" >
+        <TableRoot>
+          <TableSection Title="Settings">
+            <SwitchCell Text="Show in live tile" On="{Binding ShowRateInLiveTile}"  />
+          </TableSection>
+        </TableRoot>
+      </TableView>
+    </StackLayout>
   </StackLayout>
 </ContentPage>
