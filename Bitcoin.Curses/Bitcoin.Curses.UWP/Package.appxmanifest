@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="96d49242-bdd6-4c6c-a5f9-c7efc1b5780e" Publisher="CN=pisth" Version="1.0.0.0" />
+  <Identity Name="96d49242-bdd6-4c6c-a5f9-c7efc1b5780e" Publisher="CN=pisth" Version="0.9.1.0" />
   <mp:PhoneIdentity PhoneProductId="96d49242-bdd6-4c6c-a5f9-c7efc1b5780e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Bitcoin.Curses.UWP</DisplayName>
-    <PublisherDisplayName>pisth</PublisherDisplayName>
+    <PublisherDisplayName>Jiri Kuba</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,11 +15,20 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Bitcoin.Curses.UWP.App">
-      <uap:VisualElements DisplayName="Bitcoin exchange rates" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Application will get actual bitcoin exchange rates" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Bitcoin Exchange Rate" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Application will get actual bitcoin exchange rates. Result can be displayed as a live tile." BackgroundColor="transparent">
         <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\Square44x44Logo.png" />
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Bitcoin Exchange Rate">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait" />
+          <uap:Rotation Preference="landscape" />
+          <uap:Rotation Preference="portraitFlipped" />
+          <uap:Rotation Preference="landscapeFlipped" />
+        </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
         <Extension Category="windows.backgroundTasks" EntryPoint="Bitcoin.Courses.UWP.BackgroundTasks.ExchangeRatesLiveTileBackgroundTask">

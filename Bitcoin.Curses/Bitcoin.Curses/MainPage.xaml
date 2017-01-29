@@ -30,7 +30,7 @@
     </ContentPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage Title="Bitcoin exchange rates">
+    <NavigationPage Title="Bitcoin exchange rate">
       <x:Arguments>
         <local:ExchangeRatePage />
       </x:Arguments>
