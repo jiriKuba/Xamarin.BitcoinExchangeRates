@@ -6,6 +6,11 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
                   MasterBehavior="Popover"
                   IsPresented="True">
+  <!--<Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+  <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+  <Setter Property="BackgroundFocusBrush" Value="{ThemeResource SystemControlBackgroundChromeWhiteBrush}" />
+  <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />-->
+  
   <MasterDetailPage.Master>
     <ContentPage Title="Menu">
         <StackLayout VerticalOptions="FillAndExpand">

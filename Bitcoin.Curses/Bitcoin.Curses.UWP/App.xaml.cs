@@ -7,6 +7,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -53,6 +56,32 @@ namespace Bitcoin.Curses.UWP
             // just ensure that the window is active
             if (rootFrame == null)
             {
+                Color currentAccentColorHex = ((SolidColorBrush)Application.Current.Resources["SystemControlHighlightAccentBrush"]).Color;
+
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                {
+                    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    if (titleBar != null)
+                    {                        
+                        titleBar.ButtonBackgroundColor = currentAccentColorHex;
+                        titleBar.ButtonForegroundColor = Colors.White;
+                        titleBar.BackgroundColor = currentAccentColorHex;
+                        titleBar.ForegroundColor = Colors.White;
+                    }
+                }
+
+                //Mobile customization
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                {
+                    var statusBar = StatusBar.GetForCurrentView();
+                    if (statusBar != null)
+                    {
+                        statusBar.BackgroundOpacity = 1;
+                        statusBar.BackgroundColor = currentAccentColorHex;
+                        statusBar.ForegroundColor = Colors.White;
+                    }
+                }
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
