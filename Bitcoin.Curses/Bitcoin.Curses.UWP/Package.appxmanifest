@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="96d49242-bdd6-4c6c-a5f9-c7efc1b5780e" Publisher="CN=pisth" Version="0.9.1.0" />
-  <mp:PhoneIdentity PhoneProductId="96d49242-bdd6-4c6c-a5f9-c7efc1b5780e" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" Publisher="CN=pistha" Version="0.9.1.0" />
+  <mp:PhoneIdentity PhoneProductId="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Bitcoin.Curses.UWP</DisplayName>
     <PublisherDisplayName>Jiri Kuba</PublisherDisplayName>
