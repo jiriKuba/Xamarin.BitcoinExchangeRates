@@ -7,3 +7,5 @@ MVVM Light,
 Json.NET
 
 Tested on Windows devices
+
+Published on Windows Store: https://www.microsoft.com/store/apps/9pc70d2fwvp0
