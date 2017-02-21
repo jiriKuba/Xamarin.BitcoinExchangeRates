@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitcoin.Curses.Windows", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitcoin.Curses", "Bitcoin.Curses\Bitcoin.Curses\Bitcoin.Curses.csproj", "{EAB609CC-CE1F-48E5-8046-0C3C62011E35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitcoin.Courses.UWP.BackgroundTasks", "Bitcoin.Courses.UWP.BackgroundTasks\Bitcoin.Courses.UWP.BackgroundTasks.csproj", "{41742749-F5FD-4708-B863-026302E8FA26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitcoin.Courses.UWP.BackgroundTasks", "Bitcoin.Curses\Bitcoin.Courses.UWP.BackgroundTasks\Bitcoin.Courses.UWP.BackgroundTasks.csproj", "{41742749-F5FD-4708-B863-026302E8FA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

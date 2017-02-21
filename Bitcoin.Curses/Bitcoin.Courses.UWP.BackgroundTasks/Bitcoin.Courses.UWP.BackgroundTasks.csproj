@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\Bitcoin.Curses\Bitcoin.Curses\Bitcoin.Curses.csproj">
+    <ProjectReference Include="..\Bitcoin.Curses\Bitcoin.Curses.csproj">
       <Project>{eab609cc-ce1f-48e5-8046-0c3c62011e35}</Project>
       <Name>Bitcoin.Curses</Name>
     </ProjectReference>

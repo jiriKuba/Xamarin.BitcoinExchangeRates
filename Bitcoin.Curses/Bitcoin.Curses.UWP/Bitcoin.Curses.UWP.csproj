@@ -176,7 +176,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Bitcoin.Courses.UWP.BackgroundTasks\Bitcoin.Courses.UWP.BackgroundTasks.csproj">
+    <ProjectReference Include="..\Bitcoin.Courses.UWP.BackgroundTasks\Bitcoin.Courses.UWP.BackgroundTasks.csproj">
       <Project>{41742749-f5fd-4708-b863-026302e8fa26}</Project>
       <Name>Bitcoin.Courses.UWP.BackgroundTasks</Name>
     </ProjectReference>
