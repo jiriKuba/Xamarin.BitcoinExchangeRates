@@ -43,7 +43,7 @@ namespace Bitcoin.Curses.ViewModel
 
             if (exchangeRates != null && exchangeRates.ExchangeRateList != null && exchangeRates.ExchangeRateList.Count > 0)
             {
-                foreach (KeyValuePair<String, ExchangeRate> item in exchangeRates.ExchangeRateList)
+                foreach (KeyValuePair<String, BitcoinExchangeRate> item in exchangeRates.ExchangeRateList)
                 {
                     this._exchangeRateList.Add(new ExchangeRateViewModel(item.Key, item.Value));
                 }

@@ -12,12 +12,12 @@ namespace Bitcoin.Curses.ViewModel
 {
     class ExchangeRateViewModel : ViewModelBase
     {
-        private readonly ExchangeRate _exchangeRate;
+        private readonly BitcoinExchangeRate _exchangeRate;
         private readonly String _currencyCode;
         private readonly MainViewModel _mainViewModel;
         private readonly IBitcoinDataService _bitcoinDataService;
 
-        public ExchangeRateViewModel(String currencyCode, ExchangeRate exchangeRate)
+        public ExchangeRateViewModel(String currencyCode, BitcoinExchangeRate exchangeRate)
         {
             this._exchangeRate = exchangeRate;
             this._currencyCode = currencyCode;

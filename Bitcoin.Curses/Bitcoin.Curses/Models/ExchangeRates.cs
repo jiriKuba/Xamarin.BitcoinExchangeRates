@@ -8,17 +8,17 @@ namespace Bitcoin.Curses.Models
 {
     public class ExchangeRates
     {
-        public Dictionary<String, ExchangeRate> ExchangeRateList { get; private set; }
+        public Dictionary<String, BitcoinExchangeRate> ExchangeRateList { get; private set; }
 
         public DateTime Generated { get; private set; }
 
         public ExchangeRates()
         {
             this.Generated = DateTime.Now;
-            this.ExchangeRateList = new Dictionary<String, ExchangeRate>();
+            this.ExchangeRateList = new Dictionary<String, BitcoinExchangeRate>();
         }
 
-        public ExchangeRates(Dictionary<String, ExchangeRate> exchangeRateList)
+        public ExchangeRates(Dictionary<String, BitcoinExchangeRate> exchangeRateList)
         {
             this.Generated = DateTime.Now;
             this.ExchangeRateList = exchangeRateList;

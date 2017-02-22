@@ -38,7 +38,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Models\ExchangeRate.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ExchangeRatePage.xaml.cs">
       <DependentUpon>ExchangeRatePage.xaml</DependentUpon>
@@ -46,7 +48,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ExchangeRate.cs" />
+    <Compile Include="Models\BitcoinExchangeRate.cs" />
     <Compile Include="Models\ExchangeRates.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
