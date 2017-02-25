@@ -1,5 +1,7 @@
-﻿using Bitcoin.Curses.Services;
+﻿using Bitcoin.Curses.Messages;
+using Bitcoin.Curses.Services;
 using Bitcoin.Curses.Services.Interfaces;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +20,16 @@ namespace Bitcoin.Curses
             Instance = this;
 
             this.InitializeComponent();
-            
+
+            //register exception handler
+            Messenger.Default.Register<ExceptionMessage>(this,(action) => ReceiveExceptionMessage(action));
+
             this.MainPage = new MainPage();
+        }
+
+        private void ReceiveExceptionMessage(ExceptionMessage message)
+        {
+            DisplayAlert("Alert", message.ThrowedException.Message);
         }
 
         public async void DisplayAlert(String header, String message)

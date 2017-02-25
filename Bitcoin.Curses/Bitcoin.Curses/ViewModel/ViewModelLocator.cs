@@ -45,6 +45,8 @@ namespace Bitcoin.Curses.ViewModel
             ////}
 
             //services
+            SimpleIoc.Default.Register<ILiveTileVisibilityService, LiveTileVisibilityService>();
+            SimpleIoc.Default.Register<IDataProvideService, DataProvideService>();
             SimpleIoc.Default.Register<IBitcoinDataService, BitcoinDataService>();
 
             //viewModels

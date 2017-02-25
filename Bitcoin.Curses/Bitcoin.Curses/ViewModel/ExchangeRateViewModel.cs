@@ -16,80 +16,82 @@ namespace Bitcoin.Curses.ViewModel
         private readonly String _currencyCode;
         private readonly MainViewModel _mainViewModel;
         private readonly IBitcoinDataService _bitcoinDataService;
+        private readonly ILiveTileVisibilityService _liveTileVisibilityService;
 
-        public ExchangeRateViewModel(String currencyCode, BitcoinExchangeRate exchangeRate)
+        public ExchangeRateViewModel(string currencyCode, BitcoinExchangeRate exchangeRate)
         {
-            this._exchangeRate = exchangeRate;
-            this._currencyCode = currencyCode;
-            this._mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
-            this._bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
+            _exchangeRate = exchangeRate;
+            _currencyCode = currencyCode;
+            _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+            _bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
+            _liveTileVisibilityService = ServiceLocator.Current.GetInstance<ILiveTileVisibilityService>();
         }
 
-        public String CurrencyCode
+        public string CurrencyCode
         {
             get
             {
-                return this._currencyCode;
+                return _currencyCode;
             }
         }
 
-        public String ExchangeRateLabel
+        public string ExchangeRateLabel
         {
             get
             {
-                if (!String.IsNullOrEmpty(this._currencyCode) && !String.IsNullOrEmpty(CurrencySymbol))
+                if (!string.IsNullOrEmpty(_currencyCode) && !string.IsNullOrEmpty(CurrencySymbol))
                 {
-                    return String.Format("{0}[{1}]", this._currencyCode.ToUpper(), this.CurrencySymbol);
+                    return string.Format("{0}[{1}]", _currencyCode.ToUpper(), CurrencySymbol);
                 }
-                else return this.CurrencyCode;
+                else return CurrencyCode;
             }
         }
 
-        public Decimal? DelayedMarketPrice
+        public decimal? DelayedMarketPrice
         {
             get
             {
-                if (this._exchangeRate != null)
-                    return this._exchangeRate.DelayedMarketPrice;
+                if (_exchangeRate != null)
+                    return _exchangeRate.DelayedMarketPrice;
                 else return null;
             }
         }
 
-        public String DelayedMarketPriceLabel
+        public string DelayedMarketPriceLabel
         {
             get
             {
-                if (this._exchangeRate != null)
+                if (_exchangeRate != null)
                 {
-                    return String.Format("{0}{1}", this.DelayedMarketPrice.HasValue ? Math.Round(this.DelayedMarketPrice.Value, 2).ToString("N2") : String.Empty, this.CurrencySymbol);
-                }
-                else return null;
-            }
-        }
-
-        public Decimal? RecentMarketPrice
-        {
-            get
-            {
-                if (this._exchangeRate != null)
-                    return this._exchangeRate.RecentMarketPrice;
-                else return null;
-            }
-        }
-
-        public String RecentMarketPriceLabel
-        {
-            get
-            {
-                if (this._exchangeRate != null)
-                {
-                    return String.Format("{0}{1}", this.RecentMarketPrice.HasValue ? Math.Round(this.RecentMarketPrice.Value, 2).ToString("N2") : String.Empty, this.CurrencySymbol);
+                    return string.Format("{0}{1}", DelayedMarketPrice.HasValue ? Math.Round(DelayedMarketPrice.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
                 }
                 else return null;
             }
         }
 
-        public Decimal? Buy
+        public decimal? RecentMarketPrice
+        {
+            get
+            {
+                if (_exchangeRate != null)
+                    return _exchangeRate.RecentMarketPrice;
+                else return null;
+            }
+        }
+
+        public string RecentMarketPriceLabel
+        {
+            get
+            {
+                if (_exchangeRate != null)
+                {
+                    return string.Format("{0}{1}", RecentMarketPrice.HasValue ? Math.Round(RecentMarketPrice.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
+                }
+                else return null;
+            }
+        }
+
+        public decimal? Buy
         {
             get
             {
@@ -99,46 +101,46 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public String BuyLabel
+        public string BuyLabel
         {
             get
             {
-                if (this._exchangeRate != null)
+                if (_exchangeRate != null)
                 {
-                    return String.Format("{0}{1}", this.Buy.HasValue ? Math.Round(this.Buy.Value, 2).ToString("N2") : String.Empty, this.CurrencySymbol);
+                    return string.Format("{0}{1}", Buy.HasValue ? Math.Round(Buy.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
                 }
                 else return null;
             }
         }
 
-        public Decimal? Sell
+        public decimal? Sell
         {
             get
             {
-                if (this._exchangeRate != null)
-                    return this._exchangeRate.Sell;
+                if (_exchangeRate != null)
+                    return _exchangeRate.Sell;
                 else return null;
             }
         }
 
-        public String SellLabel
+        public string SellLabel
         {
             get
             {
-                if (this._exchangeRate != null)
+                if (_exchangeRate != null)
                 {
-                    return String.Format("{0}{1}", this.Sell.HasValue ? Math.Round(this.Sell.Value, 2).ToString("N2") : String.Empty, this.CurrencySymbol);
+                    return string.Format("{0}{1}", Sell.HasValue ? Math.Round(Sell.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
                 }
                 else return null;
             }
         }
 
-        public String CurrencySymbol
+        public string CurrencySymbol
         {
             get
             {
-                if (this._exchangeRate != null)
-                    return this._exchangeRate.CurrencySymbol;
+                if (_exchangeRate != null)
+                    return _exchangeRate.CurrencySymbol;
                 else return null;
             }
         }
@@ -147,23 +149,23 @@ namespace Bitcoin.Curses.ViewModel
         {
             get
             {
-                if (this._mainViewModel != null && this._mainViewModel.ExchangeRates != null)
-                    return this._mainViewModel.ExchangeRates.Generated;
+                if (_mainViewModel != null && _mainViewModel.ExchangeRates != null)
+                    return _mainViewModel.ExchangeRates.Generated;
                 else return null;
             }
         }
 
-        public Boolean ShowRateInLiveTile
+        public bool ShowRateInLiveTile
         {
             get
             {
-                return this._exchangeRate.IsVisibleOnLiveTile;
+                return _exchangeRate.IsVisibleOnLiveTile;
             }
             set
             {
-                this._bitcoinDataService.SetExchangeRateVisibleOnLiveTile(this.CurrencyCode, value);
-                this._exchangeRate.IsVisibleOnLiveTile = value;
-                base.RaisePropertyChanged(() => this.ShowRateInLiveTile);
+                _liveTileVisibilityService.SetExchangeRateVisibleOnLiveTile(CurrencyCode, value);
+                _exchangeRate.IsVisibleOnLiveTile = value;
+                RaisePropertyChanged(() => ShowRateInLiveTile);
             }
         }
     }

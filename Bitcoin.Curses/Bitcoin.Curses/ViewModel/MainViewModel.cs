@@ -14,13 +14,12 @@ namespace Bitcoin.Curses.ViewModel
     class MainViewModel : ViewModelBase
     {
         private readonly IBitcoinDataService _bitcoinDataService;
-
-        private MainModel _mainModel;
+        private readonly MainModel _mainModel;
 
         public MainViewModel(IBitcoinDataService bitcoinDataService)
         {
-            this._bitcoinDataService = bitcoinDataService;
-            this._mainModel = new MainModel();
+            _bitcoinDataService = bitcoinDataService;
+            _mainModel = new MainModel();
             //this.MainPageLoadCommand = new RelayCommand(this.DoMainPageLoadCommand);
 
             //ExchangeRates mock = new ExchangeRates();
@@ -36,38 +35,38 @@ namespace Bitcoin.Curses.ViewModel
         {
             get
             {
-                if (this._exchangeRates == null)
-                    this._exchangeRates = new ExchangeRatesViewModel(this._mainModel.ExchangeRates);
-                return this._exchangeRates;
+                if (_exchangeRates == null)
+                    _exchangeRates = new ExchangeRatesViewModel(_mainModel.ExchangeRates);
+                return _exchangeRates;
             }
             set
             {
-                this._exchangeRates = value;
-                base.RaisePropertyChanged(() => this.ExchangeRates);
-                base.RaisePropertyChanged(() => this.GeneratedText);
+                _exchangeRates = value;
+                base.RaisePropertyChanged(() => ExchangeRates);
+                base.RaisePropertyChanged(() => GeneratedText);
             }
         }
 
-        private Boolean _showProgressBar;
-        public Boolean ShowProgressBar
+        private bool _showProgressBar;
+        public bool ShowProgressBar
         {
             get
             {
-                return this._showProgressBar;
+                return _showProgressBar;
             }
             set
             {
-                this._showProgressBar = value;
-                base.RaisePropertyChanged(() => this.ShowProgressBar);
+                _showProgressBar = value;
+                RaisePropertyChanged(() => ShowProgressBar);
                 //base.RaisePropertyChanged(() => this.IsUIEnabled);
             }
         }
 
-        public Boolean IsUIEnabled
+        public bool IsUIEnabled
         {
             get
             {
-                return !this._showProgressBar;
+                return !_showProgressBar;
             }
             //set
             //{
@@ -76,13 +75,13 @@ namespace Bitcoin.Curses.ViewModel
             //}
         }
 
-        public String GeneratedText
+        public string GeneratedText
         {
             get
             {
-                if (this._exchangeRates != null && this._exchangeRates.Generated.HasValue)
-                    return "Loaded: " + this._exchangeRates.Generated.Value.ToString();
-                else return String.Empty;
+                if (_exchangeRates != null && _exchangeRates.Generated.HasValue)
+                    return "Loaded: " + _exchangeRates.Generated.Value.ToString();
+                else return string.Empty;
             }
         }
 
@@ -91,23 +90,23 @@ namespace Bitcoin.Curses.ViewModel
         {
             get
             {
-                return this._exchangeRateDetail;
+                return _exchangeRateDetail;
             }
             set
             {
-                this._exchangeRateDetail = value;
-                base.RaisePropertyChanged(() => this.ExchangeRateDetail);
+                _exchangeRateDetail = value;
+                RaisePropertyChanged(() => ExchangeRateDetail);
             }
         }
 
         private async void LoadData()
         {
-            this.ShowProgressBar = true;
+            ShowProgressBar = true;
 
-            this._mainModel.ExchangeRates = await this._bitcoinDataService.GetExchangeRatesAsync();
-            this.ExchangeRates = new ExchangeRatesViewModel(this._mainModel.ExchangeRates);
+            _mainModel.ExchangeRates = await _bitcoinDataService.GetExchangeRatesAsync();
+            ExchangeRates = new ExchangeRatesViewModel(_mainModel.ExchangeRates);
 
-            this.ShowProgressBar = false;
+            ShowProgressBar = false;
         }
 
         public void DoMainPageLoadCommand()
@@ -117,9 +116,9 @@ namespace Bitcoin.Curses.ViewModel
 
         public override void Cleanup()
         {
-            this.ExchangeRateDetail = null;
-            if (this.ExchangeRates != null)
-                this.ExchangeRates.Cleanup();
+            ExchangeRateDetail = null;
+            if (ExchangeRates != null)
+                ExchangeRates.Cleanup();
             base.Cleanup();
         }
     }

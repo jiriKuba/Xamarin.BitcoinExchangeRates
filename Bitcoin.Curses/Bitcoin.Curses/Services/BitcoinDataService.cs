@@ -9,36 +9,39 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Bitcoin.Curses.Helpers;
+using GalaSoft.MvvmLight.Messaging;
+using Bitcoin.Curses.Messages;
 
 namespace Bitcoin.Curses.Services
 {
     public class BitcoinDataService : IBitcoinDataService
-    {
-        //http://www.coindesk.com/api/ maybe better api
-        private const string BITCOIN_EXCHANGE_RATES_API_URL = "https://blockchain.info/ticker";
-        private const string EXCHANGE_RATES_API_URL = "http://api.fixer.io/latest?base=USD";
+    {        
         private const string USD_RATE_KEY = "USD";
 
         private readonly CurrencyHelper _helper;
+        private readonly IDataProvideService _dataProvideService;
+        private readonly ILiveTileVisibilityService _liveTileVisibilityService;
 
-        public BitcoinDataService()
+        public BitcoinDataService(IDataProvideService dataProvideService, ILiveTileVisibilityService liveTileVisibilityService)
         {
             _helper = new CurrencyHelper();
+            _dataProvideService = dataProvideService;
+            _liveTileVisibilityService = liveTileVisibilityService;
         }
 
         public async Task<ExchangeRates> GetExchangeRatesAsync()
         {
             try
             {
-                var rawBitcoinExchangeRates = await GetStringFromURLAsync(BITCOIN_EXCHANGE_RATES_API_URL);
+                var rawBitcoinExchangeRates = await _dataProvideService.GetBitcoinJSONData();
                 var bitcoinRateValues = JsonConvert.DeserializeObject<Dictionary<string, BitcoinExchangeRate>>(rawBitcoinExchangeRates);
 
-                var rawExchangeRatesByUSD = await GetStringFromURLAsync(EXCHANGE_RATES_API_URL);
+                var rawExchangeRatesByUSD = await _dataProvideService.GetExchangeJSONData();
                 var exchangeRatesByUSD = JsonConvert.DeserializeObject<ExchangeRate>(rawExchangeRatesByUSD);
 
                 AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
 
-                AddLiveTileVisibilityToModel(bitcoinRateValues);
+                _liveTileVisibilityService.AddLiveTileVisibilityToModel(bitcoinRateValues);
                 var result = new ExchangeRates(bitcoinRateValues
                     .OrderBy(x=>x.Key)
                     .ToDictionary(x => x.Key, x => x.Value));
@@ -54,40 +57,12 @@ namespace Bitcoin.Curses.Services
             }
             catch (Exception ex)
             {
-                App.Instance.DisplayAlert("Alert", ex.Message);
+                Messenger.Default.Send<ExceptionMessage>(new ExceptionMessage(ex));
                 return new ExchangeRates(); 
             }            
-        }
+        }                
 
-        public void SetExchangeRateVisibleOnLiveTile(string exchangeRateKey, bool isVisible)
-        {
-            Settings.SetLiveTileVisibility(exchangeRateKey, isVisible);
-        }
-
-        private void AddLiveTileVisibilityToModel(Dictionary<string, BitcoinExchangeRate> models)
-        {
-            if (models != null)
-            {
-                foreach (var rate in models)
-                {
-                    rate.Value.IsVisibleOnLiveTile = Settings.IsLiveTileVisibility(rate.Key);
-                }
-            }
-        }
-
-        private async Task<String> GetStringFromURLAsync(string url)
-        {
-            string rawJson = null;
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(url);
-                rawJson = await response.Content.ReadAsStringAsync();
-            }
-
-            return rawJson;
-        }
-
-        private void AddAlternativeRatesToBitcoinRateList(Dictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates)
+        public void AddAlternativeRatesToBitcoinRateList(Dictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates)
         {
             if (bitcoinRates != null && bitcoinRates.ContainsKey(USD_RATE_KEY))
             {
@@ -103,7 +78,6 @@ namespace Bitcoin.Curses.Services
                                 Buy = usdBitcoinRate.Buy * rate.Value,
                                 CurrencySymbol = _helper.CurrencySymbols.ContainsKey(rate.Key) ? _helper.CurrencySymbols[rate.Key] : null,
                                 DelayedMarketPrice = usdBitcoinRate.DelayedMarketPrice * rate.Value,
-                                IsVisibleOnLiveTile = false, //todo: load
                                 RecentMarketPrice = usdBitcoinRate.RecentMarketPrice * rate.Value,
                                 Sell = usdBitcoinRate.Sell * rate.Value,
                             });

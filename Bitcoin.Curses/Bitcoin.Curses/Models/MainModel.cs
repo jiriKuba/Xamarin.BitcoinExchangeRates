@@ -18,7 +18,7 @@ namespace Bitcoin.Curses.Models
         public MainModel(ExchangeRates exchangeRates)
             :this()
         {
-            this.ExchangeRates = exchangeRates;
+            ExchangeRates = exchangeRates;
         }
     }
 }

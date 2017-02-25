@@ -12,26 +12,26 @@ namespace Bitcoin.Curses.Models
         //json format: "USD" : {"15m" : 478.68, "last" : 478.68, "buy" : 478.55, "sell" : 478.68,  "symbol" : "$"},
 
         [JsonProperty(PropertyName = "15m")]
-        public Decimal DelayedMarketPrice { get; set; }
+        public decimal DelayedMarketPrice { get; set; }
 
         [JsonProperty(PropertyName = "last")]
-        public Decimal RecentMarketPrice { get; set; }
+        public decimal RecentMarketPrice { get; set; }
 
         [JsonProperty(PropertyName = "buy")]
-        public Decimal Buy { get; set; }
+        public decimal Buy { get; set; }
 
         [JsonProperty(PropertyName = "sell")]
-        public Decimal Sell { get; set; }
+        public decimal Sell { get; set; }
 
         [JsonProperty(PropertyName = "symbol")]
-        public String CurrencySymbol { get; set; }
+        public string CurrencySymbol { get; set; }
 
         [JsonIgnore]
-        public Boolean IsVisibleOnLiveTile { get; set; }
+        public bool IsVisibleOnLiveTile { get; set; }
 
         public BitcoinExchangeRate()
         {
-            this.IsVisibleOnLiveTile = false;
+            IsVisibleOnLiveTile = false;
         }
     }
 }

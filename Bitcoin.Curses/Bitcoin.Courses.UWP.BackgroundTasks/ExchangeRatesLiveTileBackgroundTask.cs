@@ -35,12 +35,9 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
 
         private static async Task<Curses.Models.ExchangeRates> LoadExchangeRates()
         {
-            Curses.Models.ExchangeRates feed = null;
-            IBitcoinDataService bitcoinService = null;
-
             try
             {
-                bitcoinService = new BitcoinDataService();
+                var bitcoinService = new BitcoinDataService(new DataProvideService(), new LiveTileVisibilityService());
                 return await bitcoinService.GetExchangeRatesAsync();
             }
             catch (Exception ex)
@@ -48,7 +45,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
                 Debug.WriteLine(ex.ToString());
             }
 
-            return feed;
+            return null;
         }
 
         private static void UpdateTile(Curses.Models.ExchangeRates rates)
@@ -67,10 +64,14 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             updater.Clear();
 
             // Create a tile notification for each feed item.
-            foreach (var item in rates.ExchangeRateList.Where(r => r.Value.IsVisibleOnLiveTile).Take(5))
+            var topFiveRates = rates.ExchangeRateList
+                .Where(r => r.Value.IsVisibleOnLiveTile)
+                .Take(5);
+
+            foreach (var item in topFiveRates)
             {
                 //wide tile
-                XmlDocument tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + item.Value.CurrencySymbol);
+                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + item.Value.CurrencySymbol);
 
                 // Create a new tile notification.
                 updater.Update(new TileNotification(tileXml));
@@ -82,7 +83,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         /// </summary>
         private static XmlDocument GetTileXmlTemplate(string title, string body)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.AppendLine("<tile>");
             sb.AppendLine("<visual>");
@@ -106,7 +107,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             sb.AppendLine("</visual>");
             sb.AppendLine("</tile>");
 
-            XmlDocument result = new XmlDocument();
+            var result = new XmlDocument();
             result.LoadXml(sb.ToString());
             return result;
         }

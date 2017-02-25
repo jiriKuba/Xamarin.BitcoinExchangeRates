@@ -13,31 +13,28 @@ namespace Bitcoin.Curses.Helpers
   {
     private static ISettings AppSettings
     {
-      get
-      {
-        return CrossSettings.Current;
-      }
+        get { return CrossSettings.Current; }
     }
 
-    #region Setting Constants
+    //#region Setting Constants
 
-    private const string SettingsKey = "settings_key";
-    private static readonly string SettingsDefault = string.Empty;
+    //private const string SettingsKey = "settings_key";
+    //private static readonly string SettingsDefault = string.Empty;
 
-    #endregion
+    //#endregion
 
 
-    public static string GeneralSettings
-    {
-      get
-      {
-        return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
-      }
-      set
-      {
-        AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
-      }
-    }
+    //public static string GeneralSettings
+    //{
+    //  get
+    //  {
+    //    return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
+    //  }
+    //  set
+    //  {
+    //    AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
+    //  }
+    //}
 
   }
 }

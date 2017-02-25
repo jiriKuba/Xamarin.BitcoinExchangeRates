@@ -40,7 +40,12 @@
     </Compile>
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Models\ExchangeRate.cs" />
+    <Compile Include="Services\DataProvideService.cs" />
+    <Compile Include="Services\Interfaces\IDataProvideService.cs" />
+    <Compile Include="Services\Interfaces\ILiveTileVisibilityService.cs" />
+    <Compile Include="Services\LiveTileVisibilityService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ExchangeRatePage.xaml.cs">
       <DependentUpon>ExchangeRatePage.xaml</DependentUpon>
