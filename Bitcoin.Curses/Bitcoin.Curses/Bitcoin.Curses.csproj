@@ -41,6 +41,7 @@
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
+    <Compile Include="Messages\ExchangeRatesLoadedMessage.cs" />
     <Compile Include="Models\ExchangeRate.cs" />
     <Compile Include="Services\DataProvideService.cs" />
     <Compile Include="Services\Interfaces\IDataProvideService.cs" />
@@ -75,7 +76,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

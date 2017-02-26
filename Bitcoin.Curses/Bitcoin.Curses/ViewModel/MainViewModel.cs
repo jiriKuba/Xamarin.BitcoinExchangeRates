@@ -1,7 +1,9 @@
-﻿using Bitcoin.Curses.Models;
+﻿using Bitcoin.Curses.Messages;
+using Bitcoin.Curses.Models;
 using Bitcoin.Curses.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,6 +109,7 @@ namespace Bitcoin.Curses.ViewModel
             ExchangeRates = new ExchangeRatesViewModel(_mainModel.ExchangeRates);
 
             ShowProgressBar = false;
+            Messenger.Default.Send<ExchangeRatesLoadedMessage>(new ExchangeRatesLoadedMessage());
         }
 
         public void DoMainPageLoadCommand()

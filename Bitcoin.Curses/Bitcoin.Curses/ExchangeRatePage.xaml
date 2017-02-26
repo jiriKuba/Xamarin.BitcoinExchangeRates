@@ -9,16 +9,16 @@
     <Label Text="{Binding ExchangeRateLabel}" FontSize="Small"/>
     <TableView Intent="Data" >
       <TableRoot>
-        <TableSection Title="Market Price">
-          <TextCell Text="{Binding DelayedMarketPriceLabel}" />
+        <TableSection Title="Actual Market Price">
+          <TextCell Text="{Binding DelayedMarketPriceLabel}"/>
         </TableSection>
-        <TableSection Title="Recent Market Price">
+        <TableSection Title="Last Market Price">
           <TextCell Text="{Binding RecentMarketPriceLabel}" />
         </TableSection>
-        <TableSection Title="Buy">
+        <TableSection Title="Buy price">
           <TextCell Text="{Binding BuyLabel}" />
         </TableSection>
-        <TableSection Title="Sell">
+        <TableSection Title="Sell price">
           <TextCell Text="{Binding SellLabel}" />
         </TableSection>
         <TableSection Title="Settings">

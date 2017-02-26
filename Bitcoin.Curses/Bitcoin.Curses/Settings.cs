@@ -11,6 +11,8 @@ namespace Bitcoin.Curses
     public static class Settings
     {
         private const string EXCHANGE_RATES_LIVE_TITLE_VISIBILITY = "ExchangeRateViewModel.ShowRateInLiveTile.";
+        private const string LAST_VIEWED_EXCHANGE_RATE = "LastViewedExchangeRate";
+        private const string DEFAULT_EXCHANGE_RATE = "USD";
 
         public static ISettings AppSettings
         {
@@ -20,14 +22,24 @@ namespace Bitcoin.Curses
             }
         }
 
-        public static Boolean IsLiveTileVisibility(String currencyCode)
+        public static Boolean IsLiveTileVisibility(string currencyCode)
         {
-            return AppSettings.GetValueOrDefault<Boolean>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, false);
+            return AppSettings.GetValueOrDefault<bool>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, false);
         }
 
-        public static void SetLiveTileVisibility(String currencyCode, Boolean isVisible)
+        public static void SetLiveTileVisibility(string currencyCode, bool isVisible)
         {
-            AppSettings.AddOrUpdateValue<Boolean>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, isVisible);
+            AppSettings.AddOrUpdateValue<bool>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, isVisible);
+        }
+
+        public static string GetLastViewedCurrency()
+        {
+            return AppSettings.GetValueOrDefault<string>(LAST_VIEWED_EXCHANGE_RATE, DEFAULT_EXCHANGE_RATE);
+        }
+
+        public static void SetLastViewedCurrency(string currencyCode)
+        {
+            AppSettings.AddOrUpdateValue<string>(LAST_VIEWED_EXCHANGE_RATE, currencyCode);
         }
     }
 }

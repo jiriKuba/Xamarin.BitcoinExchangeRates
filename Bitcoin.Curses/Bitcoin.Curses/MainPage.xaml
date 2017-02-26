@@ -4,18 +4,13 @@
              xmlns:local="clr-namespace:Bitcoin.Curses"
              x:Class="Bitcoin.Curses.MainPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-                  MasterBehavior="Popover"
-                  IsPresented="True">
-  <!--<Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
-  <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}" />
-  <Setter Property="BackgroundFocusBrush" Value="{ThemeResource SystemControlBackgroundChromeWhiteBrush}" />
-  <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />-->
-  
+                  MasterBehavior="Popover">
+  <!--IsPresented="True"-->
   <MasterDetailPage.Master>
-    <ContentPage Title="Menu">
+    <ContentPage Title="Exchange rates" >
         <StackLayout VerticalOptions="FillAndExpand">
-        <Label Text="Exchange rates:" FontSize="Large" />
-        <ListView x:Name="ExchangeRatesList" Margin="20,0,10,10" ItemSelected="OnListItemSelected"
+          <!--<Label Text="Exchange rates:" FontSize="Large" />-->
+        <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected" 
                   SeparatorVisibility = "Default"
                   ItemsSource="{Binding ExchangeRates.ExchangeRateList}">
           <ListView.Header>
@@ -26,7 +21,20 @@
           </ListView.Header>
           <ListView.ItemTemplate>
             <DataTemplate>
-              <TextCell Text="{Binding CurrencyCode}" Detail="{Binding DelayedMarketPriceLabel}"></TextCell>
+              <ViewCell>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+                  <Button Text="{Binding CurrencyCode}" FontSize="20" IsEnabled ="false" Grid.Column="0" Grid.Row="0"/>
+                  
+                  <Label Text="{Binding DelayedMarketPriceLabel}" Grid.Column="1" Grid.Row="0" Margin="0,10,0,0" />                
+                </Grid>
+              </ViewCell>                
             </DataTemplate>
           </ListView.ItemTemplate>
         </ListView>
@@ -35,7 +43,7 @@
     </ContentPage>
   </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage Title="Bitcoin exchange rate">
+    <NavigationPage Title="Bitcoin exchange rate" >
       <x:Arguments>
         <local:ExchangeRatePage />
       </x:Arguments>
