@@ -5,48 +5,48 @@
              x:Class="Bitcoin.Curses.MainPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
                   MasterBehavior="Popover">
-  <!--IsPresented="True"-->
-  <MasterDetailPage.Master>
-    <ContentPage Title="Exchange rates" >
-        <StackLayout VerticalOptions="FillAndExpand">
-          <!--<Label Text="Exchange rates:" FontSize="Large" />-->
-        <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected" 
+    <!--IsPresented="True"-->
+    <MasterDetailPage.Master>
+        <ContentPage Title="Exchange rates">
+            <StackLayout VerticalOptions="FillAndExpand">
+                <!--<Label Text="Exchange rates:" FontSize="Large" />-->
+                <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected"
                   SeparatorVisibility = "Default"
                   ItemsSource="{Binding ExchangeRates.ExchangeRateList}">
-          <ListView.Header>
-            <StackLayout >
-              <ActivityIndicator IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
-                                 IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"/>
+                    <ListView.Header>
+                        <StackLayout>
+                            <ActivityIndicator IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
+                                 IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}" />
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Button Text="{Binding CurrencyCode}" FontSize="20" IsEnabled ="false" Grid.Column="0" Grid.Row="0" />
+
+                                    <Label Text="{Binding DelayedMarketPriceLabel}" Grid.Column="1" Grid.Row="0" Margin="0,10,0,0" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Text="{Binding Main.GeneratedText, Source={StaticResource Locator}}" />
             </StackLayout>
-          </ListView.Header>
-          <ListView.ItemTemplate>
-            <DataTemplate>
-              <ViewCell>
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="3*" />
-                  </Grid.ColumnDefinitions>
-                  <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                  </Grid.RowDefinitions>
-                  <Button Text="{Binding CurrencyCode}" FontSize="20" IsEnabled ="false" Grid.Column="0" Grid.Row="0"/>
-                  
-                  <Label Text="{Binding DelayedMarketPriceLabel}" Grid.Column="1" Grid.Row="0" Margin="0,10,0,0" />                
-                </Grid>
-              </ViewCell>                
-            </DataTemplate>
-          </ListView.ItemTemplate>
-        </ListView>
-        <Label Text="{Binding Main.GeneratedText, Source={StaticResource Locator}}"/>
-      </StackLayout>
-    </ContentPage>
-  </MasterDetailPage.Master>
-  <MasterDetailPage.Detail>
-    <NavigationPage Title="Bitcoin exchange rate" >
-      <x:Arguments>
-        <local:ExchangeRatePage />
-      </x:Arguments>
-    </NavigationPage>
-  </MasterDetailPage.Detail>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage Title="Bitcoin exchange rate">
+            <x:Arguments>
+                <local:MainNavigationPage />
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
 </MasterDetailPage>

@@ -35,22 +35,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ActualRatePage.xaml.cs">
+      <DependentUpon>ActualRatePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuyPricePage.xaml.cs">
+      <DependentUpon>BuyPricePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\PriceDiferenceTextColorConverter.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\ExchangeRatesLoadedMessage.cs" />
     <Compile Include="Models\ExchangeRate.cs" />
+    <Compile Include="SellPricePage.xaml.cs">
+      <DependentUpon>SellPricePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\DataProvideService.cs" />
     <Compile Include="Services\Interfaces\IDataProvideService.cs" />
     <Compile Include="Services\Interfaces\ILiveTileVisibilityService.cs" />
     <Compile Include="Services\LiveTileVisibilityService.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="ExchangeRatePage.xaml.cs">
-      <DependentUpon>ExchangeRatePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -60,6 +67,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BitcoinDataService.cs" />
     <Compile Include="Services\Interfaces\IBitcoinDataService.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainNavigationPage.xaml.cs">
+      <DependentUpon>MainNavigationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ExchangeRatesViewModel.cs" />
     <Compile Include="ViewModel\ExchangeRateViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -93,8 +106,8 @@
       <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\portable-net45+win8+wpa81+wp8\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.Settings, Version=2.5.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -119,7 +132,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ExchangeRatePage.xaml">
+    <EmbeddedResource Include="MainNavigationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ActualRatePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BuyPricePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SellPricePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.ViewModel
 {
-    class ExchangeRateViewModel : ViewModelBase
+    internal class ExchangeRateViewModel : ViewModelBase
     {
         private readonly BitcoinExchangeRate _exchangeRate;
         private readonly String _currencyCode;
@@ -44,6 +44,47 @@ namespace Bitcoin.Curses.ViewModel
                     return string.Format("{0}[{1}]", _currencyCode.ToUpper(), CurrencySymbol);
                 }
                 else return CurrencyCode;
+            }
+        }
+
+        public decimal? MarketPriceDiference
+        {
+            get
+            {
+                if (_exchangeRate != null)
+                    return _exchangeRate.RecentMarketPrice - _exchangeRate.DelayedMarketPrice;
+                else return null;
+            }
+        }
+
+        public string MarketPriceDiferenceLabel
+        {
+            get
+            {
+                if (_exchangeRate != null)
+                {
+                    if (MarketPriceDiference.HasValue)
+                    {
+                        var rounded = Math.Round(MarketPriceDiference.Value, 2);
+                        if (rounded >= 0)
+                        {
+                            return "+ " + rounded.ToString("N2");
+                        }
+                        else if (rounded < 0)
+                        {
+                            return "- " + Math.Abs(rounded).ToString("N2");
+                        }
+                        else
+                        {
+                            return decimal.Zero.ToString("N2");
+                        }
+                    }
+                    else
+                    {
+                        return decimal.Zero.ToString("N2");
+                    }
+                }
+                else return null;
             }
         }
 

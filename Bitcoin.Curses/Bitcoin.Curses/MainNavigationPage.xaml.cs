@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Bitcoin.Curses
 {
-    public partial class ExchangeRatePage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainNavigationPage : TabbedPage
     {
-        public ExchangeRatePage()
+        public MainNavigationPage()
         {
             InitializeComponent();
         }

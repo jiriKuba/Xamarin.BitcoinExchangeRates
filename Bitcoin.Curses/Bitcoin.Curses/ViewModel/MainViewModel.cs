@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace Bitcoin.Curses.ViewModel
 {
-    class MainViewModel : ViewModelBase
+    internal class MainViewModel : ViewModelBase
     {
         private readonly IBitcoinDataService _bitcoinDataService;
         private readonly MainModel _mainModel;
@@ -33,6 +33,7 @@ namespace Bitcoin.Curses.ViewModel
         //public RelayCommand MainPageLoadCommand { get; private set; }
 
         private ExchangeRatesViewModel _exchangeRates;
+
         public ExchangeRatesViewModel ExchangeRates
         {
             get
@@ -50,6 +51,7 @@ namespace Bitcoin.Curses.ViewModel
         }
 
         private bool _showProgressBar;
+
         public bool ShowProgressBar
         {
             get
@@ -88,6 +90,7 @@ namespace Bitcoin.Curses.ViewModel
         }
 
         private ExchangeRateViewModel _exchangeRateDetail;
+
         public ExchangeRateViewModel ExchangeRateDetail
         {
             get
@@ -114,7 +117,7 @@ namespace Bitcoin.Curses.ViewModel
 
         public void DoMainPageLoadCommand()
         {
-            this.LoadData();
+            LoadData();
         }
 
         public override void Cleanup()
