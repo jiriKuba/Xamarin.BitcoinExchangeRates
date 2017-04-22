@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="$safeprojectname$"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="25" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
+	<application android:label="Bitcoin Exchange Rates"></application>
 </manifest>

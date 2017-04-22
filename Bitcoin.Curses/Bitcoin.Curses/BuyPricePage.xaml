@@ -33,7 +33,7 @@
                     <Button Style="{StaticResource PriceButtonStyle}"
                             Grid.Column="1"
                             Grid.Row="0"
-                            BackgroundColor="{StaticResource BlackColor}"
+                            BackgroundColor="Transparent"
                             InputTransparent="True"
                             x:Name="MarketPriceBtn"
                             BorderWidth="15"
