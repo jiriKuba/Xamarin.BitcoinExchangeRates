@@ -50,7 +50,15 @@
                             BorderWidth="15"
                             FontSize="Large"
                             HorizontalOptions="Center"
-                            VerticalOptions="Center" />
+                            VerticalOptions="Center">
+                        <Button.BorderColor>
+                            <OnPlatform x:TypeArguments="Color">
+                                <OnPlatform.iOS>#FFFFFF</OnPlatform.iOS>
+                                <OnPlatform.Android>#FFFFFF</OnPlatform.Android>
+                                <OnPlatform.WinPhone>#000000</OnPlatform.WinPhone>
+                            </OnPlatform>
+                        </Button.BorderColor>
+                    </Button>
 
                     <Label  Grid.Column="0"
                             Grid.Row="1"

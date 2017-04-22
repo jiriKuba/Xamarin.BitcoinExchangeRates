@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace Bitcoin.Curses.Droid
 {
-    [Activity(Label = "Bitcoin.Curses", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Bitcoin Exchange Rate", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -24,4 +24,3 @@ namespace Bitcoin.Curses.Droid
         }
     }
 }
-

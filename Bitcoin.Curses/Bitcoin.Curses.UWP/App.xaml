@@ -26,6 +26,9 @@
                     <SolidColorBrush x:Key="ContentDialogBorderThemeBrush" Color="{ThemeResource SystemAccentColor}" />
                     <SolidColorBrush x:Key="JumpListDefaultEnabledBackground" Color="{ThemeResource SystemAccentColor}" />
 
+                    <!-- disabled windows -->
+                    <Color x:Key="SystemDisabledWindowAppbarColor">#FFAD48</Color>
+
                     <SolidColorBrush x:Key="SystemControlBackgroundChromeMediumLowBrush" Color="{ThemeResource SystemAccentColor}" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
