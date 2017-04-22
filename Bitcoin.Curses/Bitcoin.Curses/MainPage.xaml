@@ -7,10 +7,10 @@
                   MasterBehavior="Popover">
     <!--IsPresented="True"-->
     <MasterDetailPage.Master>
-        <ContentPage Title="Exchange rates">
+        <ContentPage Title="Exchange rates" x:Name="MainMenu">
             <StackLayout VerticalOptions="FillAndExpand">
                 <!--<Label Text="Exchange rates:" FontSize="Large" />-->
-                <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected"
+                <ListView x:Name="ExchangeRatesList" Margin="10,0,10,10" ItemSelected="OnListItemSelected" SelectedItem="{Binding ExchangeRateDetail, Mode=TwoWay}"
                   SeparatorVisibility = "Default"
                   ItemsSource="{Binding ExchangeRates.ExchangeRateList}">
                     <ListView.Header>

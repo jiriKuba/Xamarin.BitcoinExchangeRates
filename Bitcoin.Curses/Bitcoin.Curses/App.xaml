@@ -15,6 +15,12 @@
                 <Setter Property="HeightRequest" Value="240" />
                 <Setter Property="WidthRequest" Value="240" />
             </Style>
+            <Style x:Key="PriceButtonInsideRingStyle" TargetType="Button">
+                <Setter Property="BorderColor" Value="{StaticResource BlackColor}" />
+                <Setter Property="BorderRadius" Value="115" />
+                <Setter Property="HeightRequest" Value="230" />
+                <Setter Property="WidthRequest" Value="230" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

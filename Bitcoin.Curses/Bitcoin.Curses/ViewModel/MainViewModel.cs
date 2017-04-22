@@ -109,10 +109,22 @@ namespace Bitcoin.Curses.ViewModel
             ShowProgressBar = true;
 
             _mainModel.ExchangeRates = await _bitcoinDataService.GetExchangeRatesAsync();
-            ExchangeRates = new ExchangeRatesViewModel(_mainModel.ExchangeRates);
+            ExchangeRates = await LoadExchangeRatesViewModel(_mainModel.ExchangeRates);
 
-            ShowProgressBar = false;
+            if (ExchangeRates != null)
+            {
+                ShowProgressBar = false;
+            }
+
             Messenger.Default.Send<ExchangeRatesLoadedMessage>(new ExchangeRatesLoadedMessage());
+        }
+
+        private Task<ExchangeRatesViewModel> LoadExchangeRatesViewModel(ExchangeRates rates)
+        {
+            return Task.Run(() =>
+            {
+                return new ExchangeRatesViewModel(rates);
+            });
         }
 
         public void DoMainPageLoadCommand()

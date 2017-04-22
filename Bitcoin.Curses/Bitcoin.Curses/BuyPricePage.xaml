@@ -36,11 +36,21 @@
                             BackgroundColor="Transparent"
                             InputTransparent="True"
                             x:Name="MarketPriceBtn"
-                            BorderWidth="15"
+                            BorderWidth="25"
                             Text="{Binding BuyLabel}"
                             FontSize="Large"
+                            HorizontalOptions="Center" />
+
+                    <Button Style="{StaticResource PriceButtonInsideRingStyle}"
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            BackgroundColor="Transparent"
+                            InputTransparent="True"
+                            x:Name="MarketPriceInsideRingBtn"
+                            BorderWidth="15"
+                            FontSize="Large"
                             HorizontalOptions="Center"
-                            BorderColor="{StaticResource MainAccentColor}" />
+                            VerticalOptions="Center" />
 
                     <Label  Grid.Column="0"
                             Grid.Row="1"
