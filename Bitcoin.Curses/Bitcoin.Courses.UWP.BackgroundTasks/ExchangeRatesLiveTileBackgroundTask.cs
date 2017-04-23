@@ -87,7 +87,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             var sb = new StringBuilder();
 
             sb.AppendLine("<tile>");
-            sb.AppendLine("<visual>");
+            sb.AppendLine($"<visual branding=\"name\" displayName=\"{title}\">");
 
             sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
             sb.AppendLine("<text hint-style = \"base\" hint-align=\"center\"></text>"); //margin
