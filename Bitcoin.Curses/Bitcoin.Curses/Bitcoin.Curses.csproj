@@ -53,7 +53,9 @@
     <Compile Include="SellPricePage.xaml.cs">
       <DependentUpon>SellPricePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\CustomCurrencyCodeServise.cs" />
     <Compile Include="Services\DataProvideService.cs" />
+    <Compile Include="Services\Interfaces\ICustomCurrencyCodeServise.cs" />
     <Compile Include="Services\Interfaces\IDataProvideService.cs" />
     <Compile Include="Services\Interfaces\ILiveTileVisibilityService.cs" />
     <Compile Include="Services\LiveTileVisibilityService.cs" />

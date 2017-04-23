@@ -11,6 +11,7 @@ namespace Bitcoin.Curses
     public static class Settings
     {
         private const string EXCHANGE_RATES_LIVE_TITLE_VISIBILITY = "ExchangeRateViewModel.ShowRateInLiveTile.";
+        private const string EXCHANGE_RATES_CUSTOM_SYMBOL = "ExchangeRateViewModel.CustomCurrencySymbol.";
         private const string LAST_VIEWED_EXCHANGE_RATE = "LastViewedExchangeRate";
         private const string DEFAULT_EXCHANGE_RATE = "USD";
 
@@ -22,7 +23,7 @@ namespace Bitcoin.Curses
             }
         }
 
-        public static Boolean IsLiveTileVisibility(string currencyCode)
+        public static bool IsLiveTileVisibility(string currencyCode)
         {
             return AppSettings.GetValueOrDefault<bool>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, false);
         }
@@ -30,6 +31,16 @@ namespace Bitcoin.Curses
         public static void SetLiveTileVisibility(string currencyCode, bool isVisible)
         {
             AppSettings.AddOrUpdateValue<bool>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, isVisible);
+        }
+
+        public static string GetCustomCurrencySymbol(string currencyCode)
+        {
+            return AppSettings.GetValueOrDefault<string>(EXCHANGE_RATES_CUSTOM_SYMBOL + currencyCode, null);
+        }
+
+        public static void SetCustomCurrencySymbol(string currencyCode, string customSymbol)
+        {
+            AppSettings.AddOrUpdateValue<string>(EXCHANGE_RATES_CUSTOM_SYMBOL + currencyCode, customSymbol);
         }
 
         public static string GetLastViewedCurrency()

@@ -52,7 +52,7 @@ namespace Bitcoin.Curses.UWP
                 BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder();
                 taskBuilder.Name = TASK_NAME;
                 taskBuilder.TaskEntryPoint = TASK_ENTRY_POINT;
-                taskBuilder.SetTrigger(new TimeTrigger(20, false));
+                taskBuilder.SetTrigger(new TimeTrigger(15, false));
                 var registration = taskBuilder.Register();
             }
         }

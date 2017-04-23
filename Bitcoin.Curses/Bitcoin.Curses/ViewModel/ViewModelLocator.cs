@@ -4,7 +4,7 @@
       <vm:ViewModelLocator xmlns:vm="clr-namespace:Bitcoin.Curses"
                            x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 
@@ -24,7 +24,7 @@ namespace Bitcoin.Curses.ViewModel
     /// This class contains static references to all the view models in the
     /// application and provides an entry point for the bindings.
     /// </summary>
-    class ViewModelLocator
+    internal class ViewModelLocator
     {
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
@@ -46,6 +46,7 @@ namespace Bitcoin.Curses.ViewModel
 
             //services
             SimpleIoc.Default.Register<ILiveTileVisibilityService, LiveTileVisibilityService>();
+            SimpleIoc.Default.Register<ICustomCurrencyCodeServise, CustomCurrencyCodeServise>();
             SimpleIoc.Default.Register<IDataProvideService, DataProvideService>();
             SimpleIoc.Default.Register<IBitcoinDataService, BitcoinDataService>();
 
@@ -60,7 +61,7 @@ namespace Bitcoin.Curses.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

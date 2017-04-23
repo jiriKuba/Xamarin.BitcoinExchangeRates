@@ -21,7 +21,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         {
             // Get a deferral, to prevent the task from closing prematurely
             // while asynchronous code is still running.
-            BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
+            var deferral = taskInstance.GetDeferral();
 
             // Download the feed.
             var rates = await LoadExchangeRates();
@@ -33,11 +33,11 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             deferral.Complete();
         }
 
-        private static async Task<Curses.Models.ExchangeRates> LoadExchangeRates()
+        private static async Task<ExchangeRates> LoadExchangeRates()
         {
             try
             {
-                var bitcoinService = new BitcoinDataService(new DataProvideService(), new LiveTileVisibilityService());
+                var bitcoinService = new BitcoinDataService(new DataProvideService(), new LiveTileVisibilityService(), new CustomCurrencyCodeServise());
                 return await bitcoinService.GetExchangeRatesAsync();
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             return null;
         }
 
-        private static void UpdateTile(Curses.Models.ExchangeRates rates)
+        private static void UpdateTile(ExchangeRates rates)
         {
             // Create a tile update manager for the specified syndication feed.
             var updater = TileUpdateManager.CreateTileUpdaterForApplication();
@@ -71,7 +71,8 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             foreach (var item in topFiveRates)
             {
                 //wide tile
-                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + item.Value.CurrencySymbol);
+                var currencySymbol = string.IsNullOrEmpty(item.Value.CustomCurrencySymbol) ? item.Value.CurrencySymbol : item.Value.CustomCurrencySymbol;
+                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + currencySymbol);
 
                 // Create a new tile notification.
                 updater.Update(new TileNotification(tileXml));
@@ -88,20 +89,19 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             sb.AppendLine("<tile>");
             sb.AppendLine("<visual>");
 
-            sb.AppendLine("<binding template = \"TileMedium\">");
-            sb.AppendLine(String.Format("<text hint-style = \"captionSubtle\">{0}</text>", title));
-            sb.AppendLine("<text hint-style = \"caption\" hint-align=\"center\"></text>");//margin
-            sb.AppendLine(String.Format("<text hint-style = \"title\" hint-align=\"center\">{0}</text>", body));
+            sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
+            sb.AppendLine("<text hint-style = \"base\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine($"<text hint-style = \"base\" hint-align=\"center\">{body}</text>");
             sb.AppendLine("</binding >");
 
-            sb.AppendLine("<binding template = \"TileWide\">");
-            sb.AppendLine(String.Format("<text hint-style = \"captionSubtle\">{0}</text>", title));
-            sb.AppendLine(String.Format("<text hint-style = \"header\" hint-align=\"center\">{0}</text>", body));
+            sb.AppendLine($"<binding template = \"TileWide\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
+            sb.AppendLine("<text hint-style = \"caption\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine($"<text hint-style = \"subheader\" hint-align=\"center\">{body}</text>");
             sb.AppendLine("</binding>");
 
-            sb.AppendLine("<binding template = \"TileLarge\">");
-            sb.AppendLine(String.Format("<text hint-style = \"captionSubtle\">{0}</text>", title));
-            sb.AppendLine(String.Format("<text hint-style = \"header\" hint-align=\"center\">{0}</text>", body));
+            sb.AppendLine($"<binding template = \"TileLarge\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
+            sb.AppendLine("<text hint-style = \"base\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine($"<text hint-style = \"subheader\" hint-align=\"center\">{body}</text>");
             sb.AppendLine("</binding>");
 
             sb.AppendLine("</visual>");

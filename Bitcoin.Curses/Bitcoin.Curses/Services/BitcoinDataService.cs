@@ -15,18 +15,21 @@ using Bitcoin.Curses.Messages;
 namespace Bitcoin.Curses.Services
 {
     public class BitcoinDataService : IBitcoinDataService
-    {        
+    {
         private const string USD_RATE_KEY = "USD";
 
         private readonly CurrencyHelper _helper;
         private readonly IDataProvideService _dataProvideService;
         private readonly ILiveTileVisibilityService _liveTileVisibilityService;
+        private readonly ICustomCurrencyCodeServise _customCurrencyCodeServise;
 
-        public BitcoinDataService(IDataProvideService dataProvideService, ILiveTileVisibilityService liveTileVisibilityService)
+        public BitcoinDataService(IDataProvideService dataProvideService, ILiveTileVisibilityService liveTileVisibilityService,
+            ICustomCurrencyCodeServise customCurrencyCodeServise)
         {
             _helper = new CurrencyHelper();
             _dataProvideService = dataProvideService;
             _liveTileVisibilityService = liveTileVisibilityService;
+            _customCurrencyCodeServise = customCurrencyCodeServise;
         }
 
         public async Task<ExchangeRates> GetExchangeRatesAsync()
@@ -42,8 +45,9 @@ namespace Bitcoin.Curses.Services
                 AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
 
                 _liveTileVisibilityService.AddLiveTileVisibilityToModel(bitcoinRateValues);
+                _customCurrencyCodeServise.AddCustomCurrencySymbolToModel(bitcoinRateValues);
                 var result = new ExchangeRates(bitcoinRateValues
-                    .OrderBy(x=>x.Key)
+                    .OrderBy(x => x.Key)
                     .ToDictionary(x => x.Key, x => x.Value));
                 return result;
 
@@ -58,9 +62,9 @@ namespace Bitcoin.Curses.Services
             catch (Exception ex)
             {
                 Messenger.Default.Send<ExceptionMessage>(new ExceptionMessage(ex));
-                return new ExchangeRates(); 
-            }            
-        }                
+                return new ExchangeRates();
+            }
+        }
 
         public void AddAlternativeRatesToBitcoinRateList(Dictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates)
         {

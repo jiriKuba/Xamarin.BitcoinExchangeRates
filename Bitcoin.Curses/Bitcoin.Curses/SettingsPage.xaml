@@ -5,6 +5,7 @@
              BindingContext="{Binding Main.ExchangeRateDetail, Source={StaticResource Locator}}"
              Title="Rate Settings">
     <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
+
         <!--<ActivityIndicator IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
                                  IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}" />-->
         <ActivityIndicator IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
@@ -12,30 +13,41 @@
                            Margin="0,10,0,0" />
         <Label Text="Settings for:" FontSize="Large" />
         <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" />
-        <TableView Intent="Data">
-            <TableRoot>
-                <TableSection Title="Live tile settings">
-                    <ViewCell>
-                        <ViewCell.View>
-                            <StackLayout Orientation="Horizontal" Margin="0,0,20,0">
-                                <StackLayout.IsVisible>
-                                    <OnPlatform x:TypeArguments="x:Boolean">
-                                        <OnPlatform.iOS>False</OnPlatform.iOS>
-                                        <OnPlatform.Android>False</OnPlatform.Android>
-                                        <OnPlatform.WinPhone>True</OnPlatform.WinPhone>
-                                    </OnPlatform>
-                                </StackLayout.IsVisible>
-                                <Label Text="Show in live tile"
-                       VerticalOptions="Center"
-                       HorizontalOptions="StartAndExpand" />
-                                <Switch x:Name="RegularNotificationsSwitch"
-                        IsToggled="{Binding ShowRateInLiveTile}"
-                        HorizontalOptions="End" />
-                            </StackLayout>
-                        </ViewCell.View>
-                    </ViewCell>
-                </TableSection>
-            </TableRoot>
-        </TableView>
+        <StackLayout>
+            <StackLayout.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <OnPlatform.iOS>False</OnPlatform.iOS>
+                    <OnPlatform.Android>False</OnPlatform.Android>
+                    <OnPlatform.WinPhone>True</OnPlatform.WinPhone>
+                </OnPlatform>
+            </StackLayout.IsVisible>
+            <TableView Intent="Data">
+                <TableRoot>
+                    <TableSection Title="Customization">
+                        <EntryCell Label="Custom currency symbol"
+                                   Placeholder="{Binding CurrencySymbol}"
+                                   LabelColor="{DynamicResource WhiteColor}"
+                                   Text="{Binding CustomCurrencySymbol}" />
+                        <SwitchCell Text="Show in live tile" On="{Binding ShowRateInLiveTile}"></SwitchCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </StackLayout>
+        <StackLayout>
+            <StackLayout.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean">
+                    <OnPlatform.iOS>True</OnPlatform.iOS>
+                    <OnPlatform.Android>True</OnPlatform.Android>
+                    <OnPlatform.WinPhone>False</OnPlatform.WinPhone>
+                </OnPlatform>
+            </StackLayout.IsVisible>
+            <TableView Intent="Data">
+                <TableRoot>
+                    <TableSection Title="Customization">
+                        <EntryCell Label="Custom currency symbol" Placeholder="{Binding CurrencySymbol}" Text="{Binding CustomCurrencySymbol}" />
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

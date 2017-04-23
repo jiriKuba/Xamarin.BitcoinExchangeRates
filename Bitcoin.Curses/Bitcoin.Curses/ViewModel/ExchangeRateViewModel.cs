@@ -17,6 +17,7 @@ namespace Bitcoin.Curses.ViewModel
         private readonly MainViewModel _mainViewModel;
         private readonly IBitcoinDataService _bitcoinDataService;
         private readonly ILiveTileVisibilityService _liveTileVisibilityService;
+        private readonly ICustomCurrencyCodeServise _customCurrencyCodeServise;
 
         public ExchangeRateViewModel(string currencyCode, BitcoinExchangeRate exchangeRate)
         {
@@ -25,6 +26,7 @@ namespace Bitcoin.Curses.ViewModel
             _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
             _bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
             _liveTileVisibilityService = ServiceLocator.Current.GetInstance<ILiveTileVisibilityService>();
+            _customCurrencyCodeServise = ServiceLocator.Current.GetInstance<ICustomCurrencyCodeServise>();
         }
 
         public string CurrencyCode
@@ -181,8 +183,32 @@ namespace Bitcoin.Curses.ViewModel
             get
             {
                 if (_exchangeRate != null)
-                    return _exchangeRate.CurrencySymbol;
+                {
+                    if (!string.IsNullOrEmpty(CustomCurrencySymbol))
+                    {
+                        return CustomCurrencySymbol;
+                    }
+                    else return _exchangeRate.CurrencySymbol;
+                }
                 else return null;
+            }
+        }
+
+        public string CustomCurrencySymbol
+        {
+            get { return _exchangeRate.CustomCurrencySymbol; }
+            set
+            {
+                _exchangeRate.CustomCurrencySymbol = value;
+                _customCurrencyCodeServise.SetExchangeRateCustomCurrencySymbol(CurrencyCode, value);
+
+                RaisePropertyChanged(() => CustomCurrencySymbol);
+                RaisePropertyChanged(() => CurrencySymbol);
+                RaisePropertyChanged(() => SellLabel);
+                RaisePropertyChanged(() => BuyLabel);
+                RaisePropertyChanged(() => RecentMarketPriceLabel);
+                RaisePropertyChanged(() => DelayedMarketPriceLabel);
+                RaisePropertyChanged(() => ExchangeRateLabel);
             }
         }
 

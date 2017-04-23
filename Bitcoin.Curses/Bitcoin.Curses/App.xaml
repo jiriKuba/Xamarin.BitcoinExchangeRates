@@ -6,6 +6,7 @@
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:d4p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:Bitcoin.Curses.ViewModel" />
             <Color x:Key="MainAccentColor">#F7931A</Color>
             <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
             <Color x:Key="PriceUpColor">#33B673</Color>
             <Color x:Key="PriceDownColor">#C93304</Color>
             <Color x:Key="PriceStillColor">#FFFFFF</Color>

@@ -29,6 +29,9 @@ namespace Bitcoin.Curses.Models
         [JsonIgnore]
         public bool IsVisibleOnLiveTile { get; set; }
 
+        [JsonIgnore]
+        public string CustomCurrencySymbol { get; set; }
+
         public BitcoinExchangeRate()
         {
             IsVisibleOnLiveTile = false;
