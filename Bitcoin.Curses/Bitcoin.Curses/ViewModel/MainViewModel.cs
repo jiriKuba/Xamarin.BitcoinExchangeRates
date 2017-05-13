@@ -22,7 +22,7 @@ namespace Bitcoin.Curses.ViewModel
         {
             _bitcoinDataService = bitcoinDataService;
             _mainModel = new MainModel();
-            //this.MainPageLoadCommand = new RelayCommand(this.DoMainPageLoadCommand);
+            RefreshCommand = new RelayCommand(DoRefreshCommand);
 
             //ExchangeRates mock = new ExchangeRates();
             //mock.ExchangeRateList.Add("USD", new ExchangeRate() { DelayedMarketPrice = 478.68M, RecentMarketPrice = 478.68M, Buy = 478.55M, Sell = 478.68M, CurrencySymbol = "$" });
@@ -30,7 +30,7 @@ namespace Bitcoin.Curses.ViewModel
             //this.ExchangeRates = new ExchangeRatesViewModel(this._mainModel.ExchangeRates);
         }
 
-        //public RelayCommand MainPageLoadCommand { get; private set; }
+        public RelayCommand RefreshCommand { get; private set; }
 
         private ExchangeRatesViewModel _exchangeRates;
 
@@ -125,6 +125,18 @@ namespace Bitcoin.Curses.ViewModel
             {
                 return new ExchangeRatesViewModel(rates);
             });
+        }
+
+        public void DoRefreshCommand()
+        {
+            if (!ShowProgressBar)
+            {
+                if (ExchangeRateDetail != null)
+                {
+                    ExchangeRateDetail.Clear();
+                }
+                LoadData();
+            }
         }
 
         public void DoMainPageLoadCommand()

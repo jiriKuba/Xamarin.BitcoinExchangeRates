@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Bitcoin.Curses"
              x:Class="Bitcoin.Curses.MainPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
-                  MasterBehavior="Popover">
+             MasterBehavior="Popover">
     <!--IsPresented="True"-->
     <MasterDetailPage.Master>
         <ContentPage Title="Exchange rates" x:Name="MainMenu">

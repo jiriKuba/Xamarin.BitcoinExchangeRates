@@ -4,10 +4,11 @@
              x:Class="Bitcoin.Curses.SettingsPage"
              BindingContext="{Binding Main.ExchangeRateDetail, Source={StaticResource Locator}}"
              Title="Rate Settings">
-    <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Refresh" Icon="refresh.png" Order="Primary" Command="{Binding Main.RefreshCommand, Source={StaticResource Locator}}" />
+    </ContentPage.ToolbarItems>
 
-        <!--<ActivityIndicator IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
-                                 IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}" />-->
+    <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
         <ActivityIndicator IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
                            IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
                            Margin="0,10,0,0" />

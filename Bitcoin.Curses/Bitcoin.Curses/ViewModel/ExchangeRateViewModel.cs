@@ -12,8 +12,8 @@ namespace Bitcoin.Curses.ViewModel
 {
     internal class ExchangeRateViewModel : ViewModelBase
     {
-        private readonly BitcoinExchangeRate _exchangeRate;
-        private readonly String _currencyCode;
+        private BitcoinExchangeRate _exchangeRate;
+        private readonly string _currencyCode;
         private readonly MainViewModel _mainViewModel;
         private readonly IBitcoinDataService _bitcoinDataService;
         private readonly ILiveTileVisibilityService _liveTileVisibilityService;
@@ -22,7 +22,7 @@ namespace Bitcoin.Curses.ViewModel
         public ExchangeRateViewModel(string currencyCode, BitcoinExchangeRate exchangeRate)
         {
             _exchangeRate = exchangeRate;
-            _currencyCode = currencyCode;
+            _currencyCode = currencyCode == null ? string.Empty : currencyCode;
             _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
             _bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
             _liveTileVisibilityService = ServiceLocator.Current.GetInstance<ILiveTileVisibilityService>();
@@ -78,15 +78,15 @@ namespace Bitcoin.Curses.ViewModel
                         }
                         else
                         {
-                            return decimal.Zero.ToString("N2");
+                            return "+ " + decimal.Zero.ToString("N2");
                         }
                     }
                     else
                     {
-                        return decimal.Zero.ToString("N2");
+                        return "+ " + decimal.Zero.ToString("N2");
                     }
                 }
-                else return null;
+                else return "+ " + decimal.Zero.ToString("N2");
             }
         }
 
@@ -130,7 +130,7 @@ namespace Bitcoin.Curses.ViewModel
                 {
                     return string.Format("{0}{1}", RecentMarketPrice.HasValue ? Math.Round(RecentMarketPrice.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
                 }
-                else return null;
+                else return string.Empty;
             }
         }
 
@@ -152,7 +152,7 @@ namespace Bitcoin.Curses.ViewModel
                 {
                     return string.Format("{0}{1}", Buy.HasValue ? Math.Round(Buy.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
                 }
-                else return null;
+                else return string.Empty;
             }
         }
 
@@ -174,7 +174,7 @@ namespace Bitcoin.Curses.ViewModel
                 {
                     return string.Format("{0}{1}", Sell.HasValue ? Math.Round(Sell.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
                 }
-                else return null;
+                else return string.Empty;
             }
         }
 
@@ -190,13 +190,20 @@ namespace Bitcoin.Curses.ViewModel
                     }
                     else return _exchangeRate.CurrencySymbol;
                 }
-                else return null;
+                else return string.Empty;
             }
         }
 
         public string CustomCurrencySymbol
         {
-            get { return _exchangeRate.CustomCurrencySymbol; }
+            get
+            {
+                if (_exchangeRate != null)
+                {
+                    return _exchangeRate.CustomCurrencySymbol;
+                }
+                else return string.Empty;
+            }
             set
             {
                 _exchangeRate.CustomCurrencySymbol = value;
@@ -234,6 +241,19 @@ namespace Bitcoin.Curses.ViewModel
                 _exchangeRate.IsVisibleOnLiveTile = value;
                 RaisePropertyChanged(() => ShowRateInLiveTile);
             }
+        }
+
+        public void Clear()
+        {
+            _exchangeRate = null;
+            RaisePropertyChanged(() => CustomCurrencySymbol);
+            RaisePropertyChanged(() => CurrencySymbol);
+            RaisePropertyChanged(() => SellLabel);
+            RaisePropertyChanged(() => BuyLabel);
+            RaisePropertyChanged(() => RecentMarketPriceLabel);
+            RaisePropertyChanged(() => DelayedMarketPriceLabel);
+            RaisePropertyChanged(() => ExchangeRateLabel);
+            RaisePropertyChanged(() => MarketPriceDiferenceLabel);
         }
     }
 }
