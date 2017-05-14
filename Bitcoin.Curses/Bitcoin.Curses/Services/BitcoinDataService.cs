@@ -36,8 +36,6 @@ namespace Bitcoin.Curses.Services
         {
             try
             {
-                //await Task.Delay(TimeSpan.FromSeconds(3));
-
                 var rawBitcoinExchangeRates = await _dataProvideService.GetBitcoinJSONData();
                 var bitcoinRateValues = JsonConvert.DeserializeObject<Dictionary<string, BitcoinExchangeRate>>(rawBitcoinExchangeRates);
 
