@@ -112,6 +112,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="refresh.png" />
     <None Include="Package.StoreAssociation.xml">
       <SubType>Designer</SubType>
     </None>
