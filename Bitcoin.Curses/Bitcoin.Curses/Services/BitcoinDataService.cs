@@ -42,7 +42,12 @@ namespace Bitcoin.Curses.Services
                 var rawExchangeRatesByUSD = await _dataProvideService.GetExchangeJSONData();
                 var exchangeRatesByUSD = JsonConvert.DeserializeObject<ExchangeRate>(rawExchangeRatesByUSD);
 
+                var yesterdayUSDRateRawData = await _dataProvideService.GetHistoryJSONData();
+                var yesterdayUSDRate = JsonConvert.DeserializeObject<ExchangeRateHistory>(yesterdayUSDRateRawData);
+
                 AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
+
+                AddYesterdayRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD, yesterdayUSDRate);
 
                 _liveTileVisibilityService.AddLiveTileVisibilityToModel(bitcoinRateValues);
                 _customCurrencyCodeServise.AddCustomCurrencySymbolToModel(bitcoinRateValues);
@@ -63,6 +68,28 @@ namespace Bitcoin.Curses.Services
             {
                 Messenger.Default.Send<ExceptionMessage>(new ExceptionMessage(ex));
                 return new ExchangeRates();
+            }
+        }
+
+        private void AddYesterdayRatesToBitcoinRateList(Dictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates, ExchangeRateHistory yesterdayUSDRate)
+        {
+            if (yesterdayUSDRate != null && bitcoinRates != null && bitcoinRates.ContainsKey(USD_RATE_KEY))
+            {
+                if (alternativeRates != null && alternativeRates.Rates != null && alternativeRates.Rates.Count > 0)
+                {
+                    foreach (var rate in alternativeRates.Rates)
+                    {
+                        if (bitcoinRates.ContainsKey(rate.Key))
+                        {
+                            bitcoinRates[rate.Key].YesterdayRate = rate.Value * yesterdayUSDRate.HistoryValue;
+                        }
+                    }
+                }
+
+                if (bitcoinRates.ContainsKey(USD_RATE_KEY))
+                {
+                    bitcoinRates[USD_RATE_KEY].YesterdayRate = yesterdayUSDRate.HistoryValue;
+                }
             }
         }
 

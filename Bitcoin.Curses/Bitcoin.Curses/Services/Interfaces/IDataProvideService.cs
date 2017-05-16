@@ -8,8 +8,10 @@ namespace Bitcoin.Curses.Services.Interfaces
 {
     public interface IDataProvideService
     {
-        Task<String> GetBitcoinJSONData();
+        Task<string> GetBitcoinJSONData();
 
-        Task<String> GetExchangeJSONData();
+        Task<string> GetExchangeJSONData();
+
+        Task<string> GetHistoryJSONData();
     }
 }

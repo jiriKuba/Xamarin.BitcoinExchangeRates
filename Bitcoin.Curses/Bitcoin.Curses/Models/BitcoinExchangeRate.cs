@@ -32,6 +32,9 @@ namespace Bitcoin.Curses.Models
         [JsonIgnore]
         public string CustomCurrencySymbol { get; set; }
 
+        [JsonIgnore]
+        public decimal YesterdayRate { get; set; }
+
         public BitcoinExchangeRate()
         {
             IsVisibleOnLiveTile = false;

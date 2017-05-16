@@ -54,7 +54,7 @@ namespace Bitcoin.Curses.ViewModel
             get
             {
                 if (_exchangeRate != null)
-                    return _exchangeRate.RecentMarketPrice - _exchangeRate.DelayedMarketPrice;
+                    return _exchangeRate.YesterdayRate == 0 ? 0 : (_exchangeRate.RecentMarketPrice - _exchangeRate.YesterdayRate);
                 else return null;
             }
         }
@@ -166,6 +166,16 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
+        public decimal? YesterdayRate
+        {
+            get
+            {
+                if (_exchangeRate != null)
+                    return _exchangeRate.YesterdayRate;
+                else return null;
+            }
+        }
+
         public string SellLabel
         {
             get
@@ -206,7 +216,10 @@ namespace Bitcoin.Curses.ViewModel
             }
             set
             {
-                _exchangeRate.CustomCurrencySymbol = value;
+                if (_exchangeRate != null)
+                {
+                    _exchangeRate.CustomCurrencySymbol = value;
+                }
                 _customCurrencyCodeServise.SetExchangeRateCustomCurrencySymbol(CurrencyCode, value);
 
                 RaisePropertyChanged(() => CustomCurrencySymbol);

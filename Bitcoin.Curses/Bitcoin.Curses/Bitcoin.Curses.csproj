@@ -50,6 +50,7 @@
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\ExchangeRatesLoadedMessage.cs" />
     <Compile Include="Models\ExchangeRate.cs" />
+    <Compile Include="Models\ExchangeRateHistory.cs" />
     <Compile Include="SellPricePage.xaml.cs">
       <DependentUpon>SellPricePage.xaml</DependentUpon>
     </Compile>
