@@ -24,7 +24,7 @@
             </StackLayout.IsVisible>
             <TableView Intent="Data">
                 <TableRoot>
-                    <TableSection Title="Customization">
+                    <TableSection>
                         <EntryCell Label="Custom currency symbol"
                                    Placeholder="{Binding CurrencySymbol}"
                                    LabelColor="{DynamicResource WhiteColor}"
