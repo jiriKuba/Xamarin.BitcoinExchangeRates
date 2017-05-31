@@ -17,10 +17,6 @@
                                 <OnPlatform.WinPhone>False</OnPlatform.WinPhone>
                             </OnPlatform>
                         </StackLayout.IsVisible>
-                        <!--<StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical">
-                            <Image Source="icon" />
-                            <Label Text="Exchange rates" FontSize="Large" HorizontalOptions="CenterAndExpand" TextColor="White" />
-                        </StackLayout>-->
                         <Button Style="{StaticResource DrawerButtonStyle}"
                             Margin="20,10,0,0"
                             BackgroundColor="#FFAD48"
@@ -32,9 +28,12 @@
                             TextColor="White"
                             HorizontalOptions="Start"
                             VerticalOptions="EndAndExpand" />
-
-                        <!--<Image Source="icon" />-->
-                        <Label Text="Bitcoin exchange rate" FontSize="Large" Margin="10,0,0,0" HorizontalOptions="Start" VerticalOptions="EndAndExpand" TextColor="White" />
+                        <Label Text="Bitcoin exchange rate"
+                               FontSize="Large"
+                               Margin="10,0,0,0"
+                               HorizontalOptions="Start"
+                               VerticalOptions="EndAndExpand"
+                               TextColor="White" />
                     </StackLayout>
                     <SearchBar Placeholder="Search" Text="{Binding Main.SearchText, Source={StaticResource Locator}}">
                         <SearchBar.Margin>
