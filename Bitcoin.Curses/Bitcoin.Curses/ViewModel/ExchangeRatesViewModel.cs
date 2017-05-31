@@ -9,52 +9,86 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.ViewModel
 {
-    class ExchangeRatesViewModel : ViewModelBase
+    internal class ExchangeRatesViewModel : ViewModelBase
     {
         private readonly ExchangeRates _exchangeRates;
         private readonly ObservableCollection<ExchangeRateViewModel> _exchangeRateList;
+        private string _searchText;
+        private ObservableCollection<ExchangeRateViewModel> _searchList;
+
         public ObservableCollection<ExchangeRateViewModel> ExchangeRateList
         {
             get
             {
-                return this._exchangeRateList;
+                if (!string.IsNullOrEmpty(_searchText))
+                {
+                    CleanSearchList();
+                    _searchList = new ObservableCollection<ExchangeRateViewModel>(_exchangeRateList
+                        .Where(x => x.CurrencyCode.ToLower().Contains(_searchText.ToLower()) || x.CurrencySymbol.ToLower().Contains(_searchText.ToLower())));
+
+                    return _searchList;
+                }
+                else return _exchangeRateList;
             }
         }
-        
+
         public DateTime? Generated
         {
             get
             {
-                if (this._exchangeRates != null)
-                    return this._exchangeRates.Generated;
+                if (_exchangeRates != null)
+                    return _exchangeRates.Generated;
                 else return null;
             }
         }
 
         private ExchangeRatesViewModel()
         {
-            this._exchangeRateList = new ObservableCollection<ExchangeRateViewModel>();
+            _exchangeRateList = new ObservableCollection<ExchangeRateViewModel>();
         }
 
         public ExchangeRatesViewModel(ExchangeRates exchangeRates)
-            :this()
+            : this()
         {
-            this._exchangeRates = exchangeRates;
+            _exchangeRates = exchangeRates;
 
             if (exchangeRates != null && exchangeRates.ExchangeRateList != null && exchangeRates.ExchangeRateList.Count > 0)
             {
-                foreach (KeyValuePair<String, BitcoinExchangeRate> item in exchangeRates.ExchangeRateList)
+                foreach (KeyValuePair<string, BitcoinExchangeRate> item in exchangeRates.ExchangeRateList)
                 {
-                    this._exchangeRateList.Add(new ExchangeRateViewModel(item.Key, item.Value));
+                    _exchangeRateList.Add(new ExchangeRateViewModel(item.Key, item.Value));
                 }
             }
         }
 
+        public ExchangeRatesViewModel ResetSearch()
+        {
+            _searchText = null;
+            //base.RaisePropertyChanged(() => ExchangeRateList);
+            return this;
+        }
+
         public override void Cleanup()
         {
-            this._exchangeRateList.Clear();
+            _exchangeRateList.Clear();
+            CleanSearchList();
 
             base.Cleanup();
+        }
+
+        public ExchangeRatesViewModel Search(string searchText)
+        {
+            _searchText = searchText;
+            //base.RaisePropertyChanged(() => ExchangeRateList);
+            return this;
+        }
+
+        private void CleanSearchList()
+        {
+            if (_searchList != null)
+            {
+                _searchList.Clear();
+            }
         }
     }
 }

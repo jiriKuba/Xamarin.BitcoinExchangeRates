@@ -5,6 +5,7 @@
         <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:d4p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:Bitcoin.Curses.ViewModel" />
             <Color x:Key="MainAccentColor">#F7931A</Color>
+            <Color x:Key="LogoBackgroundColor">#C97004</Color>
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="WhiteColor">#FFFFFF</Color>
             <Color x:Key="PriceUpColor">#33B673</Color>
@@ -20,6 +21,12 @@
                 <Setter Property="BorderRadius" Value="115" />
                 <Setter Property="HeightRequest" Value="230" />
                 <Setter Property="WidthRequest" Value="230" />
+            </Style>
+            <Style x:Key="DrawerButtonStyle" TargetType="Button">
+                <Setter Property="BorderColor" Value="{StaticResource LogoBackgroundColor}" />
+                <Setter Property="BorderRadius" Value="40" />
+                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="WidthRequest" Value="80" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

@@ -8,8 +8,53 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Exchange rates" x:Name="MainMenu">
             <StackLayout VerticalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource MainAccentColor}">
+                    <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill" Orientation="Horizontal" HeightRequest="150">
+                        <StackLayout.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean">
+                                <OnPlatform.iOS>True</OnPlatform.iOS>
+                                <OnPlatform.Android>True</OnPlatform.Android>
+                                <OnPlatform.WinPhone>False</OnPlatform.WinPhone>
+                            </OnPlatform>
+                        </StackLayout.IsVisible>
+                        <!--<StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical">
+                            <Image Source="icon" />
+                            <Label Text="Exchange rates" FontSize="Large" HorizontalOptions="CenterAndExpand" TextColor="White" />
+                        </StackLayout>-->
+                        <Button Style="{StaticResource DrawerButtonStyle}"
+                            Margin="20,10,0,0"
+                            BackgroundColor="#FFAD48"
+                            InputTransparent="True"
+                            x:Name="MarketPriceBtn"
+                            BorderWidth="3"
+                            Image="icon"
+                            FontSize="Large"
+                            TextColor="White"
+                            HorizontalOptions="Start"
+                            VerticalOptions="EndAndExpand" />
+
+                        <!--<Image Source="icon" />-->
+                        <Label Text="Bitcoin exchange rate" FontSize="Large" Margin="10,0,0,0" HorizontalOptions="Start" VerticalOptions="EndAndExpand" TextColor="White" />
+                    </StackLayout>
+                    <SearchBar Placeholder="Search" Text="{Binding Main.SearchText, Source={StaticResource Locator}}">
+                        <SearchBar.Margin>
+                            <OnPlatform x:TypeArguments="Thickness ">
+                                <OnPlatform.iOS>0</OnPlatform.iOS>
+                                <OnPlatform.Android>0,15,0,0</OnPlatform.Android>
+                                <OnPlatform.WinPhone>10</OnPlatform.WinPhone>
+                            </OnPlatform>
+                        </SearchBar.Margin>
+                        <SearchBar.TextColor>
+                            <OnPlatform x:TypeArguments="Color ">
+                                <OnPlatform.iOS>White</OnPlatform.iOS>
+                                <OnPlatform.Android>White</OnPlatform.Android>
+                                <OnPlatform.WinPhone>Black</OnPlatform.WinPhone>
+                            </OnPlatform>
+                        </SearchBar.TextColor>
+                    </SearchBar>
+                </StackLayout>
                 <ListView x:Name="ExchangeRatesList"
-                          Margin="10,0,10,10"
+                          Margin="10,-5,10,10"
                           ItemSelected="OnListItemSelected"
                           SelectedItem="{Binding ExchangeRateDetail, Mode=TwoWay}"
                           SeparatorVisibility = "Default"
@@ -29,14 +74,22 @@
                                         <ColumnDefinition Width="3*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="auto" />
                                     </Grid.RowDefinitions>
                                     <Label Text="{Binding CurrencyCode}"
                                            FontSize="20"
                                            BackgroundColor="LightGray"
                                            Opacity="0.35" Grid.Column="0" Grid.Row="0"
-                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
-                                    <Label Text="{Binding DelayedMarketPriceLabel}"
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                        <Label.HeightRequest>
+                                            <OnPlatform x:TypeArguments="x:Double ">
+                                                <OnPlatform.iOS>45</OnPlatform.iOS>
+                                                <OnPlatform.Android>45</OnPlatform.Android>
+                                                <OnPlatform.WinPhone>35</OnPlatform.WinPhone>
+                                            </OnPlatform>
+                                        </Label.HeightRequest>
+                                    </Label>
+                                    <Label Text="{Binding DelayedMarketPriceLabel}" Margin="10,0,0,0"
                                            Grid.Column="1" Grid.Row="0"
                                            VerticalTextAlignment="Center" />
                                 </Grid>

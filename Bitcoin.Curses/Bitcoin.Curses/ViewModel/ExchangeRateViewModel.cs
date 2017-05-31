@@ -198,7 +198,7 @@ namespace Bitcoin.Curses.ViewModel
                     {
                         return CustomCurrencySymbol;
                     }
-                    else return _exchangeRate.CurrencySymbol;
+                    else return _exchangeRate.CurrencySymbol == null ? string.Empty : _exchangeRate.CurrencySymbol;
                 }
                 else return string.Empty;
             }

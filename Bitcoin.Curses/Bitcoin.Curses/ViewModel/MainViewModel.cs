@@ -1,15 +1,15 @@
-﻿using Bitcoin.Curses.Messages;
-using Bitcoin.Curses.Models;
-using Bitcoin.Curses.Services.Interfaces;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Bitcoin.Curses.Messages;
+using Bitcoin.Curses.Models;
+using Bitcoin.Curses.Services.Interfaces;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Bitcoin.Curses.ViewModel
 {
@@ -39,14 +39,35 @@ namespace Bitcoin.Curses.ViewModel
             get
             {
                 if (_exchangeRates == null)
+                {
                     _exchangeRates = new ExchangeRatesViewModel(_mainModel.ExchangeRates);
-                return _exchangeRates;
+                }
+
+                if (!string.IsNullOrEmpty(_searchText))
+                {
+                    return _exchangeRates.Search(_searchText);
+                }
+                else
+                    return _exchangeRates.ResetSearch();
             }
             set
             {
                 _exchangeRates = value;
                 base.RaisePropertyChanged(() => ExchangeRates);
                 base.RaisePropertyChanged(() => GeneratedText);
+            }
+        }
+
+        private string _searchText;
+
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                base.RaisePropertyChanged(() => SearchText);
+                base.RaisePropertyChanged(() => ExchangeRates);
             }
         }
 
