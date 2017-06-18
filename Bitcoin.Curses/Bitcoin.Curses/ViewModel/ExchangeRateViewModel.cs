@@ -17,7 +17,7 @@ namespace Bitcoin.Curses.ViewModel
         private readonly MainViewModel _mainViewModel;
         private readonly IBitcoinDataService _bitcoinDataService;
         private readonly ILiveTileVisibilityService _liveTileVisibilityService;
-        private readonly ICustomCurrencyCodeServise _customCurrencyCodeServise;
+        private readonly ICustomCurrencySymbolServise _customCurrencyCodeServise;
 
         public ExchangeRateViewModel(string currencyCode, BitcoinExchangeRate exchangeRate)
         {
@@ -26,7 +26,7 @@ namespace Bitcoin.Curses.ViewModel
             _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
             _bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
             _liveTileVisibilityService = ServiceLocator.Current.GetInstance<ILiveTileVisibilityService>();
-            _customCurrencyCodeServise = ServiceLocator.Current.GetInstance<ICustomCurrencyCodeServise>();
+            _customCurrencyCodeServise = ServiceLocator.Current.GetInstance<ICustomCurrencySymbolServise>();
         }
 
         public string CurrencyCode

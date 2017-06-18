@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services.Interfaces
 {
-    public interface ICustomCurrencyCodeServise
+    public interface ICustomCurrencySymbolServise
     {
         void SetExchangeRateCustomCurrencySymbol(string exchangeRateKey, string customSymbol);
 

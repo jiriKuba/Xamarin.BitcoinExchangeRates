@@ -21,10 +21,10 @@ namespace Bitcoin.Curses.Services
         private readonly CurrencyHelper _helper;
         private readonly IDataProvideService _dataProvideService;
         private readonly ILiveTileVisibilityService _liveTileVisibilityService;
-        private readonly ICustomCurrencyCodeServise _customCurrencyCodeServise;
+        private readonly ICustomCurrencySymbolServise _customCurrencyCodeServise;
 
         public BitcoinDataService(IDataProvideService dataProvideService, ILiveTileVisibilityService liveTileVisibilityService,
-            ICustomCurrencyCodeServise customCurrencyCodeServise)
+            ICustomCurrencySymbolServise customCurrencyCodeServise)
         {
             _helper = new CurrencyHelper();
             _dataProvideService = dataProvideService;

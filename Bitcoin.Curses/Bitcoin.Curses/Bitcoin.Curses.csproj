@@ -54,9 +54,9 @@
     <Compile Include="SellPricePage.xaml.cs">
       <DependentUpon>SellPricePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\CustomCurrencyCodeServise.cs" />
+    <Compile Include="Services\CustomCurrencySymbolServise.cs" />
     <Compile Include="Services\DataProvideService.cs" />
-    <Compile Include="Services\Interfaces\ICustomCurrencyCodeServise.cs" />
+    <Compile Include="Services\Interfaces\ICustomCurrencySymbolServise.cs" />
     <Compile Include="Services\Interfaces\IDataProvideService.cs" />
     <Compile Include="Services\Interfaces\ILiveTileVisibilityService.cs" />
     <Compile Include="Services\LiveTileVisibilityService.cs" />
@@ -95,6 +95,7 @@
     <None Include="..\..\README.md">
       <Link>README.md</Link>
     </None>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -114,6 +115,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NodaMoney, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NodaMoney.1.0.0\lib\portable45-net45+win8+wp8+wpa81\NodaMoney.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.Settings, Version=2.5.8.0, Culture=neutral, processorArchitecture=MSIL">

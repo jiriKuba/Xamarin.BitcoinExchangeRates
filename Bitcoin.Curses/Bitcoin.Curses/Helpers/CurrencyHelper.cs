@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaMoney;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,12 @@ namespace Bitcoin.Curses.Helpers
 {
     public class CurrencyHelper
     {
-        public Dictionary<string, string> CurrencySymbols { get; private set; }
+        public readonly IDictionary<string, string> CurrencySymbols;
 
         public CurrencyHelper()
         {
-            CurrencySymbols = new Dictionary<string, string>();
-            CurrencySymbols.Add("CZK", "Kč");
+            CurrencySymbols = Currency.GetAllCurrencies()
+                .ToDictionary(x => x.Code, x => x.Symbol);
         }
     }
 }

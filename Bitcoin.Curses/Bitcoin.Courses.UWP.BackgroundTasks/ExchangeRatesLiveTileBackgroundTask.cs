@@ -37,7 +37,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         {
             try
             {
-                var bitcoinService = new BitcoinDataService(new DataProvideService(), new LiveTileVisibilityService(), new CustomCurrencyCodeServise());
+                var bitcoinService = new BitcoinDataService(new DataProvideService(), new LiveTileVisibilityService(), new CustomCurrencySymbolServise());
                 return await bitcoinService.GetExchangeRatesAsync();
             }
             catch (Exception ex)
