@@ -61,7 +61,7 @@
     <Debugger>.Net (Xamarin)</Debugger>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
-    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
     <EnableProguard>True</EnableProguard>
     <DebugSymbols>False</DebugSymbols>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
