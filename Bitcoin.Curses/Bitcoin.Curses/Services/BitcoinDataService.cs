@@ -95,6 +95,7 @@ namespace Bitcoin.Curses.Services
         {
             try
             {
+                throw new ArgumentException();
                 var rawExchangeRatesByUSD = await _dataProvideService.GetExchangeJSONData();
                 var exchangeRatesByUSD = JsonConvert.DeserializeObject<ExchangeRate>(rawExchangeRatesByUSD);
 
