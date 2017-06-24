@@ -36,14 +36,9 @@ namespace Bitcoin.Curses.Services
         {
             try
             {
-                var rawBitcoinExchangeRates = await _dataProvideService.GetBitcoinJSONData();
-                var bitcoinRateValues = JsonConvert.DeserializeObject<Dictionary<string, BitcoinExchangeRate>>(rawBitcoinExchangeRates);
-
-                var rawExchangeRatesByUSD = await _dataProvideService.GetExchangeJSONData();
-                var exchangeRatesByUSD = JsonConvert.DeserializeObject<ExchangeRate>(rawExchangeRatesByUSD);
-
-                var yesterdayUSDRateRawData = await _dataProvideService.GetHistoryJSONData();
-                var yesterdayUSDRate = JsonConvert.DeserializeObject<ExchangeRateHistory>(yesterdayUSDRateRawData);
+                var bitcoinRateValues = await GetBitcoinRateValues();
+                var exchangeRatesByUSD = await GetExchangeRatesByUSD();
+                var yesterdayUSDRate = await GetYesterdayUSDRate();
 
                 AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
 
@@ -68,6 +63,81 @@ namespace Bitcoin.Curses.Services
             {
                 Messenger.Default.Send<ExceptionMessage>(new ExceptionMessage(ex));
                 return new ExchangeRates();
+            }
+        }
+
+        private async Task<Dictionary<string, BitcoinExchangeRate>> GetBitcoinRateValues()
+        {
+            try
+            {
+                var rawBitcoinExchangeRates = await _dataProvideService.GetBitcoinJSONData();
+                var bitcoinRateValues = JsonConvert.DeserializeObject<Dictionary<string, BitcoinExchangeRate>>(rawBitcoinExchangeRates);
+
+                Settings.SetLastBitcoinExchangeRates(rawBitcoinExchangeRates);
+
+                return bitcoinRateValues;
+            }
+            catch
+            {
+                var historyValue = Settings.GetLastBitcoinExchangeRates();
+                if (string.IsNullOrEmpty(historyValue))
+                {
+                    throw new Exception("Unable to load bitcoin exchange rates data. Try again later.");
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<Dictionary<string, BitcoinExchangeRate>>(historyValue);
+                }
+            }
+        }
+
+        private async Task<ExchangeRate> GetExchangeRatesByUSD()
+        {
+            try
+            {
+                var rawExchangeRatesByUSD = await _dataProvideService.GetExchangeJSONData();
+                var exchangeRatesByUSD = JsonConvert.DeserializeObject<ExchangeRate>(rawExchangeRatesByUSD);
+
+                Settings.SetLastExchangeRatesByUSD(rawExchangeRatesByUSD);
+
+                return exchangeRatesByUSD;
+            }
+            catch
+            {
+                var historyValue = Settings.GetLastExchangeRatesByUSD();
+                if (string.IsNullOrEmpty(historyValue))
+                {
+                    throw new Exception("Unable to load USD exchange rates data. Try again later.");
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<ExchangeRate>(historyValue);
+                }
+            }
+        }
+
+        private async Task<ExchangeRateHistory> GetYesterdayUSDRate()
+        {
+            try
+            {
+                var yesterdayUSDRateRawData = await _dataProvideService.GetHistoryJSONData();
+                var yesterdayUSDRate = JsonConvert.DeserializeObject<ExchangeRateHistory>(yesterdayUSDRateRawData);
+
+                Settings.SetLastYesterdayUSDRate(yesterdayUSDRateRawData);
+
+                return yesterdayUSDRate;
+            }
+            catch
+            {
+                var historyValue = Settings.GetLastYesterdayUSDRate();
+                if (string.IsNullOrEmpty(historyValue))
+                {
+                    throw new Exception("Unable to load bitcoin exchange rate history. Try again later.");
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<ExchangeRateHistory>(historyValue);
+                }
             }
         }
 

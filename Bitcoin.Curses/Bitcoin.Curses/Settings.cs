@@ -13,6 +13,9 @@ namespace Bitcoin.Curses
         private const string EXCHANGE_RATES_LIVE_TITLE_VISIBILITY = "ExchangeRateViewModel.ShowRateInLiveTile.";
         private const string EXCHANGE_RATES_CUSTOM_SYMBOL = "ExchangeRateViewModel.CustomCurrencySymbol.";
         private const string LAST_VIEWED_EXCHANGE_RATE = "LastViewedExchangeRate";
+        private const string LAST_BITCOIN_EXCHANGE_RATES = "LastBitcoinExchangeRates";
+        private const string LAST_EXCHANGE_RATES_BY_USD = "LastExchangeRatesByUSD";
+        private const string LAST_YESTERDAY_USD_RATE = "LastYesterdayUSDRate";
         private const string DEFAULT_EXCHANGE_RATE = "USD";
 
         public static ISettings AppSettings
@@ -51,6 +54,36 @@ namespace Bitcoin.Curses
         public static void SetLastViewedCurrency(string currencyCode)
         {
             AppSettings.AddOrUpdateValue<string>(LAST_VIEWED_EXCHANGE_RATE, currencyCode);
+        }
+
+        public static string GetLastBitcoinExchangeRates()
+        {
+            return AppSettings.GetValueOrDefault<string>(LAST_BITCOIN_EXCHANGE_RATES, null);
+        }
+
+        public static void SetLastBitcoinExchangeRates(string rawBitcoinExchangeRates)
+        {
+            AppSettings.AddOrUpdateValue<string>(LAST_BITCOIN_EXCHANGE_RATES, rawBitcoinExchangeRates);
+        }
+
+        public static void SetLastExchangeRatesByUSD(string rawExchangeRatesByUSD)
+        {
+            AppSettings.AddOrUpdateValue<string>(LAST_EXCHANGE_RATES_BY_USD, rawExchangeRatesByUSD);
+        }
+
+        public static string GetLastExchangeRatesByUSD()
+        {
+            return AppSettings.GetValueOrDefault<string>(LAST_EXCHANGE_RATES_BY_USD, null);
+        }
+
+        public static void SetLastYesterdayUSDRate(string yesterdayUSDRateRawData)
+        {
+            AppSettings.AddOrUpdateValue<string>(LAST_YESTERDAY_USD_RATE, yesterdayUSDRateRawData);
+        }
+
+        public static string GetLastYesterdayUSDRate()
+        {
+            return AppSettings.GetValueOrDefault<string>(LAST_YESTERDAY_USD_RATE, null);
         }
     }
 }
