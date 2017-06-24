@@ -72,7 +72,11 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             {
                 //wide tile
                 var currencySymbol = string.IsNullOrEmpty(item.Value.CustomCurrencySymbol) ? item.Value.CurrencySymbol : item.Value.CustomCurrencySymbol;
-                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + currencySymbol);
+
+                var marketPriceDiference = GetMarketPriceDiference(item.Value.YesterdayRate, item.Value.RecentMarketPrice);
+                var marketPriceDiferenceLabel = GetMarketPriceDiferenceLabel(marketPriceDiference);
+
+                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + currencySymbol, marketPriceDiferenceLabel);
 
                 // Create a new tile notification.
                 updater.Update(new TileNotification(tileXml));
@@ -82,7 +86,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         /// <summary>
         /// Source: https://blogs.msdn.microsoft.com/tiles_and_toasts/2015/06/30/adaptive-tile-templates-schema-and-documentation/
         /// </summary>
-        private static XmlDocument GetTileXmlTemplate(string title, string body)
+        private static XmlDocument GetTileXmlTemplate(string title, string body, string marketPriceDiferenceLabel)
         {
             var sb = new StringBuilder();
 
@@ -90,18 +94,25 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             sb.AppendLine($"<visual branding=\"name\" displayName=\"{title}\">");
 
             sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
-            sb.AppendLine("<text hint-style = \"base\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine("<text hint-style = \"title\" hint-align=\"center\"></text>"); //margin
             sb.AppendLine($"<text hint-style = \"base\" hint-align=\"center\">{body}</text>");
+            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDiferenceLabel}</text>");
             sb.AppendLine("</binding >");
 
-            sb.AppendLine($"<binding template = \"TileWide\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
-            sb.AppendLine("<text hint-style = \"caption\" hint-align=\"center\"></text>"); //margin
-            sb.AppendLine($"<text hint-style = \"subheader\" hint-align=\"center\">{body}</text>");
+            sb.AppendLine($"<binding template = \"TileWide\" branding=\"name\" displayName=\"{title}\">");
+            sb.AppendLine("<group>");
+            sb.AppendLine("<subgroup >");
+            sb.AppendLine("<text hint-style = \"subtitle\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine($"<text hint-style = \"titleNumeral\" hint-align=\"center\">{body}</text>");
+            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDiferenceLabel}</text>");
+            sb.AppendLine("</subgroup>");
+            sb.AppendLine("</group>");
             sb.AppendLine("</binding>");
 
             sb.AppendLine($"<binding template = \"TileLarge\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
-            sb.AppendLine("<text hint-style = \"base\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine("<text hint-style = \"subtitle\" hint-align=\"center\"></text>"); //margin
             sb.AppendLine($"<text hint-style = \"subheader\" hint-align=\"center\">{body}</text>");
+            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDiferenceLabel}</text>");
             sb.AppendLine("</binding>");
 
             sb.AppendLine("</visual>");
@@ -110,6 +121,28 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             var result = new XmlDocument();
             result.LoadXml(sb.ToString());
             return result;
+        }
+
+        private static string GetMarketPriceDiferenceLabel(decimal marketPriceDiference)
+        {
+            var rounded = Math.Round(marketPriceDiference, 2);
+            if (rounded >= 0)
+            {
+                return "+ " + rounded.ToString("N2");
+            }
+            else if (rounded < 0)
+            {
+                return "- " + Math.Abs(rounded).ToString("N2");
+            }
+            else
+            {
+                return "+ " + decimal.Zero.ToString("N2");
+            }
+        }
+
+        private static decimal GetMarketPriceDiference(decimal yesterdayRate, decimal recentMarketPrice)
+        {
+            return yesterdayRate == 0 ? 0 : (recentMarketPrice - yesterdayRate);
         }
     }
 }
