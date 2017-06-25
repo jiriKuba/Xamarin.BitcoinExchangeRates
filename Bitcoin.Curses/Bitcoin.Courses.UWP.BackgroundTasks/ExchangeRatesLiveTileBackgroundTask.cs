@@ -73,10 +73,10 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
                 //wide tile
                 var currencySymbol = string.IsNullOrEmpty(item.Value.CustomCurrencySymbol) ? item.Value.CurrencySymbol : item.Value.CustomCurrencySymbol;
 
-                var marketPriceDiference = GetMarketPriceDiference(item.Value.YesterdayRate, item.Value.RecentMarketPrice);
-                var marketPriceDiferenceLabel = GetMarketPriceDiferenceLabel(marketPriceDiference);
+                var marketPriceDifference = GetMarketPriceDifference(item.Value.YesterdayRate, item.Value.RecentMarketPrice);
+                var marketPriceDifferenceLabel = GetMarketPriceDifferenceLabel(marketPriceDifference);
 
-                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + currencySymbol, marketPriceDiferenceLabel);
+                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + currencySymbol, marketPriceDifferenceLabel);
 
                 // Create a new tile notification.
                 updater.Update(new TileNotification(tileXml));
@@ -86,33 +86,29 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         /// <summary>
         /// Source: https://blogs.msdn.microsoft.com/tiles_and_toasts/2015/06/30/adaptive-tile-templates-schema-and-documentation/
         /// </summary>
-        private static XmlDocument GetTileXmlTemplate(string title, string body, string marketPriceDiferenceLabel)
+        private static XmlDocument GetTileXmlTemplate(string title, string body, string marketPriceDifferenceLabel)
         {
             var sb = new StringBuilder();
 
             sb.AppendLine("<tile>");
-            sb.AppendLine($"<visual branding=\"name\" displayName=\"{title}\">");
+            sb.AppendLine($"<visual branding=\"name\" displayName=\"BTC/{title}\">");
 
-            sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
+            sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
             sb.AppendLine("<text hint-style = \"title\" hint-align=\"center\"></text>"); //margin
             sb.AppendLine($"<text hint-style = \"base\" hint-align=\"center\">{body}</text>");
-            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDiferenceLabel}</text>");
+            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDifferenceLabel}</text>");
             sb.AppendLine("</binding >");
 
-            sb.AppendLine($"<binding template = \"TileWide\" branding=\"name\" displayName=\"{title}\">");
-            sb.AppendLine("<group>");
-            sb.AppendLine("<subgroup >");
+            sb.AppendLine($"<binding template = \"TileWide\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
             sb.AppendLine("<text hint-style = \"subtitle\" hint-align=\"center\"></text>"); //margin
             sb.AppendLine($"<text hint-style = \"titleNumeral\" hint-align=\"center\">{body}</text>");
-            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDiferenceLabel}</text>");
-            sb.AppendLine("</subgroup>");
-            sb.AppendLine("</group>");
+            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDifferenceLabel}</text>");
             sb.AppendLine("</binding>");
 
-            sb.AppendLine($"<binding template = \"TileLarge\" hint-textStacking=\"center\" branding=\"name\" displayName=\"{title}\">");
-            sb.AppendLine("<text hint-style = \"subtitle\" hint-align=\"center\"></text>"); //margin
+            sb.AppendLine($"<binding template = \"TileLarge\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
+            sb.AppendLine("<text hint-style = \"titleNumeral\" hint-align=\"center\"></text>"); //margin
             sb.AppendLine($"<text hint-style = \"subheader\" hint-align=\"center\">{body}</text>");
-            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDiferenceLabel}</text>");
+            sb.AppendLine($"<text hint-style = \"bodySubtle\" hint-align=\"center\">{marketPriceDifferenceLabel}</text>");
             sb.AppendLine("</binding>");
 
             sb.AppendLine("</visual>");
@@ -123,24 +119,24 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
             return result;
         }
 
-        private static string GetMarketPriceDiferenceLabel(decimal marketPriceDiference)
+        private static string GetMarketPriceDifferenceLabel(decimal marketPriceDifference)
         {
-            var rounded = Math.Round(marketPriceDiference, 2);
+            var rounded = Math.Round(marketPriceDifference, 2);
             if (rounded >= 0)
             {
-                return "+ " + rounded.ToString("N2");
+                return "+" + rounded.ToString("N2") + " ";
             }
             else if (rounded < 0)
             {
-                return "- " + Math.Abs(rounded).ToString("N2");
+                return "-" + Math.Abs(rounded).ToString("N2") + " ";
             }
             else
             {
-                return "+ " + decimal.Zero.ToString("N2");
+                return "+" + decimal.Zero.ToString("N2") + " ";
             }
         }
 
-        private static decimal GetMarketPriceDiference(decimal yesterdayRate, decimal recentMarketPrice)
+        private static decimal GetMarketPriceDifference(decimal yesterdayRate, decimal recentMarketPrice)
         {
             return yesterdayRate == 0 ? 0 : (recentMarketPrice - yesterdayRate);
         }
