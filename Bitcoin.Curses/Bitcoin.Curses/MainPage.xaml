@@ -29,8 +29,8 @@
                             HorizontalOptions="Start"
                             VerticalOptions="EndAndExpand" />
                         <Label Text="Bitcoin&#x0a;  Exchange&#x0a;Rate"
-                               FontSize="Large"
-                               Margin="10,0,0,0"
+                               FontSize="Medium"
+                               Margin="10,0,0,8"
                                HorizontalOptions="Start"
                                VerticalOptions="EndAndExpand"
                                TextColor="White" />
