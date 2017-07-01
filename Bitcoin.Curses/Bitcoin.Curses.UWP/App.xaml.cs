@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bitcoin.Curses.Services.Interfaces;
+using Microsoft.Practices.ServiceLocation;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -108,6 +110,32 @@ namespace Bitcoin.Curses.UWP
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+
+            if (ApiInformation.IsPropertyPresent(typeof(LaunchActivatedEventArgs).FullName, nameof(LaunchActivatedEventArgs.TileActivatedInfo)))
+            {
+                // If clicked on from tile
+                if (e.TileActivatedInfo != null)
+                {
+                    // If tile notification(s) were present
+                    if (e.TileActivatedInfo.RecentlyShownNotifications.Count > 0)
+                    {
+                        // Get arguments from the notifications that were recently displayed
+                        string currencyRedirectionArgument = e.TileActivatedInfo.RecentlyShownNotifications
+                        .Select(i => i.Arguments)
+                        .Where(x => x.Contains(Constants.CurrencyRedirectionArgumentSeparator) && x.StartsWith(Constants.CurrencyRedirectionArgumentCode))
+                        .FirstOrDefault();
+
+                        var redirectionToCurrency = string.IsNullOrEmpty(currencyRedirectionArgument) ? null : currencyRedirectionArgument.Split(Constants.CurrencyRedirectionArgumentSeparator[0]).Last();
+
+                        if (!string.IsNullOrEmpty(redirectionToCurrency))
+                        {
+                            Settings.SetLastViewedCurrency(redirectionToCurrency);
+                            ServiceLocator.Current.GetInstance<ICurrencyNavigateService>().NavigateToCurrency(redirectionToCurrency);
+                        }
+                    }
+                }
+            }
+
             // Ensure the current window is active
             Window.Current.Activate();
         }

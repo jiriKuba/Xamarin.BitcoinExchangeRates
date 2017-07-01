@@ -45,6 +45,7 @@
       <DependentUpon>BuyPricePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\PriceDiferenceTextColorConverter.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
@@ -54,8 +55,10 @@
     <Compile Include="SellPricePage.xaml.cs">
       <DependentUpon>SellPricePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\CurrencyNavigateService.cs" />
     <Compile Include="Services\CustomCurrencySymbolServise.cs" />
     <Compile Include="Services\DataProvideService.cs" />
+    <Compile Include="Services\Interfaces\ICurrencyNavigateService.cs" />
     <Compile Include="Services\Interfaces\ICustomCurrencySymbolServise.cs" />
     <Compile Include="Services\Interfaces\IDataProvideService.cs" />
     <Compile Include="Services\Interfaces\ILiveTileVisibilityService.cs" />

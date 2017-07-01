@@ -90,8 +90,9 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         {
             var sb = new StringBuilder();
 
+            var redirectionArgument = Constants.CurrencyRedirectionArgumentCode + Constants.CurrencyRedirectionArgumentSeparator + title;
             sb.AppendLine("<tile>");
-            sb.AppendLine($"<visual branding=\"name\" displayName=\"BTC/{title}\">");
+            sb.AppendLine($"<visual branding=\"name\" displayName=\"BTC/{title}\" arguments=\"{redirectionArgument}\">");
 
             sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
             sb.AppendLine("<text hint-style = \"title\" hint-align=\"center\"></text>"); //margin

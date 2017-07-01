@@ -1,4 +1,5 @@
 ﻿using Bitcoin.Curses.Messages;
+using Bitcoin.Curses.Services.Interfaces;
 using Bitcoin.Curses.ViewModel;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
@@ -13,29 +14,27 @@ namespace Bitcoin.Curses
 {
     public partial class MainPage : MasterDetailPage
     {
+        private readonly MainViewModel _mainViewModel;
+        private readonly ICurrencyNavigateService _currencyNavigateService;
+
         public MainPage()
         {
             InitializeComponent();
+            _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+            _currencyNavigateService = ServiceLocator.Current.GetInstance<ICurrencyNavigateService>();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ServiceLocator.Current.GetInstance<MainViewModel>().DoMainPageLoadCommand();
+            _mainViewModel.DoMainPageLoadCommand();
             Messenger.Default.Register<ExchangeRatesLoadedMessage>(this, (action) => SelectLastExchangeRate(action));
         }
 
         private void SelectLastExchangeRate(ExchangeRatesLoadedMessage message)
         {
             string selectedCurrency = Settings.GetLastViewedCurrency();
-
-            var mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
-            var exchangeViewModel = mainViewModel.ExchangeRates
-                .ExchangeRateList
-                .Where(x => x.CurrencyCode == selectedCurrency)
-                .FirstOrDefault();
-
-            mainViewModel.ExchangeRateDetail = exchangeViewModel;
+            _currencyNavigateService.NavigateToCurrency(selectedCurrency);
         }
 
         private void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -44,7 +43,7 @@ namespace Bitcoin.Curses
             if (item != null)
             {
                 Settings.SetLastViewedCurrency(item.CurrencyCode);
-                ServiceLocator.Current.GetInstance<MainViewModel>().ExchangeRateDetail = item;
+                _currencyNavigateService.NavigateToCurrency(item.CurrencyCode);
                 this.IsPresented = false;
             }
         }
