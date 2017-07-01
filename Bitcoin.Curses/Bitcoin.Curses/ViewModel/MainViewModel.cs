@@ -10,6 +10,7 @@ using Bitcoin.Curses.Services.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Bitcoin.Curses.Extensions;
 
 namespace Bitcoin.Curses.ViewModel
 {
@@ -43,12 +44,7 @@ namespace Bitcoin.Curses.ViewModel
                     _exchangeRates = new ExchangeRatesViewModel(_mainModel.ExchangeRates);
                 }
 
-                if (!string.IsNullOrEmpty(_searchText))
-                {
-                    return _exchangeRates.Search(_searchText);
-                }
-                else
-                    return _exchangeRates.ResetSearch();
+                return _exchangeRates;
             }
             set
             {
@@ -66,9 +62,30 @@ namespace Bitcoin.Curses.ViewModel
             set
             {
                 _searchText = value;
-                base.RaisePropertyChanged(() => SearchText);
-                base.RaisePropertyChanged(() => ExchangeRates);
+                RaisePropertyChanged(() => SearchText);
+                SearchExchangeRate();
             }
+        }
+
+        public bool IsSearchTextSet
+        {
+            get { return !string.IsNullOrEmpty(SearchText); }
+        }
+
+        private async void SearchExchangeRate()
+        {
+            ShowProgressBar = true;
+            var searchChanges = IsSearchTextSet
+                ? new ExchangeRates(_mainModel.ExchangeRates.ExchangeRateList.FilterByCurrencyCode(SearchText))
+                : _mainModel.ExchangeRates;
+            ExchangeRates = await LoadExchangeRatesViewModel(searchChanges);
+
+            if (ExchangeRates != null)
+            {
+                ShowProgressBar = false;
+            }
+
+            Messenger.Default.Send<ExchangeRatesLoadedMessage>(new ExchangeRatesLoadedMessage());
         }
 
         private bool _showProgressBar;

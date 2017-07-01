@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.ViewModel
 {
-    internal class ExchangeRateViewModel : ViewModelBase
+    public class ExchangeRateViewModel : ViewModelBase
     {
         private BitcoinExchangeRate _exchangeRate;
         private readonly string _currencyCode;

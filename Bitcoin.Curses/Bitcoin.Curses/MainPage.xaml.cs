@@ -37,14 +37,13 @@ namespace Bitcoin.Curses
             _currencyNavigateService.NavigateToCurrency(selectedCurrency);
         }
 
-        private void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ExchangeRatesList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            ExchangeRateViewModel item = e.SelectedItem as ExchangeRateViewModel;
+            ExchangeRateViewModel item = e.Item as ExchangeRateViewModel;
             if (item != null)
             {
                 Settings.SetLastViewedCurrency(item.CurrencyCode);
-                _currencyNavigateService.NavigateToCurrency(item.CurrencyCode);
-                this.IsPresented = false;
+                IsPresented = false;
             }
         }
     }

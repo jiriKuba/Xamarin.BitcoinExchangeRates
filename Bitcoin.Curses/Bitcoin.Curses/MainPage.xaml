@@ -54,8 +54,8 @@
                 </StackLayout>
                 <ListView x:Name="ExchangeRatesList"
                           Margin="10,-5,10,10"
-                          ItemSelected="OnListItemSelected"
                           SelectedItem="{Binding ExchangeRateDetail, Mode=TwoWay}"
+                          ItemTapped="ExchangeRatesList_ItemTapped"
                           SeparatorVisibility = "Default"
                           ItemsSource="{Binding ExchangeRates.ExchangeRateList}">
                     <ListView.Header>

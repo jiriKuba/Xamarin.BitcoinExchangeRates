@@ -8,7 +8,7 @@ namespace Bitcoin.Curses.Models
 {
     public class ExchangeRates
     {
-        public Dictionary<string, BitcoinExchangeRate> ExchangeRateList { get; private set; }
+        public IDictionary<string, BitcoinExchangeRate> ExchangeRateList { get; private set; }
 
         public DateTime Generated { get; private set; }
 
@@ -18,7 +18,7 @@ namespace Bitcoin.Curses.Models
             ExchangeRateList = new Dictionary<string, BitcoinExchangeRate>();
         }
 
-        public ExchangeRates(Dictionary<string, BitcoinExchangeRate> exchangeRateList)
+        public ExchangeRates(IDictionary<string, BitcoinExchangeRate> exchangeRateList)
         {
             Generated = DateTime.Now;
             ExchangeRateList = exchangeRateList;

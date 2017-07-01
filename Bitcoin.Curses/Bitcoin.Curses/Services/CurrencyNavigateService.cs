@@ -21,8 +21,7 @@ namespace Bitcoin.Curses.Services
         public void NavigateToCurrency(string currencyCode)
         {
             var exchangeRate = _mainViewModel.ExchangeRates.ExchangeRateList
-                .Where(x => x.CurrencyCode == currencyCode)
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.CurrencyCode == currencyCode);
 
             if (exchangeRate != null)
             {

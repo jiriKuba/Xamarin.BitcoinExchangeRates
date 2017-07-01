@@ -46,6 +46,7 @@
     </Compile>
     <Compile Include="Converters\PriceDiferenceTextColorConverter.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Extensions\ExchangeRateDictionaryExtensions.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
