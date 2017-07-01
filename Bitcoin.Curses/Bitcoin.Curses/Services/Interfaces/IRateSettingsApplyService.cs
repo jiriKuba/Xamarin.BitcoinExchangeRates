@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services.Interfaces
 {
-    public interface ILiveTileVisibilityService
+    public interface IRateSettingsApplyService
     {
         void SetExchangeRateVisibleOnLiveTile(string exchangeRateKey, bool isVisible);
 
-        void AddLiveTileVisibilityToModel(Dictionary<string, BitcoinExchangeRate> models);
+        void SetExchangeRateCurrencySymbolOnStart(string exchangeRateKey, bool isOnStart);
+
+        void ApplySettingsToModels(Dictionary<string, BitcoinExchangeRate> models);
     }
 }

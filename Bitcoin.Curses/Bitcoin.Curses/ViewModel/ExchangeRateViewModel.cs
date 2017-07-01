@@ -16,7 +16,7 @@ namespace Bitcoin.Curses.ViewModel
         private readonly string _currencyCode;
         private readonly MainViewModel _mainViewModel;
         private readonly IBitcoinDataService _bitcoinDataService;
-        private readonly ILiveTileVisibilityService _liveTileVisibilityService;
+        private readonly IRateSettingsApplyService _rateSettingsApplyService;
         private readonly ICustomCurrencySymbolServise _customCurrencyCodeServise;
 
         public ExchangeRateViewModel(string currencyCode, BitcoinExchangeRate exchangeRate)
@@ -25,7 +25,7 @@ namespace Bitcoin.Curses.ViewModel
             _currencyCode = currencyCode == null ? string.Empty : currencyCode;
             _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
             _bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
-            _liveTileVisibilityService = ServiceLocator.Current.GetInstance<ILiveTileVisibilityService>();
+            _rateSettingsApplyService = ServiceLocator.Current.GetInstance<IRateSettingsApplyService>();
             _customCurrencyCodeServise = ServiceLocator.Current.GetInstance<ICustomCurrencySymbolServise>();
         }
 
@@ -67,14 +67,14 @@ namespace Bitcoin.Curses.ViewModel
                 {
                     if (MarketPriceDifference.HasValue)
                     {
-                        var rounded = Math.Round(MarketPriceDifference.Value, 2);
-                        if (rounded >= 0)
+                        var rateValue = MarketPriceDifference.Value;
+                        if (rateValue >= 0)
                         {
-                            return "+ " + rounded.ToString("N2");
+                            return "+ " + rateValue.ToString("N2");
                         }
-                        else if (rounded < 0)
+                        else if (rateValue < 0)
                         {
-                            return "- " + Math.Abs(rounded).ToString("N2");
+                            return "- " + Math.Abs(rateValue).ToString("N2");
                         }
                         else
                         {
@@ -106,7 +106,14 @@ namespace Bitcoin.Curses.ViewModel
             {
                 if (_exchangeRate != null)
                 {
-                    return string.Format("{0}{1}", DelayedMarketPrice.HasValue ? Math.Round(DelayedMarketPrice.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
+                    if (IsCurrencySymbolOnStart)
+                    {
+                        return string.Format("{1}{0}", DelayedMarketPrice.HasValue ? DelayedMarketPrice.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
+                    else
+                    {
+                        return string.Format("{0}{1}", DelayedMarketPrice.HasValue ? DelayedMarketPrice.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
                 }
                 else return null;
             }
@@ -128,7 +135,14 @@ namespace Bitcoin.Curses.ViewModel
             {
                 if (_exchangeRate != null)
                 {
-                    return string.Format("{0}{1}", RecentMarketPrice.HasValue ? Math.Round(RecentMarketPrice.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
+                    if (IsCurrencySymbolOnStart)
+                    {
+                        return string.Format("{1}{0}", RecentMarketPrice.HasValue ? RecentMarketPrice.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
+                    else
+                    {
+                        return string.Format("{0}{1}", RecentMarketPrice.HasValue ? RecentMarketPrice.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
                 }
                 else return string.Empty;
             }
@@ -150,7 +164,14 @@ namespace Bitcoin.Curses.ViewModel
             {
                 if (_exchangeRate != null)
                 {
-                    return string.Format("{0}{1}", Buy.HasValue ? Math.Round(Buy.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
+                    if (IsCurrencySymbolOnStart)
+                    {
+                        return string.Format("{1}{0}", Buy.HasValue ? Buy.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
+                    else
+                    {
+                        return string.Format("{0}{1}", Buy.HasValue ? Buy.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
                 }
                 else return string.Empty;
             }
@@ -182,7 +203,14 @@ namespace Bitcoin.Curses.ViewModel
             {
                 if (_exchangeRate != null)
                 {
-                    return string.Format("{0}{1}", Sell.HasValue ? Math.Round(Sell.Value, 2).ToString("N2") : string.Empty, CurrencySymbol);
+                    if (IsCurrencySymbolOnStart)
+                    {
+                        return string.Format("{1}{0}", Sell.HasValue ? Sell.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
+                    else
+                    {
+                        return string.Format("{0}{1}", Sell.HasValue ? Sell.Value.ToString("N2") : string.Empty, CurrencySymbol);
+                    }
                 }
                 else return string.Empty;
             }
@@ -250,9 +278,29 @@ namespace Bitcoin.Curses.ViewModel
             }
             set
             {
-                _liveTileVisibilityService.SetExchangeRateVisibleOnLiveTile(CurrencyCode, value);
+                _rateSettingsApplyService.SetExchangeRateVisibleOnLiveTile(CurrencyCode, value);
                 _exchangeRate.IsVisibleOnLiveTile = value;
                 RaisePropertyChanged(() => ShowRateInLiveTile);
+            }
+        }
+
+        public bool IsCurrencySymbolOnStart
+        {
+            get
+            {
+                return _exchangeRate.IsCurrencySymbolOnStart;
+            }
+            set
+            {
+                _rateSettingsApplyService.SetExchangeRateCurrencySymbolOnStart(CurrencyCode, value);
+                _exchangeRate.IsCurrencySymbolOnStart = value;
+                RaisePropertyChanged(() => IsCurrencySymbolOnStart);
+                RaisePropertyChanged(() => SellLabel);
+                RaisePropertyChanged(() => BuyLabel);
+                RaisePropertyChanged(() => RecentMarketPriceLabel);
+                RaisePropertyChanged(() => DelayedMarketPriceLabel);
+                RaisePropertyChanged(() => ExchangeRateLabel);
+                RaisePropertyChanged(() => MarketPriceDifferenceLabel);
             }
         }
 

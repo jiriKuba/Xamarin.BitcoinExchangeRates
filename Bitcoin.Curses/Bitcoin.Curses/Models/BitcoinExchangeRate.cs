@@ -35,9 +35,13 @@ namespace Bitcoin.Curses.Models
         [JsonIgnore]
         public decimal YesterdayRate { get; set; }
 
+        [JsonIgnore]
+        public bool IsCurrencySymbolOnStart { get; internal set; }
+
         public BitcoinExchangeRate()
         {
             IsVisibleOnLiveTile = false;
+            IsCurrencySymbolOnStart = false;
         }
     }
 }

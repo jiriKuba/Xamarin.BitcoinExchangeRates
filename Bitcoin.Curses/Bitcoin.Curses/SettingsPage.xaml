@@ -29,6 +29,7 @@
                                    Placeholder="{Binding CurrencySymbol}"
                                    LabelColor="{DynamicResource WhiteColor}"
                                    Text="{Binding CustomCurrencySymbol}" />
+                        <SwitchCell Text="Currency symbol before value" On="{Binding IsCurrencySymbolOnStart}"></SwitchCell>
                         <SwitchCell Text="Show in live tile" On="{Binding ShowRateInLiveTile}"></SwitchCell>
                     </TableSection>
                 </TableRoot>
@@ -46,6 +47,7 @@
                 <TableRoot>
                     <TableSection Title="Customization">
                         <EntryCell Label="Custom currency symbol" Placeholder="{Binding CurrencySymbol}" Text="{Binding CustomCurrencySymbol}" />
+                        <SwitchCell Text="Currency symbol before value" On="{Binding IsCurrencySymbolOnStart}"></SwitchCell>
                     </TableSection>
                 </TableRoot>
             </TableView>

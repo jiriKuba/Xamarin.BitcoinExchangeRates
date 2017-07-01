@@ -20,10 +20,10 @@ namespace Bitcoin.Curses.Services
 
         private readonly CurrencyHelper _helper;
         private readonly IDataProvideService _dataProvideService;
-        private readonly ILiveTileVisibilityService _liveTileVisibilityService;
+        private readonly IRateSettingsApplyService _liveTileVisibilityService;
         private readonly ICustomCurrencySymbolServise _customCurrencyCodeServise;
 
-        public BitcoinDataService(IDataProvideService dataProvideService, ILiveTileVisibilityService liveTileVisibilityService,
+        public BitcoinDataService(IDataProvideService dataProvideService, IRateSettingsApplyService liveTileVisibilityService,
             ICustomCurrencySymbolServise customCurrencyCodeServise)
         {
             _helper = new CurrencyHelper();
@@ -44,7 +44,7 @@ namespace Bitcoin.Curses.Services
 
                 AddYesterdayRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD, yesterdayUSDRate);
 
-                _liveTileVisibilityService.AddLiveTileVisibilityToModel(bitcoinRateValues);
+                _liveTileVisibilityService.ApplySettingsToModels(bitcoinRateValues);
                 _customCurrencyCodeServise.AddCustomCurrencySymbolToModel(bitcoinRateValues);
                 var result = new ExchangeRates(bitcoinRateValues
                     .OrderBy(x => x.Key)

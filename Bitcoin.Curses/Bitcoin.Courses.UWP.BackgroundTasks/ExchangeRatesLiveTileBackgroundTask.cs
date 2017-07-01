@@ -37,7 +37,7 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
         {
             try
             {
-                var bitcoinService = new BitcoinDataService(new DataProvideService(), new LiveTileVisibilityService(), new CustomCurrencySymbolServise());
+                var bitcoinService = new BitcoinDataService(new DataProvideService(), new RateSettingsApplyService(), new CustomCurrencySymbolServise());
                 return await bitcoinService.GetExchangeRatesAsync();
             }
             catch (Exception ex)
@@ -70,13 +70,18 @@ namespace Bitcoin.Courses.UWP.BackgroundTasks
 
             foreach (var item in topFiveRates)
             {
-                //wide tile
-                var currencySymbol = string.IsNullOrEmpty(item.Value.CustomCurrencySymbol) ? item.Value.CurrencySymbol : item.Value.CustomCurrencySymbol;
+                var currencySymbol = string.IsNullOrEmpty(item.Value.CustomCurrencySymbol)
+                    ? item.Value.CurrencySymbol
+                    : item.Value.CustomCurrencySymbol;
 
                 var marketPriceDifference = GetMarketPriceDifference(item.Value.YesterdayRate, item.Value.RecentMarketPrice);
                 var marketPriceDifferenceLabel = GetMarketPriceDifferenceLabel(marketPriceDifference);
 
-                var tileXml = GetTileXmlTemplate(item.Key, item.Value.RecentMarketPrice.ToString("N2") + currencySymbol, marketPriceDifferenceLabel);
+                var valueWithSymbol = item.Value.IsCurrencySymbolOnStart
+                    ? currencySymbol + item.Value.RecentMarketPrice.ToString("N2")
+                    : item.Value.RecentMarketPrice.ToString("N2") + currencySymbol;
+
+                var tileXml = GetTileXmlTemplate(item.Key, valueWithSymbol, marketPriceDifferenceLabel);
 
                 // Create a new tile notification.
                 updater.Update(new TileNotification(tileXml));

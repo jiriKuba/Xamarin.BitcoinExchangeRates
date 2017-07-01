@@ -8,20 +8,26 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services
 {
-    public class LiveTileVisibilityService : ILiveTileVisibilityService
+    public class RateSettingsApplyService : IRateSettingsApplyService
     {
         public void SetExchangeRateVisibleOnLiveTile(string exchangeRateKey, bool isVisible)
         {
             Settings.SetLiveTileVisibility(exchangeRateKey, isVisible);
         }
 
-        public void AddLiveTileVisibilityToModel(Dictionary<string, BitcoinExchangeRate> models)
+        public void SetExchangeRateCurrencySymbolOnStart(string exchangeRateKey, bool isOnStart)
+        {
+            Settings.SetCurrencySymbolOnStartForCurrency(exchangeRateKey, isOnStart);
+        }
+
+        public void ApplySettingsToModels(Dictionary<string, BitcoinExchangeRate> models)
         {
             if (models != null)
             {
                 foreach (var rate in models)
                 {
                     rate.Value.IsVisibleOnLiveTile = Settings.IsLiveTileVisibility(rate.Key);
+                    rate.Value.IsCurrencySymbolOnStart = Settings.IsCurrencySymbolOnStartForCurrency(rate.Key);
                 }
             }
         }

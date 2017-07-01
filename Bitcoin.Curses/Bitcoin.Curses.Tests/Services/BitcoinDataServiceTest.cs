@@ -20,7 +20,7 @@ namespace Bitcoin.Curses.Tests.Services
             dataService.GetBitcoinJSONData().Returns(Task.FromResult<string>(null));
             dataService.GetExchangeJSONData().Returns(Task.FromResult<string>(null));
 
-            var liveTileService = Substitute.For<ILiveTileVisibilityService>();
+            var liveTileService = Substitute.For<IRateSettingsApplyService>();
 
             var bitcoinService = new BitcoinDataService(dataService, liveTileService);
             var result = bitcoinService.GetExchangeRatesAsync().Result;
@@ -35,7 +35,7 @@ namespace Bitcoin.Curses.Tests.Services
             dataService.GetBitcoinJSONData().Returns(Task.FromResult<string>("{ \"USD\" : {\"15m\" : 1151.57, \"last\" : 1151.57, \"buy\" : 1150.01, \"sell\" : 1151.57, \"symbol\" : \"$\"}, \"EUR\" : {\"15m\" : 1090.41, \"last\" : 1090.41, \"buy\" : 1088.93, \"sell\" : 1090.41, \"symbol\" : \"€\"} }"));
             dataService.GetExchangeJSONData().Returns(Task.FromResult<string>("{\"base\":\"USD\",\"date\":\"2017-02-24\",\"rates\":{\"CZK\":25.47}}"));
 
-            var liveTileService = Substitute.For<ILiveTileVisibilityService>();
+            var liveTileService = Substitute.For<IRateSettingsApplyService>();
 
             var bitcoinService = new BitcoinDataService(dataService, liveTileService);
             var result = bitcoinService.GetExchangeRatesAsync().Result;
