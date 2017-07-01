@@ -72,9 +72,9 @@
                             Grid.Row="1"
                             Grid.ColumnSpan="3"
                             HorizontalTextAlignment="End"
-                            TextColor="{Binding MarketPriceDiferenceLabel, Converter={convert:PriceDiferenceTextColorConverter}}"
+                            TextColor="{Binding MarketPriceDifferenceLabel, Converter={convert:PriceDifferenceTextColorConverter}}"
                             FontSize="Medium"
-                            Text="{Binding MarketPriceDiferenceLabel}" />
+                            Text="{Binding MarketPriceDifferenceLabel}" />
                 </Grid>
             </Grid>
         </ScrollView>

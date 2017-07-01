@@ -49,7 +49,7 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public decimal? MarketPriceDiference
+        public decimal? MarketPriceDifference
         {
             get
             {
@@ -59,15 +59,15 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public string MarketPriceDiferenceLabel
+        public string MarketPriceDifferenceLabel
         {
             get
             {
                 if (_exchangeRate != null)
                 {
-                    if (MarketPriceDiference.HasValue)
+                    if (MarketPriceDifference.HasValue)
                     {
-                        var rounded = Math.Round(MarketPriceDiference.Value, 2);
+                        var rounded = Math.Round(MarketPriceDifference.Value, 2);
                         if (rounded >= 0)
                         {
                             return "+ " + rounded.ToString("N2");
@@ -266,7 +266,7 @@ namespace Bitcoin.Curses.ViewModel
             RaisePropertyChanged(() => RecentMarketPriceLabel);
             RaisePropertyChanged(() => DelayedMarketPriceLabel);
             RaisePropertyChanged(() => ExchangeRateLabel);
-            RaisePropertyChanged(() => MarketPriceDiferenceLabel);
+            RaisePropertyChanged(() => MarketPriceDifferenceLabel);
         }
     }
 }

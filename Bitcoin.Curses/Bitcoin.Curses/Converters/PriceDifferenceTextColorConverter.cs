@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Bitcoin.Curses.Converters
 {
-    public class PriceDiferenceTextColorConverter : IValueConverter
+    public class PriceDifferenceTextColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
