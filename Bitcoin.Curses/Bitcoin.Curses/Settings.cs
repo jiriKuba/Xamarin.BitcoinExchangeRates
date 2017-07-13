@@ -29,72 +29,72 @@ namespace Bitcoin.Curses
 
         public static bool IsLiveTileVisibility(string currencyCode)
         {
-            return AppSettings.GetValueOrDefault<bool>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, false);
+            return AppSettings.GetValueOrDefault(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, false);
         }
 
         public static void SetLiveTileVisibility(string currencyCode, bool isVisible)
         {
-            AppSettings.AddOrUpdateValue<bool>(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, isVisible);
+            AppSettings.AddOrUpdateValue(EXCHANGE_RATES_LIVE_TITLE_VISIBILITY + currencyCode, isVisible);
         }
 
         public static bool IsCurrencySymbolOnStartForCurrency(string currencyCode)
         {
-            return AppSettings.GetValueOrDefault<bool>(EXCHANGE_RATES_CURRENCY_SYMBOL_ON_START + currencyCode, false);
+            return AppSettings.GetValueOrDefault(EXCHANGE_RATES_CURRENCY_SYMBOL_ON_START + currencyCode, false);
         }
 
         public static void SetCurrencySymbolOnStartForCurrency(string currencyCode, bool isOnStart)
         {
-            AppSettings.AddOrUpdateValue<bool>(EXCHANGE_RATES_CURRENCY_SYMBOL_ON_START + currencyCode, isOnStart);
+            AppSettings.AddOrUpdateValue(EXCHANGE_RATES_CURRENCY_SYMBOL_ON_START + currencyCode, isOnStart);
         }
 
         public static string GetCustomCurrencySymbol(string currencyCode)
         {
-            return AppSettings.GetValueOrDefault<string>(EXCHANGE_RATES_CUSTOM_SYMBOL + currencyCode, null);
+            return AppSettings.GetValueOrDefault(EXCHANGE_RATES_CUSTOM_SYMBOL + currencyCode, null);
         }
 
         public static void SetCustomCurrencySymbol(string currencyCode, string customSymbol)
         {
-            AppSettings.AddOrUpdateValue<string>(EXCHANGE_RATES_CUSTOM_SYMBOL + currencyCode, customSymbol);
+            AppSettings.AddOrUpdateValue(EXCHANGE_RATES_CUSTOM_SYMBOL + currencyCode, customSymbol);
         }
 
         public static string GetLastViewedCurrency()
         {
-            return AppSettings.GetValueOrDefault<string>(LAST_VIEWED_EXCHANGE_RATE, DEFAULT_EXCHANGE_RATE);
+            return AppSettings.GetValueOrDefault(LAST_VIEWED_EXCHANGE_RATE, DEFAULT_EXCHANGE_RATE);
         }
 
         public static void SetLastViewedCurrency(string currencyCode)
         {
-            AppSettings.AddOrUpdateValue<string>(LAST_VIEWED_EXCHANGE_RATE, currencyCode);
+            AppSettings.AddOrUpdateValue(LAST_VIEWED_EXCHANGE_RATE, currencyCode);
         }
 
         public static string GetLastBitcoinExchangeRates()
         {
-            return AppSettings.GetValueOrDefault<string>(LAST_BITCOIN_EXCHANGE_RATES, null);
+            return AppSettings.GetValueOrDefault(LAST_BITCOIN_EXCHANGE_RATES, null);
         }
 
         public static void SetLastBitcoinExchangeRates(string rawBitcoinExchangeRates)
         {
-            AppSettings.AddOrUpdateValue<string>(LAST_BITCOIN_EXCHANGE_RATES, rawBitcoinExchangeRates);
+            AppSettings.AddOrUpdateValue(LAST_BITCOIN_EXCHANGE_RATES, rawBitcoinExchangeRates);
         }
 
         public static void SetLastExchangeRatesByUSD(string rawExchangeRatesByUSD)
         {
-            AppSettings.AddOrUpdateValue<string>(LAST_EXCHANGE_RATES_BY_USD, rawExchangeRatesByUSD);
+            AppSettings.AddOrUpdateValue(LAST_EXCHANGE_RATES_BY_USD, rawExchangeRatesByUSD);
         }
 
         public static string GetLastExchangeRatesByUSD()
         {
-            return AppSettings.GetValueOrDefault<string>(LAST_EXCHANGE_RATES_BY_USD, null);
+            return AppSettings.GetValueOrDefault(LAST_EXCHANGE_RATES_BY_USD, null);
         }
 
         public static void SetLastYesterdayUSDRate(string yesterdayUSDRateRawData)
         {
-            AppSettings.AddOrUpdateValue<string>(LAST_YESTERDAY_USD_RATE, yesterdayUSDRateRawData);
+            AppSettings.AddOrUpdateValue(LAST_YESTERDAY_USD_RATE, yesterdayUSDRateRawData);
         }
 
         public static string GetLastYesterdayUSDRate()
         {
-            return AppSettings.GetValueOrDefault<string>(LAST_YESTERDAY_USD_RATE, null);
+            return AppSettings.GetValueOrDefault(LAST_YESTERDAY_USD_RATE, null);
         }
     }
 }
