@@ -1,4 +1,5 @@
-﻿using Plugin.Settings;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,14 @@ namespace Bitcoin.Curses
         {
             get
             {
-                return CrossSettings.Current;
+                if (SimpleIoc.Default.IsRegistered<ISettings>())
+                {
+                    return SimpleIoc.Default.GetInstance<ISettings>();
+                }
+                else
+                {
+                    return CrossSettings.Current;
+                }
             }
         }
 

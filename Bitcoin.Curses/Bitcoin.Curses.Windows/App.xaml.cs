@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bitcoin.Courses.Windows.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,6 +46,8 @@ namespace Bitcoin.Curses.Windows
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            SettingsImplementation.Init();
+
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -56,6 +61,36 @@ namespace Bitcoin.Curses.Windows
             // just ensure that the window is active
             if (rootFrame == null)
             {
+                //Color currentAccentColorHex = ((SolidColorBrush)Application.Current.Resources["SystemControlHighlightAccentBrush"]).Color;
+                //Color currentInactiveAccentColorHex = ((Color)Application.Current.Resources["SystemDisabledWindowAppbarColor"]);
+
+                //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                //{
+                //    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                //    if (titleBar != null)
+                //    {
+                //        titleBar.ButtonBackgroundColor = currentAccentColorHex;
+                //        titleBar.ButtonForegroundColor = Colors.White;
+                //        titleBar.BackgroundColor = currentAccentColorHex;
+                //        titleBar.ForegroundColor = Colors.White;
+
+                //        titleBar.InactiveBackgroundColor = currentInactiveAccentColorHex;
+                //        titleBar.ButtonInactiveBackgroundColor = currentInactiveAccentColorHex;
+                //    }
+                //}
+
+                ////Mobile customization
+                //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+                //{
+                //    var statusBar = StatusBar.GetForCurrentView();
+                //    if (statusBar != null)
+                //    {
+                //        statusBar.BackgroundOpacity = 1;
+                //        statusBar.BackgroundColor = currentAccentColorHex;
+                //        statusBar.ForegroundColor = Colors.White;
+                //    }
+                //}
+
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
@@ -83,6 +118,31 @@ namespace Bitcoin.Curses.Windows
                     throw new Exception("Failed to create initial page");
                 }
             }
+
+            //if (ApiInformation.IsPropertyPresent(typeof(LaunchActivatedEventArgs).FullName, nameof(LaunchActivatedEventArgs.TileId)))
+            //{
+            //    // If clicked on from tile
+            //    if (e.TileId != null)
+            //    {
+            //        //// If tile notification(s) were present
+            //        //if (e.TileActivatedInfo.RecentlyShownNotifications.Count > 0)
+            //        //{
+            //        //    // Get arguments from the notifications that were recently displayed
+            //        //    string currencyRedirectionArgument = e.TileActivatedInfo.RecentlyShownNotifications
+            //        //    .Select(i => i.Arguments)
+            //        //    .Where(x => x.Contains(Constants.CurrencyRedirectionArgumentSeparator) && x.StartsWith(Constants.CurrencyRedirectionArgumentCode))
+            //        //    .FirstOrDefault();
+
+            //        //    var redirectionToCurrency = string.IsNullOrEmpty(currencyRedirectionArgument) ? null : currencyRedirectionArgument.Split(Constants.CurrencyRedirectionArgumentSeparator[0]).Last();
+
+            //        //    if (!string.IsNullOrEmpty(redirectionToCurrency))
+            //        //    {
+            //        //        Settings.SetLastViewedCurrency(redirectionToCurrency);
+            //        //        ServiceLocator.Current.GetInstance<ICurrencyNavigateService>().NavigateToCurrency(redirectionToCurrency);
+            //        //    }
+            //        //}
+            //    }
+            //}
 
             // Ensure the current window is active
             Window.Current.Activate();
