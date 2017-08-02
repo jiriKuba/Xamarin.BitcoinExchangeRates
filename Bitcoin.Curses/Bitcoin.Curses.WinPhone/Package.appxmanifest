@@ -1,41 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-
-  <Identity Name="684b9c90-4abd-46c0-a2f9-3c771ce3f0c3"
-            Publisher="CN=pisth"
-            Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="684b9c90-4abd-46c0-a2f9-3c771ce3f0c3" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+  <Identity Name="684b9c90-4abd-46c0-a2f9-3c771ce3f0c3" Publisher="CN=pisth" Version="0.9.8.0" />
+  <mp:PhoneIdentity PhoneProductId="684b9c90-4abd-46c0-a2f9-3c771ce3f0c3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Bitcoin.Curses.WinPhone</DisplayName>
-    <PublisherDisplayName>pisth</PublisherDisplayName>
+    <DisplayName>Bitcoin Exchange Rate</DisplayName>
+    <PublisherDisplayName>Jiri Kuba</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.3.1</OSMinVersion>
     <OSMaxVersionTested>6.3.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="Bitcoin.Curses.WinPhone.App">
-      <m3:VisualElements
-          DisplayName="Bitcoin.Curses.WinPhone"
-          Square150x150Logo="Assets\Logo.png"
-          Square44x44Logo="Assets\SmallLogo.png"
-          Description="Bitcoin.Curses.WinPhone"
-          ForegroundText="light"
-          BackgroundColor="transparent">
-        <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png"/>
-        <m3:SplashScreen Image="Assets\SplashScreen.png"/>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Bitcoin.Curses.WinPhone.App">
+      <m3:VisualElements DisplayName="Bitcoin Exchange Rate" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="Application will get actual bitcoin exchange rates and 24 hour rate difference. Result can be displayed as a live tile." ForegroundText="light" BackgroundColor="#F7931A">
+        <m3:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
+        <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
+        </m3:DefaultTile>
+        <m3:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#F7931A" />
+        <m3:InitialRotationPreference>
+          <m3:Rotation Preference="portrait" />
+          <m3:Rotation Preference="landscape" />
+          <m3:Rotation Preference="landscapeFlipped" />
+        </m3:InitialRotationPreference>
       </m3:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="Bitcoin.Courses.Windows.BackgroundTask.ExchangeRatesLiveTileBackgroundTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

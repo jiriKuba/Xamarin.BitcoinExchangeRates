@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bitcoin.Courses.Windows.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,6 +46,7 @@ namespace Bitcoin.Curses.WinPhone
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            SettingsImplementation.Init();
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
