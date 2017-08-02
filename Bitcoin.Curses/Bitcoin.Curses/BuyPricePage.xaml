@@ -11,6 +11,7 @@
     <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
         <Label Text="Buy price for:" FontSize="Large" />
         <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" />
+        <Label Text="" FontSize="Micro" />
         <ScrollView HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
@@ -28,6 +29,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="240" />
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
 
@@ -74,6 +76,12 @@
                             HorizontalTextAlignment="End"
                             FontSize="Medium"
                             Text=" " />
+
+                    <!-- bottom margin-->
+                    <Label  Grid.Column="0"
+                            Grid.Row="2"
+                            FontSize="Micro"
+                            Text="" />
                 </Grid>
             </Grid>
         </ScrollView>
