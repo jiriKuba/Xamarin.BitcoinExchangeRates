@@ -30,7 +30,7 @@
                                    LabelColor="{DynamicResource WhiteColor}"
                                    Text="{Binding CustomCurrencySymbol}" />
                         <SwitchCell Text="Currency symbol before value" On="{Binding IsCurrencySymbolOnStart}"></SwitchCell>
-                        <SwitchCell Text="Show in live tile" On="{Binding ShowRateInLiveTile}"></SwitchCell>
+                        <SwitchCell Text="Show on live tile" On="{Binding ShowRateInLiveTile}"></SwitchCell>
                     </TableSection>
                 </TableRoot>
             </TableView>
