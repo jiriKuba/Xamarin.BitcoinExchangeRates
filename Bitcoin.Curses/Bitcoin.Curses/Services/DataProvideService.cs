@@ -13,12 +13,18 @@ namespace Bitcoin.Curses.Services
         //http://www.coindesk.com/api/ maybe better api
         private const string BITCOIN_EXCHANGE_RATES_API_URL = "https://blockchain.info/ticker";
 
+        private const string BITCOIN_SPOT_EXCHANGE_RATE_FROM_USD = "https://api.coindesk.com/v1/bpi/currentprice/USD.json";
         private const string BITCOIN_EXCHANGE_RATES_HISTORY_API_URL = "http://api.coindesk.com/v1/bpi/historical/close.json?for=yesterday";
         private const string EXCHANGE_RATES_API_URL = "http://api.fixer.io/latest?base=USD";
 
         public async Task<string> GetBitcoinJSONData()
         {
             return await GetStringFromURLAsync(BITCOIN_EXCHANGE_RATES_API_URL);
+        }
+
+        public async Task<string> GetSpotBitcoinJSONDataFromUSD()
+        {
+            return await GetStringFromURLAsync(BITCOIN_SPOT_EXCHANGE_RATE_FROM_USD);
         }
 
         public async Task<string> GetExchangeJSONData()

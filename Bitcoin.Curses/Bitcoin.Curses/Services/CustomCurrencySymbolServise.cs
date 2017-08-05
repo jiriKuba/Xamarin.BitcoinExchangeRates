@@ -10,7 +10,7 @@ namespace Bitcoin.Curses.Services
 {
     public class CustomCurrencySymbolServise : ICustomCurrencySymbolServise
     {
-        public void AddCustomCurrencySymbolToModel(Dictionary<string, BitcoinExchangeRate> models)
+        public void AddCustomCurrencySymbolToModel(IDictionary<string, BitcoinExchangeRate> models)
         {
             if (models != null)
             {

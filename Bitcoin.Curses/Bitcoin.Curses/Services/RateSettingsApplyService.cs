@@ -20,7 +20,7 @@ namespace Bitcoin.Curses.Services
             Settings.SetCurrencySymbolOnStartForCurrency(exchangeRateKey, isOnStart);
         }
 
-        public void ApplySettingsToModels(Dictionary<string, BitcoinExchangeRate> models)
+        public void ApplySettingsToModels(IDictionary<string, BitcoinExchangeRate> models)
         {
             if (models != null)
             {

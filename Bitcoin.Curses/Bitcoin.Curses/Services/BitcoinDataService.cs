@@ -39,6 +39,11 @@ namespace Bitcoin.Curses.Services
                 var bitcoinRateValues = await GetBitcoinRateValues();
                 var exchangeRatesByUSD = await GetExchangeRatesByUSD();
                 var yesterdayUSDRate = await GetYesterdayUSDRate();
+                var spotUSDRate = await GetSpotUSDRate();
+
+                bitcoinRateValues = GetUSDPriceOnly(bitcoinRateValues);
+
+                AddSpotBTCPrice(bitcoinRateValues, spotUSDRate);
 
                 AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
 
@@ -66,7 +71,19 @@ namespace Bitcoin.Curses.Services
             }
         }
 
-        private async Task<Dictionary<string, BitcoinExchangeRate>> GetBitcoinRateValues()
+        private IDictionary<string, BitcoinExchangeRate> GetUSDPriceOnly(IDictionary<string, BitcoinExchangeRate> bitcoinRateValues)
+        {
+            return bitcoinRateValues.Where(x => x.Key == USD_RATE_KEY)
+                .ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        private void AddSpotBTCPrice(IDictionary<string, BitcoinExchangeRate> bitcoinRateValues, SpotUSDExchangeRate spotUSDRate)
+        {
+            bitcoinRateValues[USD_RATE_KEY].RecentMarketPrice = spotUSDRate.ExchangeRateValue;
+            bitcoinRateValues[USD_RATE_KEY].DelayedMarketPrice = bitcoinRateValues[USD_RATE_KEY].RecentMarketPrice;
+        }
+
+        private async Task<IDictionary<string, BitcoinExchangeRate>> GetBitcoinRateValues()
         {
             try
             {
@@ -141,7 +158,32 @@ namespace Bitcoin.Curses.Services
             }
         }
 
-        private void AddYesterdayRatesToBitcoinRateList(Dictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates, ExchangeRateHistory yesterdayUSDRate)
+        private async Task<SpotUSDExchangeRate> GetSpotUSDRate()
+        {
+            try
+            {
+                var spotUSDRateRawData = await _dataProvideService.GetSpotBitcoinJSONDataFromUSD();
+                var spotUSDRate = JsonConvert.DeserializeObject<SpotUSDExchangeRate>(spotUSDRateRawData);
+
+                Settings.SetLastSpotUSDRate(spotUSDRateRawData);
+
+                return spotUSDRate;
+            }
+            catch
+            {
+                var lastValueData = Settings.GetLastSpotUSDRate();
+                if (string.IsNullOrEmpty(lastValueData))
+                {
+                    throw new Exception("Unable to load bitcoin exchange rate history. Try again later.");
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<SpotUSDExchangeRate>(lastValueData);
+                }
+            }
+        }
+
+        private void AddYesterdayRatesToBitcoinRateList(IDictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates, ExchangeRateHistory yesterdayUSDRate)
         {
             if (yesterdayUSDRate != null && bitcoinRates != null && bitcoinRates.ContainsKey(USD_RATE_KEY))
             {
@@ -163,7 +205,7 @@ namespace Bitcoin.Curses.Services
             }
         }
 
-        public void AddAlternativeRatesToBitcoinRateList(Dictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates)
+        public void AddAlternativeRatesToBitcoinRateList(IDictionary<string, BitcoinExchangeRate> bitcoinRates, ExchangeRate alternativeRates)
         {
             if (bitcoinRates != null && bitcoinRates.ContainsKey(USD_RATE_KEY))
             {

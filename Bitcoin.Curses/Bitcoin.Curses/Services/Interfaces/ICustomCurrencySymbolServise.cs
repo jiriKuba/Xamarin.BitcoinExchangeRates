@@ -11,6 +11,6 @@ namespace Bitcoin.Curses.Services.Interfaces
     {
         void SetExchangeRateCustomCurrencySymbol(string exchangeRateKey, string customSymbol);
 
-        void AddCustomCurrencySymbolToModel(Dictionary<string, BitcoinExchangeRate> models);
+        void AddCustomCurrencySymbolToModel(IDictionary<string, BitcoinExchangeRate> models);
     }
 }

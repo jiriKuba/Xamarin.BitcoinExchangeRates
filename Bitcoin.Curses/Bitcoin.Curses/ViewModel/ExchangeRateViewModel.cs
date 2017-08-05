@@ -96,23 +96,23 @@ namespace Bitcoin.Curses.ViewModel
                         var rateValue = MarketPriceDifference.Value;
                         if (rateValue >= 0)
                         {
-                            return "+ " + rateValue.ToString("N2") + $"({MarketPriceDifferencePercentage.ToString("N2")}%)";
+                            return "+ " + rateValue.ToString("N2") + $" ({MarketPriceDifferencePercentage.ToString("N2")}%)";
                         }
                         else if (rateValue < 0)
                         {
-                            return "- " + Math.Abs(rateValue).ToString("N2") + $"({MarketPriceDifferencePercentage.ToString("N2")}%)";
+                            return "- " + Math.Abs(rateValue).ToString("N2") + $" ({MarketPriceDifferencePercentage.ToString("N2")}%)";
                         }
                         else
                         {
-                            return "+ " + decimal.Zero.ToString("N2") + "(0%)";
+                            return "+ " + decimal.Zero.ToString("N2") + " (0%)";
                         }
                     }
                     else
                     {
-                        return "+ " + decimal.Zero.ToString("N2") + "(0%)";
+                        return "+ " + decimal.Zero.ToString("N2") + " (0%)";
                     }
                 }
-                else return "+ " + decimal.Zero.ToString("N2") + "(0%)";
+                else return "+ " + decimal.Zero.ToString("N2") + " (0%)";
             }
         }
 

@@ -13,6 +13,6 @@ namespace Bitcoin.Curses.Services.Interfaces
 
         void SetExchangeRateCurrencySymbolOnStart(string exchangeRateKey, bool isOnStart);
 
-        void ApplySettingsToModels(Dictionary<string, BitcoinExchangeRate> models);
+        void ApplySettingsToModels(IDictionary<string, BitcoinExchangeRate> models);
     }
 }

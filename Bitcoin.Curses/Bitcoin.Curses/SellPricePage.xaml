@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bitcoin.Curses.SellPricePage"
+             xmlns:effects="clr-namespace:Bitcoin.Curses.Effects"
              BindingContext="{Binding Main.ExchangeRateDetail, Source={StaticResource Locator}}"
              Title="Sell Price">
     <ContentPage.ToolbarItems>
@@ -85,5 +86,15 @@
                 </Grid>
             </Grid>
         </ScrollView>
+        <Label FontSize="Micro" Text="Source: blockchain.info" HorizontalOptions="Start">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding Main.OpenBlockchainUrlCommand, Source={StaticResource Locator}}"
+                    NumberOfTapsRequired="1" />
+            </Label.GestureRecognizers>
+            <Label.Effects>
+                <effects:UnderlineEffect />
+            </Label.Effects>
+        </Label>
     </StackLayout>
 </ContentPage>

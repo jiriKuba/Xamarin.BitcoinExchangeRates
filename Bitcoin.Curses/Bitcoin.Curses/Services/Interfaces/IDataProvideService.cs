@@ -10,6 +10,8 @@ namespace Bitcoin.Curses.Services.Interfaces
     {
         Task<string> GetBitcoinJSONData();
 
+        Task<string> GetSpotBitcoinJSONDataFromUSD();
+
         Task<string> GetExchangeJSONData();
 
         Task<string> GetHistoryJSONData();

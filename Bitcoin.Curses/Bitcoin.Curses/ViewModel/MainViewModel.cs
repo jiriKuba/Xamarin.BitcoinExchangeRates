@@ -24,6 +24,8 @@ namespace Bitcoin.Curses.ViewModel
             _bitcoinDataService = bitcoinDataService;
             _mainModel = new MainModel();
             RefreshCommand = new RelayCommand(DoRefreshCommand);
+            OpenCoindeskUrlCommand = new RelayCommand(DoOpenCoindeskUrlCommand);
+            OpenBlockchainUrlCommand = new RelayCommand(DoOpenBlockchainUrlCommand);
 
             //ExchangeRates mock = new ExchangeRates();
             //mock.ExchangeRateList.Add("USD", new ExchangeRate() { DelayedMarketPrice = 478.68M, RecentMarketPrice = 478.68M, Buy = 478.55M, Sell = 478.68M, CurrencySymbol = "$" });
@@ -32,6 +34,10 @@ namespace Bitcoin.Curses.ViewModel
         }
 
         public RelayCommand RefreshCommand { get; private set; }
+
+        public RelayCommand OpenCoindeskUrlCommand { get; private set; }
+
+        public RelayCommand OpenBlockchainUrlCommand { get; private set; }
 
         private ExchangeRatesViewModel _exchangeRates;
 
@@ -182,12 +188,27 @@ namespace Bitcoin.Curses.ViewModel
             LoadData();
         }
 
+        public void DoOpenCoindeskUrlCommand()
+        {
+            OpenUrl("https://www.coindesk.com/");
+        }
+
+        public void DoOpenBlockchainUrlCommand()
+        {
+            OpenUrl("https://blockchain.info/");
+        }
+
         public override void Cleanup()
         {
             ExchangeRateDetail = null;
             if (ExchangeRates != null)
                 ExchangeRates.Cleanup();
             base.Cleanup();
+        }
+
+        public void OpenUrl(string url)
+        {
+            Device.OpenUri(new Uri(url));
         }
     }
 }

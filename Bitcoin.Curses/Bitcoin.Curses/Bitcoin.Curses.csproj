@@ -46,6 +46,7 @@
     </Compile>
     <Compile Include="Converters\PriceDifferenceTextColorConverter.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Effects\UnderlineEffect.cs" />
     <Compile Include="Extensions\ExchangeRateDictionaryExtensions.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="Messages\ExchangeRatesLoadedMessage.cs" />
     <Compile Include="Models\ExchangeRate.cs" />
     <Compile Include="Models\ExchangeRateHistory.cs" />
+    <Compile Include="Models\SpotUSDExchangeRate.cs" />
+    <Compile Include="Models\SpotUSDExchangeRateValue.cs" />
     <Compile Include="SellPricePage.xaml.cs">
       <DependentUpon>SellPricePage.xaml</DependentUpon>
     </Compile>

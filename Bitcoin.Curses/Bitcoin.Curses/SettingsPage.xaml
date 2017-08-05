@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Bitcoin.Curses.SettingsPage"
              BindingContext="{Binding Main.ExchangeRateDetail, Source={StaticResource Locator}}"
-             Title="Rate Settings">
+             Title="Settings">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Refresh" Icon="refresh.png" Order="Primary" Command="{Binding Main.RefreshCommand, Source={StaticResource Locator}}" />
     </ContentPage.ToolbarItems>
