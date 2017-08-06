@@ -65,7 +65,9 @@
     <Compile Include="Services\Interfaces\ICurrencyNavigateService.cs" />
     <Compile Include="Services\Interfaces\ICustomCurrencySymbolServise.cs" />
     <Compile Include="Services\Interfaces\IDataProvideService.cs" />
+    <Compile Include="Services\Interfaces\INetworkService.cs" />
     <Compile Include="Services\Interfaces\IRateSettingsApplyService.cs" />
+    <Compile Include="Services\NetworkService.cs" />
     <Compile Include="Services\RateSettingsApplyService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="MainPage.xaml.cs">

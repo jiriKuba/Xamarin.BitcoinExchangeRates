@@ -50,6 +50,7 @@ namespace Bitcoin.Curses.ViewModel
             SimpleIoc.Default.Register<IDataProvideService, DataProvideService>();
             SimpleIoc.Default.Register<IBitcoinDataService, BitcoinDataService>();
             SimpleIoc.Default.Register<ICurrencyNavigateService, CurrencyNavigateService>();
+            SimpleIoc.Default.Register<INetworkService, NetworkService>();
 
             //viewModels
             SimpleIoc.Default.Register<MainViewModel>();

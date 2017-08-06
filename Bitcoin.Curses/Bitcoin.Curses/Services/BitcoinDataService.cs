@@ -21,41 +21,50 @@ namespace Bitcoin.Curses.Services
         private readonly CurrencyHelper _helper;
         private readonly IDataProvideService _dataProvideService;
         private readonly IRateSettingsApplyService _liveTileVisibilityService;
-        private readonly ICustomCurrencySymbolServise _customCurrencyCodeServise;
+        private readonly ICustomCurrencySymbolServise _customCurrencyCodeService; //TODO: rename class - typo
+        private readonly INetworkService _networkService;
 
         public BitcoinDataService(IDataProvideService dataProvideService, IRateSettingsApplyService liveTileVisibilityService,
-            ICustomCurrencySymbolServise customCurrencyCodeServise)
+            ICustomCurrencySymbolServise customCurrencyCodeService, INetworkService networkService)
         {
             _helper = new CurrencyHelper();
             _dataProvideService = dataProvideService;
             _liveTileVisibilityService = liveTileVisibilityService;
-            _customCurrencyCodeServise = customCurrencyCodeServise;
+            _customCurrencyCodeService = customCurrencyCodeService;
+            _networkService = networkService;
         }
 
         public async Task<ExchangeRates> GetExchangeRatesAsync()
         {
             try
             {
-                var bitcoinRateValues = await GetBitcoinRateValues();
-                var exchangeRatesByUSD = await GetExchangeRatesByUSD();
-                var yesterdayUSDRate = await GetYesterdayUSDRate();
-                var spotUSDRate = await GetSpotUSDRate();
+                var isInternetAvailable = await _networkService.IsInternetAvailable();
+                if (!isInternetAvailable)
+                {
+                    throw new Exception("Internet connection is not available!");
+                }
+                else
+                {
+                    var bitcoinRateValues = await GetBitcoinRateValues();
+                    var exchangeRatesByUSD = await GetExchangeRatesByUSD();
+                    var yesterdayUSDRate = await GetYesterdayUSDRate();
+                    var spotUSDRate = await GetSpotUSDRate();
 
-                bitcoinRateValues = GetUSDPriceOnly(bitcoinRateValues);
+                    bitcoinRateValues = GetUSDPriceOnly(bitcoinRateValues);
 
-                AddSpotBTCPrice(bitcoinRateValues, spotUSDRate);
+                    AddSpotBTCPrice(bitcoinRateValues, spotUSDRate);
 
-                AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
+                    AddAlternativeRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD);
 
-                AddYesterdayRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD, yesterdayUSDRate);
+                    AddYesterdayRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD, yesterdayUSDRate);
 
-                _liveTileVisibilityService.ApplySettingsToModels(bitcoinRateValues);
-                _customCurrencyCodeServise.AddCustomCurrencySymbolToModel(bitcoinRateValues);
-                var result = new ExchangeRates(bitcoinRateValues
-                    .OrderBy(x => x.Key)
-                    .ToDictionary(x => x.Key, x => x.Value));
-                return result;
-
+                    _liveTileVisibilityService.ApplySettingsToModels(bitcoinRateValues);
+                    _customCurrencyCodeService.AddCustomCurrencySymbolToModel(bitcoinRateValues);
+                    var result = new ExchangeRates(bitcoinRateValues
+                        .OrderBy(x => x.Key)
+                        .ToDictionary(x => x.Key, x => x.Value));
+                    return result;
+                }
                 //test data
                 //await Task.Delay(TimeSpan.FromSeconds(3));
 
