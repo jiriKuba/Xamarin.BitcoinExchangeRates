@@ -38,7 +38,7 @@ namespace Bitcoin.Courses.Windows.BackgroundTask
         {
             try
             {
-                var bitcoinService = new BitcoinDataService(new DataProvideService(), new RateSettingsApplyService(), new CustomCurrencySymbolServise());
+                var bitcoinService = new BitcoinDataService(new DataProvideService(), new RateSettingsApplyService(), new CustomCurrencySymbolServise(), new NetworkService());
                 return await bitcoinService.GetExchangeRatesAsync();
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace Bitcoin.Courses.Windows.BackgroundTask
                 var tileXml = GetTileXmlTemplate(item.Key, valueWithSymbol, marketPriceDifferenceLabel);
 
                 // Create a new tile notification.
-                updater.Update(new TileNotification(tileXml));
+                updater.Update(new TileNotification(tileXml) { ExpirationTime = DateTime.Now.AddMinutes(15) });
             }
         }
 
@@ -98,25 +98,19 @@ namespace Bitcoin.Courses.Windows.BackgroundTask
 
             var redirectionArgument = Constants.CurrencyRedirectionArgumentCode + Constants.CurrencyRedirectionArgumentSeparator + title;
             sb.AppendLine("<tile>");
-            sb.AppendLine($"<visual branding=\"name\" displayName=\"BTC/{title}\" arguments=\"{redirectionArgument}\">");
+            sb.AppendLine($"<visual>");
 
-            sb.AppendLine($"<binding template = \"TileMedium\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
-            sb.AppendLine("<text hint-style = \"title\" hint-align=\"center\"></text>"); //margin
-            sb.AppendLine($"<text hint-style = \"base\" hint-align=\"center\">{body}</text>");
-            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDifferenceLabel}</text>");
+            sb.AppendLine($"<binding template = \"TileSquareText01\">");
+            sb.AppendLine($"<text id=\"1\">{body}</text>"); //margin
+            sb.AppendLine($"<text id=\"2\">{marketPriceDifferenceLabel}</text>");
+            sb.AppendLine($"<text id=\"3\">BTC/{title}</text>");
             sb.AppendLine("</binding >");
 
-            sb.AppendLine($"<binding template = \"TileWide\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
-            sb.AppendLine("<text hint-style = \"subtitle\" hint-align=\"center\"></text>"); //margin
-            sb.AppendLine($"<text hint-style = \"titleNumeral\" hint-align=\"center\">{body}</text>");
-            sb.AppendLine($"<text hint-style = \"captionSubtle\" hint-align=\"center\">{marketPriceDifferenceLabel}</text>");
-            sb.AppendLine("</binding>");
-
-            sb.AppendLine($"<binding template = \"TileLarge\" hint-textStacking=\"center\" branding=\"name\" displayName=\"BTC/{title}\">");
-            sb.AppendLine("<text hint-style = \"titleNumeral\" hint-align=\"center\"></text>"); //margin
-            sb.AppendLine($"<text hint-style = \"subheader\" hint-align=\"center\">{body}</text>");
-            sb.AppendLine($"<text hint-style = \"bodySubtle\" hint-align=\"center\">{marketPriceDifferenceLabel}</text>");
-            sb.AppendLine("</binding>");
+            sb.AppendLine($"<binding template = \"TileWideText01\">");
+            sb.AppendLine($"<text id=\"1\">{body}</text>"); //margin
+            sb.AppendLine($"<text id=\"2\">{marketPriceDifferenceLabel}</text>");
+            sb.AppendLine($"<text id=\"3\">BTC/{title}</text>");
+            sb.AppendLine("</binding >");
 
             sb.AppendLine("</visual>");
             sb.AppendLine("</tile>");
