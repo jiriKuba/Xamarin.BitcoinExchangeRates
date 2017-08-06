@@ -9,50 +9,34 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Refresh" Icon="refresh.png" Order="Primary" Command="{Binding Main.RefreshCommand, Source={StaticResource Locator}}" />
     </ContentPage.ToolbarItems>
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-    <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
-        <Label Text="Spot price for:" FontSize="Large" />
-        <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" />
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
-                     IsVisible="{Binding Main.IsWindowsUWPMobile, Source={StaticResource Locator}}">
-            <Label Text="+ 24h difference" FontSize="Micro" HorizontalOptions="Start" />
-            <Label FontSize="Micro" Text="Source: coindesk.com" HorizontalOptions="EndAndExpand">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                    Command="{Binding Main.OpenCoindeskUrlCommand, Source={StaticResource Locator}}"
-                    NumberOfTapsRequired="1" />
-                </Label.GestureRecognizers>
-                <Label.Effects>
-                    <effects:UnderlineEffect />
-                </Label.Effects>
-            </Label>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding Main.IsNotWindowsUWPMobile, Source={StaticResource Locator}}">
+        <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
+            <Label Text="Spot price for:" FontSize="Large" />
+            <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" />
             <Label Text="+ 24h difference" FontSize="Micro" />
-        </StackLayout>
-        <ScrollView HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="240" />
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="240" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Button Style="{StaticResource PriceButtonStyle}"
+                    <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="240" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <Button Style="{StaticResource PriceButtonStyle}"
                             Grid.Column="1"
                             Grid.Row="0"
                             BackgroundColor="Transparent"
@@ -64,7 +48,7 @@
                             HorizontalOptions="Center"
                             VerticalOptions="Center" />
 
-                    <Button Style="{StaticResource PriceButtonInsideRingStyle}"
+                        <Button Style="{StaticResource PriceButtonInsideRingStyle}"
                             Grid.Column="1"
                             Grid.Row="0"
                             BackgroundColor="Transparent"
@@ -74,22 +58,22 @@
                             FontSize="Large"
                             HorizontalOptions="Center"
                             VerticalOptions="Center">
-                        <Button.BorderColor>
-                            <OnPlatform x:TypeArguments="Color">
-                                <OnPlatform.iOS>#FFFFFF</OnPlatform.iOS>
-                                <OnPlatform.Android>#FFFFFF</OnPlatform.Android>
-                                <OnPlatform.WinPhone>#000000</OnPlatform.WinPhone>
-                            </OnPlatform>
-                        </Button.BorderColor>
-                    </Button>
+                            <Button.BorderColor>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <OnPlatform.iOS>#FFFFFF</OnPlatform.iOS>
+                                    <OnPlatform.Android>#FFFFFF</OnPlatform.Android>
+                                    <OnPlatform.WinPhone>#000000</OnPlatform.WinPhone>
+                                </OnPlatform>
+                            </Button.BorderColor>
+                        </Button>
 
-                    <ActivityIndicator IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
+                        <ActivityIndicator IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
                            IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
                            Margin="20,10,20,0"
                            Grid.Column="1"
                            Grid.Row="0" />
 
-                    <Label  Grid.Column="0"
+                        <Label  Grid.Column="0"
                             Grid.Row="1"
                             Margin="0,0,-25,0"
                             Grid.ColumnSpan="3"
@@ -98,15 +82,14 @@
                             FontSize="Medium"
                             Text="{Binding MarketPriceDifferenceLabel}" />
 
-                    <!-- bottom margin-->
-                    <Label  Grid.Column="0"
+                        <!-- bottom margin-->
+                        <!--<Label  Grid.Column="0"
                             Grid.Row="2"
                             FontSize="Micro"
-                            Text="" />
+                            Text="" />-->
+                    </Grid>
                 </Grid>
-            </Grid>
-        </ScrollView>
-        <StackLayout Orientation="Horizontal" IsVisible="{Binding Main.IsNotWindowsUWPMobile, Source={StaticResource Locator}}">
+            </StackLayout>
             <Label FontSize="Micro" Text="Source: coindesk.com">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
@@ -118,5 +101,5 @@
                 </Label.Effects>
             </Label>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>
