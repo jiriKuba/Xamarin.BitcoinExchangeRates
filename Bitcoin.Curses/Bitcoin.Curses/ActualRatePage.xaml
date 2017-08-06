@@ -13,7 +13,24 @@
     <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
         <Label Text="Spot price for:" FontSize="Large" />
         <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" />
-        <Label Text="+ 24h difference" FontSize="Micro" />
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"
+                     IsVisible="{Binding Main.IsWindowsUWPMobile, Source={StaticResource Locator}}">
+            <Label Text="+ 24h difference" FontSize="Micro" HorizontalOptions="Start" />
+            <Label FontSize="Micro" Text="Source: coindesk.com" HorizontalOptions="EndAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                    Command="{Binding Main.OpenCoindeskUrlCommand, Source={StaticResource Locator}}"
+                    NumberOfTapsRequired="1" />
+                </Label.GestureRecognizers>
+                <Label.Effects>
+                    <effects:UnderlineEffect />
+                </Label.Effects>
+            </Label>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal"
+                     IsVisible="{Binding Main.IsNotWindowsUWPMobile, Source={StaticResource Locator}}">
+            <Label Text="+ 24h difference" FontSize="Micro" />
+        </StackLayout>
         <ScrollView HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
@@ -89,15 +106,17 @@
                 </Grid>
             </Grid>
         </ScrollView>
-        <Label FontSize="Micro" Text="Source: coindesk.com" HorizontalOptions="Start">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer
+        <StackLayout Orientation="Horizontal" IsVisible="{Binding Main.IsNotWindowsUWPMobile, Source={StaticResource Locator}}">
+            <Label FontSize="Micro" Text="Source: coindesk.com">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
                     Command="{Binding Main.OpenCoindeskUrlCommand, Source={StaticResource Locator}}"
                     NumberOfTapsRequired="1" />
-            </Label.GestureRecognizers>
-            <Label.Effects>
-                <effects:UnderlineEffect />
-            </Label.Effects>
-        </Label>
+                </Label.GestureRecognizers>
+                <Label.Effects>
+                    <effects:UnderlineEffect />
+                </Label.Effects>
+            </Label>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

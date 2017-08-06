@@ -60,6 +60,16 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
+        public bool IsWindowsUWPMobile
+        {
+            get { return Device.Idiom == TargetIdiom.Phone && Device.RuntimePlatform == Device.Windows; }
+        }
+
+        public bool IsNotWindowsUWPMobile
+        {
+            get { return !IsWindowsUWPMobile; }
+        }
+
         private string _searchText;
 
         public string SearchText
