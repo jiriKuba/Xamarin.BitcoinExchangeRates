@@ -20,7 +20,7 @@ namespace Bitcoin.Curses.Services
                 try
                 {
                     var iNetRequest = (HttpWebRequest)WebRequest.Create(CheckUrl);
-                    iNetRequest.ContinueTimeout = 5000;
+                    //iNetRequest.ContinueTimeout = 5000;
 
                     using (var response = iNetRequest.GetResponseAsync().Result)
                     {

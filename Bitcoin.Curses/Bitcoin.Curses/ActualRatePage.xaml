@@ -69,7 +69,7 @@
 
                         <ActivityIndicator IsVisible="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
                            IsRunning="{Binding Main.ShowProgressBar, Source={StaticResource Locator}}"
-                           Margin="20,10,20,0"
+                           Margin="20,0,20,0"
                            Grid.Column="1"
                            Grid.Row="0" />
 
