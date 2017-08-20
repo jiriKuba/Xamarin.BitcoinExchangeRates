@@ -11,10 +11,10 @@
     </ContentPage.ToolbarItems>
     <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-        <StackLayout VerticalOptions="FillAndExpand" Margin="10,0,0,20">
-            <Label Text="Spot price for:" FontSize="Large" />
-            <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" />
-            <Label Text="+ 24h difference" FontSize="Micro" />
+        <StackLayout VerticalOptions="FillAndExpand" Margin="0,0,0,20">
+            <Label Text="Spot price for:" FontSize="Large" Margin="10,0,0,0" />
+            <Label Text="{Binding ExchangeRateLabel}" FontSize="Small" Margin="10,0,0,0" />
+            <Label Text="+ 24h difference" FontSize="Micro" Margin="10,0,0,0" />
             <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                 <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
