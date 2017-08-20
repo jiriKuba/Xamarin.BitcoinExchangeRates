@@ -16,23 +16,7 @@
                     <Color x:Key="SystemBackgroundColor">#000000</Color>
 
                     <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{ThemeResource SystemBackgroundColor}" />
-                    <!--Your accent uwp color-->
-                    <SolidColorBrush x:Key="SystemControlBackgroundAccentBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="SystemControlDisabledAccentBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="SystemControlForegroundAccentBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="SystemControlHighlightAltAccentBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="SystemControlHighlightAltListAccentHighBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.9" />
-                    <SolidColorBrush x:Key="SystemControlHighlightAltListAccentLowBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.6" />
-                    <SolidColorBrush x:Key="SystemControlHighlightAltListAccentMediumBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
-                    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.9" />
-                    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.6" />
-                    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
-                    <SolidColorBrush x:Key="SystemControlHyperlinkTextBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="ContentDialogBorderThemeBrush" Color="{ThemeResource SystemAccentColor}" />
-                    <SolidColorBrush x:Key="JumpListDefaultEnabledBackground" Color="{ThemeResource SystemAccentColor}" />
 
-                    <!--Your accent w8.1 color-->
                     <SolidColorBrush x:Key="ComboBoxItemSelectedBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" />
                     <SolidColorBrush x:Key="ComboBoxItemSelectedPointerOverBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
                     <SolidColorBrush x:Key="ComboBoxSelectedBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" />
@@ -47,6 +31,20 @@
                     <SolidColorBrush x:Key="ListViewItemSelectedBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.6" />
                     <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
                     <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBorderThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="HyperlinkForegroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.6" />
+                    <SolidColorBrush x:Key="HyperlinkPointerOverForegroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="HyperlinkPressedForegroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.9" />
+                    <SolidColorBrush x:Key="ListViewItemCheckHintThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="ListViewItemCheckSelectingThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="ListViewItemDragBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="SliderTrackDecreaseBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="SliderTrackDecreasePointerOverBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="SliderTrackDecreasePressedBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="SearchBoxButtonBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
+                    <SolidColorBrush x:Key="SearchBoxHitHighlightForegroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.9" />
+                    <SolidColorBrush x:Key="SearchBoxFocusedBorderThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.5" />
+                    <SolidColorBrush x:Key="SearchBoxHitHighlightSelectedForegroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.6" />
+                    <SolidColorBrush x:Key="SearchBoxButtonPointerOverBackgroundThemeBrush" Color="{ThemeResource SystemAccentColor}" Opacity="0.8" />
 
                     <!-- disabled windows -->
                     <Color x:Key="SystemDisabledWindowAppbarColor">#FFAD48</Color>

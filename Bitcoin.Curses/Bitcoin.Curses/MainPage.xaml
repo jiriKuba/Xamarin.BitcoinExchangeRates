@@ -6,7 +6,7 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              MasterBehavior="Popover">
     <MasterDetailPage.Master>
-        <ContentPage Title="Exchange rates" x:Name="MainMenu">
+        <ContentPage Title="Exchange rates" x:Name="MainMenu" Icon="menu.png">
             <StackLayout VerticalOptions="FillAndExpand">
                 <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource MainAccentColor}">
                     <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill" Orientation="Horizontal" HeightRequest="150">
