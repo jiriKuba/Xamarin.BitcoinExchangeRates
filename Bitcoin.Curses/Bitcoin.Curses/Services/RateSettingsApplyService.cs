@@ -31,5 +31,45 @@ namespace Bitcoin.Curses.Services
                 }
             }
         }
+
+        public void SetLastBitcoinExchangeRates(string jsonData)
+        {
+            Settings.SetLastBitcoinExchangeRates(jsonData);
+        }
+
+        public string GetLastBitcoinExchangeRates()
+        {
+            return Settings.GetLastBitcoinExchangeRates();
+        }
+
+        public void SetLastExchangeRatesByUSD(string jsonData)
+        {
+            Settings.SetLastExchangeRatesByUSD(jsonData);
+        }
+
+        public string GetLastExchangeRatesByUSD()
+        {
+            return Settings.GetLastExchangeRatesByUSD();
+        }
+
+        public void SetLastYesterdayUSDRate(string jsonData)
+        {
+            Settings.SetLastYesterdayUSDRate(jsonData);
+        }
+
+        public string GetLastYesterdayUSDRate()
+        {
+            return Settings.GetLastYesterdayUSDRate();
+        }
+
+        public void SetLastSpotUSDRate(string jsonData)
+        {
+            Settings.SetLastSpotUSDRate(jsonData);
+        }
+
+        public string GetLastSpotUSDRate()
+        {
+            return Settings.GetLastSpotUSDRate();
+        }
     }
 }

@@ -14,5 +14,21 @@ namespace Bitcoin.Curses.Services.Interfaces
         void SetExchangeRateCurrencySymbolOnStart(string exchangeRateKey, bool isOnStart);
 
         void ApplySettingsToModels(IDictionary<string, BitcoinExchangeRate> models);
+
+        void SetLastBitcoinExchangeRates(string jsonData);
+
+        string GetLastBitcoinExchangeRates();
+
+        void SetLastExchangeRatesByUSD(string jsonData);
+
+        string GetLastExchangeRatesByUSD();
+
+        void SetLastYesterdayUSDRate(string jsonData);
+
+        string GetLastYesterdayUSDRate();
+
+        void SetLastSpotUSDRate(string jsonData);
+
+        string GetLastSpotUSDRate();
     }
 }

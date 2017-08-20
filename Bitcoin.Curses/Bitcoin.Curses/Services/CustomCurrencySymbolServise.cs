@@ -8,7 +8,7 @@ using Bitcoin.Curses.Models;
 
 namespace Bitcoin.Curses.Services
 {
-    public class CustomCurrencySymbolServise : ICustomCurrencySymbolServise
+    public class CustomCurrencySymbolService : ICustomCurrencySymbolService
     {
         public void AddCustomCurrencySymbolToModel(IDictionary<string, BitcoinExchangeRate> models)
         {

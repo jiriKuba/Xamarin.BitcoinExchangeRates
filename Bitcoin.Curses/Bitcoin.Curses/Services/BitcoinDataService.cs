@@ -20,16 +20,16 @@ namespace Bitcoin.Curses.Services
 
         private readonly CurrencyHelper _helper;
         private readonly IDataProvideService _dataProvideService;
-        private readonly IRateSettingsApplyService _liveTileVisibilityService;
-        private readonly ICustomCurrencySymbolServise _customCurrencyCodeService; //TODO: rename class - typo
+        private readonly IRateSettingsApplyService _rateSettingsApplyService;
+        private readonly ICustomCurrencySymbolService _customCurrencyCodeService;
         private readonly INetworkService _networkService;
 
-        public BitcoinDataService(IDataProvideService dataProvideService, IRateSettingsApplyService liveTileVisibilityService,
-            ICustomCurrencySymbolServise customCurrencyCodeService, INetworkService networkService)
+        public BitcoinDataService(IDataProvideService dataProvideService, IRateSettingsApplyService rateSettingsApplyService,
+            ICustomCurrencySymbolService customCurrencyCodeService, INetworkService networkService)
         {
             _helper = new CurrencyHelper();
             _dataProvideService = dataProvideService;
-            _liveTileVisibilityService = liveTileVisibilityService;
+            _rateSettingsApplyService = rateSettingsApplyService;
             _customCurrencyCodeService = customCurrencyCodeService;
             _networkService = networkService;
         }
@@ -58,20 +58,13 @@ namespace Bitcoin.Curses.Services
 
                     AddYesterdayRatesToBitcoinRateList(bitcoinRateValues, exchangeRatesByUSD, yesterdayUSDRate);
 
-                    _liveTileVisibilityService.ApplySettingsToModels(bitcoinRateValues);
+                    _rateSettingsApplyService.ApplySettingsToModels(bitcoinRateValues);
                     _customCurrencyCodeService.AddCustomCurrencySymbolToModel(bitcoinRateValues);
                     var result = new ExchangeRates(bitcoinRateValues
                         .OrderBy(x => x.Key)
                         .ToDictionary(x => x.Key, x => x.Value));
                     return result;
                 }
-                //test data
-                //await Task.Delay(TimeSpan.FromSeconds(3));
-
-                //ExchangeRates mock = new ExchangeRates();
-                //mock.ExchangeRateList.Add("USD", new ExchangeRate() { DelayedMarketPrice = 478.68M, RecentMarketPrice = 478.68M, Buy = 478.55M, Sell = 478.68M, CurrencySymbol = "$" });
-                //mock.ExchangeRateList.Add("JPY", new ExchangeRate() { DelayedMarketPrice = 51033.99M, RecentMarketPrice = 51033.99M, Buy = 51020.13M, Sell = 51033.99M, CurrencySymbol = "¥" });
-                //return mock;
             }
             catch (Exception ex)
             {
@@ -88,8 +81,8 @@ namespace Bitcoin.Curses.Services
 
         private void AddSpotBTCPrice(IDictionary<string, BitcoinExchangeRate> bitcoinRateValues, SpotUSDExchangeRate spotUSDRate)
         {
-            bitcoinRateValues[USD_RATE_KEY].RecentMarketPrice = spotUSDRate.ExchangeRateValue;
-            bitcoinRateValues[USD_RATE_KEY].DelayedMarketPrice = bitcoinRateValues[USD_RATE_KEY].RecentMarketPrice;
+            bitcoinRateValues[USD_RATE_KEY].RecentMarketPrice = Math.Round(spotUSDRate.ExchangeRateValue, 2);
+            bitcoinRateValues[USD_RATE_KEY].DelayedMarketPrice = Math.Round(bitcoinRateValues[USD_RATE_KEY].RecentMarketPrice, 2);
         }
 
         private async Task<IDictionary<string, BitcoinExchangeRate>> GetBitcoinRateValues()
@@ -99,13 +92,13 @@ namespace Bitcoin.Curses.Services
                 var rawBitcoinExchangeRates = await _dataProvideService.GetBitcoinJSONData();
                 var bitcoinRateValues = JsonConvert.DeserializeObject<Dictionary<string, BitcoinExchangeRate>>(rawBitcoinExchangeRates);
 
-                Settings.SetLastBitcoinExchangeRates(rawBitcoinExchangeRates);
+                _rateSettingsApplyService.SetLastBitcoinExchangeRates(rawBitcoinExchangeRates);
 
                 return bitcoinRateValues;
             }
             catch
             {
-                var historyValue = Settings.GetLastBitcoinExchangeRates();
+                var historyValue = _rateSettingsApplyService.GetLastBitcoinExchangeRates();
                 if (string.IsNullOrEmpty(historyValue))
                 {
                     throw new Exception("Unable to load bitcoin exchange rates data. Try again later.");
@@ -124,13 +117,13 @@ namespace Bitcoin.Curses.Services
                 var rawExchangeRatesByUSD = await _dataProvideService.GetExchangeJSONData();
                 var exchangeRatesByUSD = JsonConvert.DeserializeObject<ExchangeRate>(rawExchangeRatesByUSD);
 
-                Settings.SetLastExchangeRatesByUSD(rawExchangeRatesByUSD);
+                _rateSettingsApplyService.SetLastExchangeRatesByUSD(rawExchangeRatesByUSD);
 
                 return exchangeRatesByUSD;
             }
             catch
             {
-                var historyValue = Settings.GetLastExchangeRatesByUSD();
+                var historyValue = _rateSettingsApplyService.GetLastExchangeRatesByUSD();
                 if (string.IsNullOrEmpty(historyValue))
                 {
                     throw new Exception("Unable to load USD exchange rates data. Try again later.");
@@ -149,13 +142,13 @@ namespace Bitcoin.Curses.Services
                 var yesterdayUSDRateRawData = await _dataProvideService.GetHistoryJSONData();
                 var yesterdayUSDRate = JsonConvert.DeserializeObject<ExchangeRateHistory>(yesterdayUSDRateRawData);
 
-                Settings.SetLastYesterdayUSDRate(yesterdayUSDRateRawData);
+                _rateSettingsApplyService.SetLastYesterdayUSDRate(yesterdayUSDRateRawData);
 
                 return yesterdayUSDRate;
             }
             catch
             {
-                var historyValue = Settings.GetLastYesterdayUSDRate();
+                var historyValue = _rateSettingsApplyService.GetLastYesterdayUSDRate();
                 if (string.IsNullOrEmpty(historyValue))
                 {
                     throw new Exception("Unable to load bitcoin exchange rate history. Try again later.");
@@ -174,13 +167,13 @@ namespace Bitcoin.Curses.Services
                 var spotUSDRateRawData = await _dataProvideService.GetSpotBitcoinJSONDataFromUSD();
                 var spotUSDRate = JsonConvert.DeserializeObject<SpotUSDExchangeRate>(spotUSDRateRawData);
 
-                Settings.SetLastSpotUSDRate(spotUSDRateRawData);
+                _rateSettingsApplyService.SetLastSpotUSDRate(spotUSDRateRawData);
 
                 return spotUSDRate;
             }
             catch
             {
-                var lastValueData = Settings.GetLastSpotUSDRate();
+                var lastValueData = _rateSettingsApplyService.GetLastSpotUSDRate();
                 if (string.IsNullOrEmpty(lastValueData))
                 {
                     throw new Exception("Unable to load bitcoin exchange rate history. Try again later.");
@@ -202,14 +195,14 @@ namespace Bitcoin.Curses.Services
                     {
                         if (bitcoinRates.ContainsKey(rate.Key))
                         {
-                            bitcoinRates[rate.Key].YesterdayRate = rate.Value * yesterdayUSDRate.HistoryValue;
+                            bitcoinRates[rate.Key].YesterdayRate = Math.Round(rate.Value * yesterdayUSDRate.HistoryValue, 2);
                         }
                     }
                 }
 
                 if (bitcoinRates.ContainsKey(USD_RATE_KEY))
                 {
-                    bitcoinRates[USD_RATE_KEY].YesterdayRate = yesterdayUSDRate.HistoryValue;
+                    bitcoinRates[USD_RATE_KEY].YesterdayRate = Math.Round(yesterdayUSDRate.HistoryValue, 2);
                 }
             }
         }
@@ -225,13 +218,13 @@ namespace Bitcoin.Curses.Services
                     {
                         if (!bitcoinRates.ContainsKey(rate.Key))
                         {
-                            bitcoinRates.Add(rate.Key, new BitcoinExchangeRate()
+                            bitcoinRates.Add(rate.Key, new BitcoinExchangeRate
                             {
-                                Buy = usdBitcoinRate.Buy * rate.Value,
+                                Buy = Math.Round(usdBitcoinRate.Buy * rate.Value, 2),
                                 CurrencySymbol = _helper.CurrencySymbols.ContainsKey(rate.Key) ? _helper.CurrencySymbols[rate.Key] : null,
-                                DelayedMarketPrice = usdBitcoinRate.DelayedMarketPrice * rate.Value,
-                                RecentMarketPrice = usdBitcoinRate.RecentMarketPrice * rate.Value,
-                                Sell = usdBitcoinRate.Sell * rate.Value,
+                                DelayedMarketPrice = Math.Round(usdBitcoinRate.DelayedMarketPrice * rate.Value, 2),
+                                RecentMarketPrice = Math.Round(usdBitcoinRate.RecentMarketPrice * rate.Value, 2),
+                                Sell = Math.Round(usdBitcoinRate.Sell * rate.Value, 2),
                             });
                         }
                     }

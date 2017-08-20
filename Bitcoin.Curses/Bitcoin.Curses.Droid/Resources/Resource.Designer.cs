@@ -26,6 +26,7 @@ namespace Bitcoin.Curses.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Bitcoin.Curses.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation
