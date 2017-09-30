@@ -26,11 +26,6 @@ namespace Bitcoin.Curses.ViewModel
             RefreshCommand = new RelayCommand(DoRefreshCommand);
             OpenCoindeskUrlCommand = new RelayCommand(DoOpenCoindeskUrlCommand);
             OpenBlockchainUrlCommand = new RelayCommand(DoOpenBlockchainUrlCommand);
-
-            //ExchangeRates mock = new ExchangeRates();
-            //mock.ExchangeRateList.Add("USD", new ExchangeRate() { DelayedMarketPrice = 478.68M, RecentMarketPrice = 478.68M, Buy = 478.55M, Sell = 478.68M, CurrencySymbol = "$" });
-            //this._mainModel.ExchangeRates = mock;
-            //this.ExchangeRates = new ExchangeRatesViewModel(this._mainModel.ExchangeRates);
         }
 
         public RelayCommand RefreshCommand { get; private set; }
@@ -116,7 +111,6 @@ namespace Bitcoin.Curses.ViewModel
             {
                 _showProgressBar = value;
                 RaisePropertyChanged(() => ShowProgressBar);
-                //base.RaisePropertyChanged(() => this.IsUIEnabled);
             }
         }
 
@@ -126,11 +120,6 @@ namespace Bitcoin.Curses.ViewModel
             {
                 return !_showProgressBar;
             }
-            //set
-            //{
-            //    this._showProgressBar = !value;
-            //    base.RaisePropertyChanged(() => this.IsUIEnabled);
-            //}
         }
 
         public string GeneratedText

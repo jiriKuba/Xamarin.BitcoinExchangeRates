@@ -43,7 +43,7 @@
                             x:Name="MarketPriceBtn"
                             BorderWidth="25"
                             Text="{Binding BuyLabel}"
-                            FontSize="Large"
+                            FontSize="{Binding BuyLabelFontSize}"
                             HorizontalOptions="Center" />
 
                         <Button Style="{StaticResource PriceButtonInsideRingStyle}"

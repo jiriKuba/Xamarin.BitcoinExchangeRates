@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Bitcoin.Curses.ViewModel
 {
@@ -22,20 +23,14 @@ namespace Bitcoin.Curses.ViewModel
         public ExchangeRateViewModel(string currencyCode, BitcoinExchangeRate exchangeRate)
         {
             _exchangeRate = exchangeRate;
-            _currencyCode = currencyCode == null ? string.Empty : currencyCode;
+            _currencyCode = currencyCode ?? "";
             _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
             _bitcoinDataService = ServiceLocator.Current.GetInstance<IBitcoinDataService>();
             _rateSettingsApplyService = ServiceLocator.Current.GetInstance<IRateSettingsApplyService>();
             _customCurrencyCodeServise = ServiceLocator.Current.GetInstance<ICustomCurrencySymbolService>();
         }
 
-        public string CurrencyCode
-        {
-            get
-            {
-                return _currencyCode;
-            }
-        }
+        public string CurrencyCode => _currencyCode;
 
         public string ExchangeRateLabel
         {
@@ -43,11 +38,11 @@ namespace Bitcoin.Curses.ViewModel
             {
                 if (!string.IsNullOrEmpty(_currencyCode) && !string.IsNullOrEmpty(CurrencySymbol))
                 {
-                    return string.Format("{0}[{1}]", _currencyCode.ToUpper(), CurrencySymbol);
+                    return $"{_currencyCode.ToUpper()}[{CurrencySymbol}]";
                 }
                 else return CurrencyCode;
             }
-        }
+        }        
 
         public decimal? MarketPriceDifference
         {
@@ -116,15 +111,7 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public decimal? DelayedMarketPrice
-        {
-            get
-            {
-                if (_exchangeRate != null)
-                    return _exchangeRate.DelayedMarketPrice;
-                else return null;
-            }
-        }
+        public decimal? DelayedMarketPrice => _exchangeRate?.DelayedMarketPrice;
 
         public string DelayedMarketPriceLabel
         {
@@ -145,15 +132,7 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public decimal? RecentMarketPrice
-        {
-            get
-            {
-                if (_exchangeRate != null)
-                    return _exchangeRate.RecentMarketPrice;
-                else return null;
-            }
-        }
+        public decimal? RecentMarketPrice => _exchangeRate?.RecentMarketPrice;
 
         public string RecentMarketPriceLabel
         {
@@ -174,15 +153,17 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public decimal? Buy
+        public double RecentMarketPriceLabelFontSize
         {
             get
             {
-                if (this._exchangeRate != null)
-                    return this._exchangeRate.Buy;
-                else return null;
+                return !string.IsNullOrEmpty(RecentMarketPriceLabel) && RecentMarketPriceLabel.Length < 12 
+                    ? Constants.FontSizeLargeValue
+                    : Constants.FontSizeMediumValue;
             }
         }
+
+        public decimal? Buy => _exchangeRate?.Buy;
 
         public string BuyLabel
         {
@@ -203,25 +184,17 @@ namespace Bitcoin.Curses.ViewModel
             }
         }
 
-        public decimal? Sell
+        public double BuyLabelFontSize
         {
             get
             {
-                if (_exchangeRate != null)
-                    return _exchangeRate.Sell;
-                else return null;
+                return !string.IsNullOrEmpty(BuyLabel) && BuyLabel.Length < 12
+                    ? Constants.FontSizeLargeValue
+                    : Constants.FontSizeMediumValue;
             }
         }
 
-        public decimal? YesterdayRate
-        {
-            get
-            {
-                if (_exchangeRate != null)
-                    return _exchangeRate.YesterdayRate;
-                else return null;
-            }
-        }
+        public decimal? Sell => _exchangeRate?.Sell;
 
         public string SellLabel
         {
@@ -241,6 +214,18 @@ namespace Bitcoin.Curses.ViewModel
                 else return string.Empty;
             }
         }
+
+        public double SellLabelFontSize
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(SellLabel) && SellLabel.Length < 12
+                    ? Constants.FontSizeLargeValue
+                    : Constants.FontSizeMediumValue;
+            }
+        }
+
+        public decimal? YesterdayRate => _exchangeRate?.YesterdayRate;     
 
         public string CurrencySymbol
         {

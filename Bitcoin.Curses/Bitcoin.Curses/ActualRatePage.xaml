@@ -44,7 +44,7 @@
                             x:Name="MarketPriceBtn"
                             BorderWidth="25"
                             Text="{Binding RecentMarketPriceLabel}"
-                            FontSize="Large"
+                            FontSize="{Binding RecentMarketPriceLabelFontSize}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center" />
 

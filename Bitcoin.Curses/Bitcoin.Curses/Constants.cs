@@ -10,5 +10,7 @@ namespace Bitcoin.Curses
     {
         public const string CurrencyRedirectionArgumentCode = "currency";
         public const string CurrencyRedirectionArgumentSeparator = "=";
+        public const double FontSizeLargeValue = 32;
+        public const double FontSizeMediumValue = 22;
     }
 }
