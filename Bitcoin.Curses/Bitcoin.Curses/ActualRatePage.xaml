@@ -60,8 +60,8 @@
                             VerticalOptions="Center">
                             <Button.BorderColor>
                                 <OnPlatform x:TypeArguments="Color">
-                                    <OnPlatform.iOS>#FFFFFF</OnPlatform.iOS>
-                                    <OnPlatform.Android>#FFFFFF</OnPlatform.Android>
+                                    <OnPlatform.iOS>#FAFAFA</OnPlatform.iOS>
+                                    <OnPlatform.Android>#FAFAFA</OnPlatform.Android>
                                     <OnPlatform.WinPhone>#000000</OnPlatform.WinPhone>
                                 </OnPlatform>
                             </Button.BorderColor>
@@ -81,12 +81,6 @@
                             TextColor="{Binding MarketPriceDifferenceLabel, Converter={convert:PriceDifferenceTextColorConverter}}"
                             FontSize="Medium"
                             Text="{Binding MarketPriceDifferenceLabel}" />
-
-                        <!-- bottom margin-->
-                        <!--<Label  Grid.Column="0"
-                            Grid.Row="2"
-                            FontSize="Micro"
-                            Text="" />-->
                     </Grid>
                 </Grid>
             </StackLayout>
