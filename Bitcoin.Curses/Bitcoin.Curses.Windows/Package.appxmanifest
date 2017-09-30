@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="728d963b-c058-487d-bb91-7cc9906473d7" Publisher="CN=pisth" Version="0.9.9.0" />
+  <Identity Name="54586JiriKuba.BitcoinExchangeRate" Publisher="CN=40ECF28F-1A2D-44F6-A91B-A428774DE9BD" Version="0.9.9.0" />
   <Properties>
     <DisplayName>Bitcoin Exchange Rate</DisplayName>
     <PublisherDisplayName>Jiri Kuba</PublisherDisplayName>

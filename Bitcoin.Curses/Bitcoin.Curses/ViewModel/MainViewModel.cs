@@ -62,7 +62,7 @@ namespace Bitcoin.Curses.ViewModel
 
         public bool IsWindowsUWPMobile
         {
-            get { return Device.Idiom == TargetIdiom.Phone && Device.RuntimePlatform == Device.Windows; }
+            get { return Device.Idiom == TargetIdiom.Phone && Device.RuntimePlatform == Device.UWP; }
         }
 
         public bool IsNotWindowsUWPMobile

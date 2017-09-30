@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="684b9c90-4abd-46c0-a2f9-3c771ce3f0c3" Publisher="CN=pisth" Version="0.9.9.0" />
-  <mp:PhoneIdentity PhoneProductId="684b9c90-4abd-46c0-a2f9-3c771ce3f0c3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="54586JiriKuba.BitcoinExchangeRate" Publisher="CN=40ECF28F-1A2D-44F6-A91B-A428774DE9BD" Version="0.9.9.0" />
+  <mp:PhoneIdentity PhoneProductId="7e50cb70-4fc8-45f1-9275-d5dbe71cef1b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Bitcoin Exchange Rate</DisplayName>
     <PublisherDisplayName>Jiri Kuba</PublisherDisplayName>
