@@ -14,7 +14,7 @@ using Bitcoin.Curses.Extensions;
 
 namespace Bitcoin.Curses.ViewModel
 {
-    internal class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         private readonly IBitcoinDataService _bitcoinDataService;
         private readonly MainModel _mainModel;
@@ -151,13 +151,13 @@ namespace Bitcoin.Curses.ViewModel
         {
             ShowProgressBar = true;
 
+            //since Xamarin.Forms 2.4 must be this otherwise selected ExchangeRateDetail not change after refresh
+            ExchangeRateDetail = null;
+
             _mainModel.ExchangeRates = await _bitcoinDataService.GetExchangeRatesAsync();
             ExchangeRates = await LoadExchangeRatesViewModel(_mainModel.ExchangeRates);
 
-            if (ExchangeRates != null)
-            {
-                ShowProgressBar = false;
-            }
+            ShowProgressBar = false;
 
             Messenger.Default.Send<ExchangeRatesLoadedMessage>(new ExchangeRatesLoadedMessage());
         }

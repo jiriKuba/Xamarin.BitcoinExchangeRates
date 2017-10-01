@@ -13,20 +13,15 @@ namespace Bitcoin.Curses.Services
     {
         private readonly MainViewModel _mainViewModel;
 
-        public CurrencyNavigateService()
+        public CurrencyNavigateService(MainViewModel mainViewModel)
         {
-            _mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+            _mainViewModel = mainViewModel;
         }
 
         public void NavigateToCurrency(string currencyCode)
         {
-            var exchangeRate = _mainViewModel.ExchangeRates.ExchangeRateList
+            _mainViewModel.ExchangeRateDetail = _mainViewModel.ExchangeRates.ExchangeRateList
                 .FirstOrDefault(x => x.CurrencyCode == currencyCode);
-
-            if (exchangeRate != null)
-            {
-                _mainViewModel.ExchangeRateDetail = exchangeRate;
-            }
         }
     }
 }

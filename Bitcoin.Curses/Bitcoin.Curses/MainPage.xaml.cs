@@ -35,16 +35,14 @@ namespace Bitcoin.Curses
 
         private void SelectLastExchangeRate(ExchangeRatesLoadedMessage message)
         {
-            string selectedCurrency = Settings.GetLastViewedCurrency();
-            _currencyNavigateService.NavigateToCurrency(selectedCurrency);
+            _currencyNavigateService.NavigateToCurrency(Settings.GetLastViewedCurrency());
         }
 
         private void ExchangeRatesList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            ExchangeRateViewModel item = e.Item as ExchangeRateViewModel;
-            if (item != null)
+            if (e != null && e.Item != null)
             {
-                Settings.SetLastViewedCurrency(item.CurrencyCode);
+                Settings.SetLastViewedCurrency(((ExchangeRateViewModel)e.Item).CurrencyCode);
                 IsPresented = false;
             }
         }
