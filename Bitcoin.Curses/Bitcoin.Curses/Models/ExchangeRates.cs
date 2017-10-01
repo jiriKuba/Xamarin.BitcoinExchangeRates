@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Models
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class ExchangeRates
     {
         public IDictionary<string, BitcoinExchangeRate> ExchangeRateList { get; private set; }

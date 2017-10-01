@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Models
 {
-    class MainModel
+    [Android.Runtime.Preserve(AllMembers = true)]
+    public class MainModel
     {
         public ExchangeRates ExchangeRates { get; set; }
 

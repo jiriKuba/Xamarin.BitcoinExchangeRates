@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class NetworkService : INetworkService
     {
         private const string CheckUrl = "http://google.com";

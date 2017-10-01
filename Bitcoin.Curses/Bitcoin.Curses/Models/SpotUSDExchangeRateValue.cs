@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Models
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class SpotUSDExchangeRateValue
     {
         [JsonProperty(PropertyName = "code")]

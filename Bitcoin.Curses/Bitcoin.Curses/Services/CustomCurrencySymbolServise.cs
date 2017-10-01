@@ -8,6 +8,7 @@ using Bitcoin.Curses.Models;
 
 namespace Bitcoin.Curses.Services
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class CustomCurrencySymbolService : ICustomCurrencySymbolService
     {
         public void AddCustomCurrencySymbolToModel(IDictionary<string, BitcoinExchangeRate> models)

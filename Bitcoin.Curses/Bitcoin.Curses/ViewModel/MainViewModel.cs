@@ -14,6 +14,7 @@ using Bitcoin.Curses.Extensions;
 
 namespace Bitcoin.Curses.ViewModel
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class MainViewModel : ViewModelBase
     {
         private readonly IBitcoinDataService _bitcoinDataService;

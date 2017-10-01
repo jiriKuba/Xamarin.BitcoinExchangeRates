@@ -41,6 +41,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Attributes\PreserveAttribute.cs" />
     <Compile Include="BuyPricePage.xaml.cs">
       <DependentUpon>BuyPricePage.xaml</DependentUpon>
     </Compile>

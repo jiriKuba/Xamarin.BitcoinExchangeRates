@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class RateSettingsApplyService : IRateSettingsApplyService
     {
         public void SetExchangeRateVisibleOnLiveTile(string exchangeRateKey, bool isVisible)

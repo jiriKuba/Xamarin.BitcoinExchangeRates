@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Models
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class ExchangeRate
     {
         //{ "base": "USD", "date": "2017-02-21", "rates": { 

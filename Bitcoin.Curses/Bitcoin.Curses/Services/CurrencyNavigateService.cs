@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class CurrencyNavigateService : ICurrencyNavigateService
     {
         private readonly MainViewModel _mainViewModel;

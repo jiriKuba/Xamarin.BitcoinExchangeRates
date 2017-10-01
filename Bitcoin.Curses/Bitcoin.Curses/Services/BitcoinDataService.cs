@@ -14,6 +14,7 @@ using Bitcoin.Curses.Messages;
 
 namespace Bitcoin.Curses.Services
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class BitcoinDataService : IBitcoinDataService
     {
         private const string USD_RATE_KEY = "USD";

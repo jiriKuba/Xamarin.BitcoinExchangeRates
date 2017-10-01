@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.ViewModel
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class ExchangeRatesViewModel : ViewModelBase
     {
         public ObservableCollection<ExchangeRateViewModel> ExchangeRateList { get; private set; }

@@ -11,6 +11,7 @@ using Xamarin.Forms;
 
 namespace Bitcoin.Curses.ViewModel
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class ExchangeRateViewModel : ViewModelBase
     {
         private BitcoinExchangeRate _exchangeRate;

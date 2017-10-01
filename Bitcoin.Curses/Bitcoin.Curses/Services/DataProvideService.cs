@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Services
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class DataProvideService : IDataProvideService
     {
         //http://www.coindesk.com/api/ maybe better api

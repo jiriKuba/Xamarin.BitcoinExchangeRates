@@ -24,6 +24,7 @@ namespace Bitcoin.Curses.ViewModel
     /// This class contains static references to all the view models in the
     /// application and provides an entry point for the bindings.
     /// </summary>
+    [Android.Runtime.Preserve(AllMembers = true)]
     internal class ViewModelLocator
     {
         /// <summary>

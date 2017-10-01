@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bitcoin.Curses.Models
 {
+    [Android.Runtime.Preserve(AllMembers = true)]
     public class BitcoinExchangeRate
     {
         //json format: "USD" : {"15m" : 478.68, "last" : 478.68, "buy" : 478.55, "sell" : 478.68,  "symbol" : "$"},
